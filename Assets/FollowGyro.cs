@@ -17,5 +17,6 @@ public class FollowGyro : MonoBehaviour
     void Update()
     {
         transform.localRotation = GyroManager.Instance.GetGyroRotation() * baseRotation;
+        transform.localEulerAngles = new Vector3(-transform.localEulerAngles.y, transform.localEulerAngles.x,0);
     }
 }
