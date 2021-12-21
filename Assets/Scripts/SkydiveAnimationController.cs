@@ -45,10 +45,12 @@ public class SkydiveAnimationController : MonoBehaviour
 
     }
 
-    private void Transition(FreefallOrientation obj)
+    private void Transition(FreefallOrientation orientation)
     {
 
-        animator.SetFloat("Orientation", 1);
+        int orientationInt = (int)orientation;
+        float orientationFloat = (float)orientationInt / 4;
+        animator.SetFloat("Orientation", orientationFloat);
     }
 
 
@@ -79,7 +81,7 @@ public class SkydiveAnimationController : MonoBehaviour
         animator.SetLayerWeight(1, (currentInputs.x + currentInputs.z) / 2);
         animator.SetFloat("SidewaysMovement", currentInputs.x * .8f);
         animator.SetFloat("ForwardMovement", currentInputs.z * .8f);
-        //animator.SetFloat("Acceleration", velocity.magnitude);
+        animator.SetFloat("Acceleration", -currentInputs.y * .8f);
 
     }
 

@@ -5,44 +5,13 @@ using UnityEngine.EventSystems;
 
 public enum FreefallOrientation
 {
-    Belly = 90,
-    HeadDown = 180,
-    Back = 270,
-    HeadUp = 0
+    HeadDown,
+    Back,
+    HeadUp,
+    Belly
+
 
 }
-
-public class ForwardTransition : FreefallTansition
-{
-    public ForwardTransition(FreefallOrientation endOrientation, Transform offsetTransform) : base(endOrientation, offsetTransform)
-    {
-    }
-
-    public override void Transition(Transform offsetTransform)
-    {
-        offsetTransform.Rotate(Vector3.right, 90);
-
-    }
-}
-
-public abstract class FreefallTansition 
-{
-    public event Action<FreefallOrientation> OnTransition;
-
-    public FreefallTansition(FreefallOrientation endOrientation, Transform offsetTransform)
-    {
-        _endOrientation = endOrientation;
-        Transition(offsetTransform);
-        OnTransition?.Invoke(endOrientation);
-    }
-
-    FreefallOrientation _endOrientation;
-
-    public abstract void Transition(Transform offsetTransform);
-
-}
-
-
 
 [RequireComponent(typeof(IInput)), RequireComponent(typeof(Rigidbody))]
 public class MovementController : MonoBehaviour
@@ -74,16 +43,56 @@ public class MovementController : MonoBehaviour
 
 
 
-    public void TestBellyToHeadDownTransition()
+    public void TransitionForward()
     {
-        Transition(FreefallOrientation.HeadDown, Vector3.right);
+        int nextOrentationIndex = (int)currentOrientation + 1; 
+        if(nextOrentationIndex > 3) { nextOrentationIndex = 0; }
+        Transition((FreefallOrientation)nextOrentationIndex, Vector3.right);
     }
 
 
-    void Transition(FreefallOrientation end, Vector3 axis)
+    public void TransitionBackward()
     {
+        int nextOrentationIndex = (int)currentOrientation - 1;
+        if (nextOrentationIndex < 0) { nextOrentationIndex = 3; }
+        Transition((FreefallOrientation)nextOrentationIndex, Vector3.left);
+    }
 
-        CharacterOffset.transform.Rotate(axis, 90);
+    
+    public void TransitionRight()
+    {
+        int nextOrentationIndex = (int)currentOrientation + 2;
+        if (nextOrentationIndex > 3 ) { nextOrentationIndex -= 4; }
+        Transition((FreefallOrientation)nextOrentationIndex, Vector3.back,2);
+    }
+
+
+    public void TransitionLeft()
+    {
+        int nextOrentationIndex = (int)currentOrientation + 2;
+        if (nextOrentationIndex > 3) { nextOrentationIndex -= 4; }
+        Transition((FreefallOrientation)nextOrentationIndex, Vector3.forward,2);
+    }
+    
+    public void Turn180Left()
+    {
+        Vector3 axisWorld = transform.TransformDirection(Vector3.up);
+        CharacterOffset.transform.Rotate(CharacterOffset.transform.InverseTransformDirection(axisWorld), 180);
+
+    }
+
+        
+    public void Turn180Right()
+    {
+        Vector3 axisWorld = transform.TransformDirection(Vector3.up);
+        CharacterOffset.transform.Rotate(CharacterOffset.transform.InverseTransformDirection(axisWorld), -180);
+    }
+
+
+    void Transition(FreefallOrientation end, Vector3 axis, int repeat = 1)
+    {
+        Vector3 axisWorld = transform.TransformDirection(axis);
+        CharacterOffset.transform.Rotate(CharacterOffset.transform.InverseTransformDirection(axisWorld), 90 * repeat);
         currentOrientation = end;
         OnTransition?.Invoke(end);
     }
