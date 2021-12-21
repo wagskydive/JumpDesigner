@@ -218,11 +218,6 @@ MonoBehaviour:
   m_YawDamping: 0
   m_RollDamping: 0
   m_AngularDamping: 0
---- !u!4 &103430113 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4345765808076550540, guid: 8d358925d8969df4a9218f8b5fa475d1, type: 3}
-  m_PrefabInstance: {fileID: 459518054}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &108863931
 GameObject:
   m_ObjectHideFlags: 0
@@ -1134,14 +1129,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1229855195548902784, guid: 8d358925d8969df4a9218f8b5fa475d1, type: 3}
-      propertyPath: handBone
-      value: 
-      objectReference: {fileID: 1970905013}
-    - target: {fileID: 1229855195548902784, guid: 8d358925d8969df4a9218f8b5fa475d1, type: 3}
-      propertyPath: constraint
-      value: 
-      objectReference: {fileID: 2059149425}
     - target: {fileID: 3120276456432529720, guid: 8d358925d8969df4a9218f8b5fa475d1, type: 3}
       propertyPath: leftSlider
       value: 
@@ -1154,14 +1141,6 @@ PrefabInstance:
       propertyPath: UpDownSlider
       value: 
       objectReference: {fileID: 2027995753}
-    - target: {fileID: 3120276456432529720, guid: 8d358925d8969df4a9218f8b5fa475d1, type: 3}
-      propertyPath: rightUpDownSlider
-      value: 
-      objectReference: {fileID: 2027995753}
-    - target: {fileID: 4962258179456546342, guid: 8d358925d8969df4a9218f8b5fa475d1, type: 3}
-      propertyPath: CharacterOffset
-      value: 
-      objectReference: {fileID: 1375544101}
     - target: {fileID: 5554678695719654870, guid: 8d358925d8969df4a9218f8b5fa475d1, type: 3}
       propertyPath: m_Name
       value: SkydiveCharacter
@@ -1210,14 +1189,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7232434997509049761, guid: 8d358925d8969df4a9218f8b5fa475d1, type: 3}
-      propertyPath: handBone
-      value: 
-      objectReference: {fileID: 103430113}
-    - target: {fileID: 7232434997509049761, guid: 8d358925d8969df4a9218f8b5fa475d1, type: 3}
-      propertyPath: constraint
-      value: 
-      objectReference: {fileID: 870590558}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8d358925d8969df4a9218f8b5fa475d1, type: 3}
 --- !u!1 &461323800
@@ -6873,17 +6844,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: -20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &870590558 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1617660245685896765, guid: 8d358925d8969df4a9218f8b5fa475d1, type: 3}
-  m_PrefabInstance: {fileID: 459518054}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aeda7bfbf984f2a4da5ab4b8967b115d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &948303854
 GameObject:
   m_ObjectHideFlags: 0
@@ -7343,7 +7303,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1057892649}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2071084459}
+        m_TargetAssemblyTypeName: MovementController, Scripts
+        m_MethodName: TestBellyToHeadDownTransition
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1057892649
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7406,6 +7378,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 1080894714}
   rb: {fileID: 0}
+  movementController: {fileID: 0}
   ObjRotation: {x: 0, y: 0, z: 0}
 --- !u!95 &1080894714 stripped
 Animator:
@@ -12728,11 +12701,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 068ecf010b7d8fe4db2c6bec05929b87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!4 &1375544101 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5376338790102419076, guid: 8d358925d8969df4a9218f8b5fa475d1, type: 3}
-  m_PrefabInstance: {fileID: 459518054}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1428546623 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7232434997509049761, guid: 8d358925d8969df4a9218f8b5fa475d1, type: 3}
@@ -13089,11 +13057,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1843205785}
   m_CullTransparentMesh: 1
---- !u!4 &1970905013 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2043703080499584866, guid: 8d358925d8969df4a9218f8b5fa475d1, type: 3}
-  m_PrefabInstance: {fileID: 459518054}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2012771798
 GameObject:
   m_ObjectHideFlags: 0
@@ -13411,17 +13374,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a68de4790aa0074188247707ff7271c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &2059149425 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3270712717707296747, guid: 8d358925d8969df4a9218f8b5fa475d1, type: 3}
-  m_PrefabInstance: {fileID: 459518054}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aeda7bfbf984f2a4da5ab4b8967b115d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &2068176288
 GameObject:
   m_ObjectHideFlags: 0
@@ -13498,6 +13450,17 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &2071084459 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4962258179456546342, guid: 8d358925d8969df4a9218f8b5fa475d1, type: 3}
+  m_PrefabInstance: {fileID: 459518054}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b76c50c9355fc6742bbb921f9abedeb0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2083198687
 GameObject:
   m_ObjectHideFlags: 0

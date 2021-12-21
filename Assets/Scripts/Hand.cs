@@ -65,7 +65,11 @@ public class Hand : MonoBehaviour
     {
         if(availableGrip != null && dockedTo != null)
         {
-            parentBody.velocity = dockedTo.velocity;
+            Vector3 averageVelocity = (dockedTo.velocity + parentBody.velocity) / 2;
+
+            parentBody.velocity = (averageVelocity + parentBody.velocity) / 2;
+            dockedTo.velocity = (averageVelocity+ dockedTo.velocity) / 2;
+
             transform.position = availableGrip.transform.position;
             constraint.weight = 1;
         }

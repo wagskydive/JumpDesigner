@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Animations;
@@ -14,7 +15,7 @@ public class SkydiveAnimationController : MonoBehaviour
     Vector3 lastPosition;
 
     [SerializeField]
-    IInput input;
+    MovementController movementController;
 
     int average = 5;
     Vector3[] PrevPos;
@@ -29,7 +30,7 @@ public class SkydiveAnimationController : MonoBehaviour
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
-
+        movementController = GetComponent<MovementController>();
         lastPosition = transform.position;
         PrevPos = new Vector3[average];
         for (int i = 0; i < average; i++)
@@ -37,10 +38,20 @@ public class SkydiveAnimationController : MonoBehaviour
             PrevPos[i] = transform.position;
         }
         PrevRot = transform.rotation;
-        input = GetComponent<IInput>();
 
+        movementController.OnMovement += Movement;
+
+        movementController.OnTransition += Transition;
 
     }
+
+    private void Transition(FreefallOrientation obj)
+    {
+
+        animator.SetFloat("Orientation", 1);
+    }
+
+
 
     int CurrentAveragInt = 0;
 
@@ -57,12 +68,12 @@ public class SkydiveAnimationController : MonoBehaviour
         return integral / average;
     }
 
-    private void FixedUpdate()
+    private void Movement(Vector4 currentInputs)
     {
 
-        Vector3 velocity = GetVelocity();
+
         //Vector3 angularVelocity = GetAngularVelocity();
-        Vector4 currentInputs = input.MovementVector;
+
         animator.SetFloat("TurnSpeed", (Vector3.up * currentInputs.w).y*.5f);
 
         animator.SetLayerWeight(1, (currentInputs.x + currentInputs.z) / 2);

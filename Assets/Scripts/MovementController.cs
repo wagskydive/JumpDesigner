@@ -12,9 +12,44 @@ public enum FreefallOrientation
 
 }
 
+public class ForwardTransition : FreefallTansition
+{
+    public ForwardTransition(FreefallOrientation endOrientation, Transform offsetTransform) : base(endOrientation, offsetTransform)
+    {
+    }
+
+    public override void Transition(Transform offsetTransform)
+    {
+        offsetTransform.Rotate(Vector3.right, 90);
+
+    }
+}
+
+public abstract class FreefallTansition 
+{
+    public event Action<FreefallOrientation> OnTransition;
+
+    public FreefallTansition(FreefallOrientation endOrientation, Transform offsetTransform)
+    {
+        _endOrientation = endOrientation;
+        Transition(offsetTransform);
+        OnTransition?.Invoke(endOrientation);
+    }
+
+    FreefallOrientation _endOrientation;
+
+    public abstract void Transition(Transform offsetTransform);
+
+}
+
+
+
 [RequireComponent(typeof(IInput)), RequireComponent(typeof(Rigidbody))]
 public class MovementController : MonoBehaviour
 {
+    public event Action<FreefallOrientation> OnTransition;
+    public event Action<Vector4> OnMovement;
+
     Rigidbody rb;
 
     [SerializeField]
@@ -33,11 +68,24 @@ public class MovementController : MonoBehaviour
 
     Gyroscope gyro;
 
-    void Transition(FreefallOrientation end, int type)
+
+
+    FreefallOrientation currentOrientation = FreefallOrientation.Belly;
+
+
+
+    public void TestBellyToHeadDownTransition()
     {
-        Vector3 endRotation = CharacterOffset.transform.localRotation.eulerAngles;
-        endRotation.x = (float)end;
-        CharacterOffset.transform.Rotate(CharacterOffset.transform.right,90);
+        Transition(FreefallOrientation.HeadDown, Vector3.right);
+    }
+
+
+    void Transition(FreefallOrientation end, Vector3 axis)
+    {
+
+        CharacterOffset.transform.Rotate(axis, 90);
+        currentOrientation = end;
+        OnTransition?.Invoke(end);
     }
 
     private void Awake()
@@ -50,10 +98,14 @@ public class MovementController : MonoBehaviour
     private void FixedUpdate()
     {
         Vector4 inputs = input.MovementVector;
-
+        if(inputs != Vector4.zero)
+        {
+            rb.AddRelativeForce(new Vector3(inputs.x, inputs.y, inputs.z) * movementSpeed);
+            rb.AddTorque(Vector3.up * inputs.w * turnSpeed);
+            OnMovement?.Invoke(inputs);
+        }
         //rb.AddForce(new Vector3(gravity.x, 0, gravity.y) * movementSpeed);
-        rb.AddRelativeForce(new Vector3(inputs.x, inputs.y, inputs.z) * movementSpeed);
-        rb.AddTorque(Vector3.up * inputs.w * turnSpeed);
+
     }
     public void SetOffset(float offset)
     {
