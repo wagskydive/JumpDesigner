@@ -16,7 +16,7 @@ public class IkHint : MonoBehaviour
     private void Start()
     {
         hand.OnDock += Activate;
-        hand.OnDock -= DeActivate;
+        hand.OnUnDock += DeActivate;
     }
 
     private void Activate()

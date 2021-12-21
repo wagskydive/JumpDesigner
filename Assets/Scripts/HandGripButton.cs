@@ -46,25 +46,30 @@ public class HandGripButton : MonoBehaviour,IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (gripFound)
+        if (gripFound && !docked)
         {
-            docked = true;
-            hand.GripCommand();
-            button.image.color = Color.red;
-            hand.OnUnDock += UnDock;
+            Dock();
         }
-        if (docked)
+        else if (docked)
         {
-            hand.GripCommand();
+            UnDock();           
         }
         
         
+    }
+
+    void Dock()
+    {
+        docked = true;
+        hand.DockCommand();
+        button.image.color = Color.red;
     }
 
     public void UnDock()
     {
         docked = false;
         button.image.color = Color.green;
-        hand.OnUnDock -= UnDock;
+        hand.UnDockCommand();
+
     }
 }

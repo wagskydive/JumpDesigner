@@ -18,9 +18,9 @@ public class Hand : MonoBehaviour
     [SerializeField]
     TwoBoneIKConstraint constraint;
 
-    public void GripSense(Grip senserGrip)
+    public void GripSense(Grip sensorGrip)
     {
-        availableGrip = senserGrip;
+        availableGrip = sensorGrip;
 
     }
     
@@ -38,6 +38,7 @@ public class Hand : MonoBehaviour
         sphereCollider = gameObject.AddComponent<SphereCollider>();
         sphereCollider.radius = .03f;
         sphereCollider.isTrigger = true;
+
     }
 
     Rigidbody parentBody;
@@ -76,17 +77,21 @@ public class Hand : MonoBehaviour
         }
     }
 
+    public void UnDockCommand()
+    {
+        if (dockedTo != null)
+        {
+            UnDock();
+        }
+    }
 
-    public void GripCommand()
+    public void DockCommand()
     {
         if(availableGrip != null)
         {
             
             ExecuteDock(availableGrip);
-            if (dockedTo != null)
-            {
-                UnDock();
-            }
+
         }
     }
 }
