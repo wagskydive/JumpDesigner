@@ -55,6 +55,7 @@
   <ItemGroup>
     <Compile Include="Assets\Tests\input_tests.cs" />
     <Compile Include="Assets\Tests\dock_tests.cs" />
+    <Compile Include="Assets\Tests\grip_class_tests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Tests\Tests.asmdef" />

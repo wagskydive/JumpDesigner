@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Animations;
+using UnityEngine.Animations.Rigging;
 
 public class SkydiveAnimationController : MonoBehaviour
 {
@@ -27,6 +28,32 @@ public class SkydiveAnimationController : MonoBehaviour
     //public Vector3 ObjVelocity;
     public Vector3 ObjRotation;
 
+
+    float transitionCompletionFactor = 0;
+    bool transitioning = false;
+
+    float orientationFloatGoal;
+    float lastOrientation;
+    int lastOrientationInt;
+    float difference;
+
+    bool overflow;
+
+
+
+    [SerializeField]
+    Transform ChestMovementHandler;
+
+
+    [SerializeField]
+    Transform ChestRotationHandler;
+
+    [SerializeField]
+    ChainIKConstraint spineRotationIK;
+    
+    [SerializeField]
+     ChainIKConstraint spineIK;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -42,17 +69,62 @@ public class SkydiveAnimationController : MonoBehaviour
         movementController.OnMovement += Movement;
 
         movementController.OnTransition += Transition;
-
+        lastOrientationInt = (int)movementController.CurrentOrientation;
     }
+
 
     private void Transition(FreefallOrientation orientation)
     {
 
         int orientationInt = (int)orientation;
-        float orientationFloat = (float)orientationInt / 4;
-        animator.SetFloat("Orientation", orientationFloat);
+        if(orientationInt == 0)
+        {
+            if(lastOrientationInt == 3)
+            {
+                orientationInt = 4;
+                overflow = true;
+            }
+        }
+
+        if (orientationInt == 3)
+        {
+            if (lastOrientationInt == 0)
+            {
+                animator.SetFloat("Orientation", 4);
+            }
+        }
+        orientationFloatGoal = orientationInt;
+        lastOrientation = animator.GetFloat("Orientation");
+
+        difference = orientationFloatGoal - lastOrientation;
+        transitioning = true;
+
+
+        lastOrientationInt = orientationInt;
     }
 
+
+    private void Update()
+    {
+        if (transitioning)
+        {
+            transitionCompletionFactor += Time.deltaTime;
+
+            float progress = transitionCompletionFactor / movementController.TransitionSpeed;
+
+            animator.SetFloat("Orientation",lastOrientation+(difference* progress) );
+            
+            if(progress >= 1)
+            {
+                if (overflow)
+                {
+                    animator.SetFloat("Orientation", 0);
+                    overflow = false;
+                }
+                transitioning = false;
+            }
+        }
+    }
 
 
     int CurrentAveragInt = 0;
@@ -74,13 +146,27 @@ public class SkydiveAnimationController : MonoBehaviour
     {
 
 
-        //Vector3 angularVelocity = GetAngularVelocity();
 
-        animator.SetFloat("TurnSpeed", (Vector3.up * currentInputs.w).y*.5f);
+        //animator.SetFloat("TurnSpeed", (Vector3.up * currentInputs.w).y*.5f);
 
-        animator.SetLayerWeight(1, (currentInputs.x + currentInputs.z) / 2);
+
         animator.SetFloat("SidewaysMovement", currentInputs.x * .8f);
-        animator.SetFloat("ForwardMovement", currentInputs.z * .8f);
+
+        int headUpOrDown = 1;
+
+        if(movementController.CurrentOrientation == FreefallOrientation.HeadDown || movementController.CurrentOrientation == FreefallOrientation.HeadUp)
+        {
+            headUpOrDown = -1;
+        }
+
+        ChestMovementHandler.transform.localPosition = new Vector3(0, 1, currentInputs.z * movementController.controlMode * headUpOrDown);
+
+
+        spineIK.weight = Mathf.Abs(currentInputs.z);
+        spineRotationIK.weight = Mathf.Abs(currentInputs.w);
+
+        ChestRotationHandler.transform.localEulerAngles = new Vector3(0, -currentInputs.w * headUpOrDown * 65,0); //localPosition = new Vector3(currentInputs.w, 1, 0);// * movementController.controlMode * headUpOrDown);    //.LookAt(transform.right, ChestRotationHandler.up);// Rotate(new Vector3(0,currentInputs.w, 0),.1f);//.localRotation.se.SetLookRotation(new Vector3(currentInputs.w, 1, 1), ChestRotationHandler.up);
+
         animator.SetFloat("Acceleration", -currentInputs.y * .8f);
 
     }
