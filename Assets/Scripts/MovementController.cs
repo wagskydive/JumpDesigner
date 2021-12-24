@@ -13,7 +13,7 @@ public enum FreefallOrientation
 
 }
 
-[RequireComponent(typeof(IInput)), RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(Rigidbody))]
 public class MovementController : MonoBehaviour
 {
     public event Action<FreefallOrientation> OnTransition;
@@ -46,6 +46,8 @@ public class MovementController : MonoBehaviour
 
     public float TransitionSpeed { get => transitionSpeed;}
 
+
+    bool directControl;
 
     float transitionTimer = 0;
 
@@ -114,8 +116,54 @@ public class MovementController : MonoBehaviour
             transitionTimer = 0;
         }
     }
-        
 
+    public void ReplaceInput(IInput newInput)
+    {
+        if(input != null)
+        {
+            input.OnButtonPressed -= HandleButtonPress;
+        }
+
+        input = newInput;
+
+        if(newInput != null)
+        {
+            input.OnButtonPressed += HandleButtonPress;
+        }
+        
+    }
+
+
+
+
+
+    private void HandleButtonPress(int obj)
+    {
+        if(obj == 1)
+        {
+            TransitionForward();
+        }
+        if (obj == 2)
+        {
+            TransitionBackward();
+        }
+        if (obj == 3)
+        {
+            TransitionLeft();
+        }
+        if (obj == 4)
+        {
+            TransitionRight();
+        }
+        if (obj == 5)
+        {
+            Turn180Left();
+        }
+        if (obj == 6)
+        {
+            Turn180Right();
+        }
+    }
 
     void Transition(FreefallOrientation end, Vector3 axis, int repeat = 1)
     {
@@ -131,7 +179,7 @@ public class MovementController : MonoBehaviour
 
     private void Awake()
     {
-        input = GetComponent<IInput>();
+        
         rb = gameObject.GetComponent<Rigidbody>();
         rb.useGravity = false;
         controlMode = 1;
@@ -150,41 +198,65 @@ public class MovementController : MonoBehaviour
     }
 
 
-
-
     private void FixedUpdate()
     {
-        
+
         HandleTransitionTimer();
-        Vector4 inputs = input.MovementVector;
-        if(inputs != Vector4.zero)
+
+        if (input == null)
         {
-            Vector4 movementVectorAdjusted = new Vector4(inputs.x, inputs.y, inputs.z, inputs.w);
-
-            rb.AddRelativeForce(movementVectorAdjusted * movementSpeed);
-
-
-            rb.AddTorque(Vector3.up * movementVectorAdjusted.w * turnSpeed);
-
-            OnMovement?.Invoke(movementVectorAdjusted);
-
-
-            if (TransitionPossible)
+            input = GetComponent<IInput>();
+        }
+        
+        if(input != null)
+        {
+            Vector4 inputs = input.MovementVector;
+            if (inputs != Vector4.zero)
             {
-                if (inputs.z == 1 && inputs.y == -1)
+
+                if (Convert.ToString(input.CurrentButtonsState, 2).EndsWith("1"))
                 {
-                    TransitionForward();
+
                 }
-                if (inputs.z == -1 && inputs.y == 1)
+                else
                 {
-                    TransitionBackward();
+                    Vector4 movementVectorAdjusted = new Vector4(inputs.x, inputs.y, inputs.z, inputs.w);
+
+                    rb.AddRelativeForce(movementVectorAdjusted * movementSpeed);
+
+
+                    rb.AddTorque(Vector3.up * movementVectorAdjusted.w * turnSpeed);
+
+                    OnMovement?.Invoke(movementVectorAdjusted);
+
+
+                    if (TransitionPossible)
+                    {
+                        if (inputs.z == 1 && inputs.y == -1)
+                        {
+                            TransitionForward();
+                        }
+                        if (inputs.z == -1 && inputs.y == 1)
+                        {
+                            TransitionBackward();
+                        }
+                    }
                 }
             }
-
         }
+        
+        //transform.rotation.eulerAngles = Vector3.up* transform.rotation.eulerAngles.y;
+
         //rb.AddForce(new Vector3(gravity.x, 0, gravity.y) * movementSpeed);
 
     }
+
+
+    protected void LateUpdate()
+    {
+        transform.localEulerAngles = new Vector3(0,transform.localEulerAngles.y,0);
+    }
+
     public void SetOffset(float offset)
     {
         xOffset = offset;

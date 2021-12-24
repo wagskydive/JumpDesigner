@@ -55,23 +55,28 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\CloudLayer.cs" />
     <Compile Include="Assets\Scripts\SkydiveAnimationController.cs" />
+    <Compile Include="Assets\Scripts\Gripper.cs" />
     <Compile Include="Assets\Scripts\MaterialManager.cs" />
     <Compile Include="Assets\Scripts\GripsHandler.cs" />
+    <Compile Include="Assets\Scripts\Selectable.cs" />
     <Compile Include="Assets\Scripts\ButtonDecoder.cs" />
     <Compile Include="Assets\Scripts\Grip.cs" />
     <Compile Include="Assets\Scripts\GyroManager.cs" />
     <Compile Include="Assets\Scripts\HorizonCorrector.cs" />
+    <Compile Include="Assets\Scripts\SelectionHandler.cs" />
     <Compile Include="Assets\Scripts\AccelAndTouchUiControl.cs" />
     <Compile Include="Assets\Scripts\FollowGyro.cs" />
     <Compile Include="Assets\Scripts\IInput.cs" />
     <Compile Include="Assets\Scripts\RotationFollow.cs" />
     <Compile Include="Assets\Scripts\DragHelper.cs" />
-    <Compile Include="Assets\Scripts\TransitionButton.cs" />
+    <Compile Include="Assets\Scripts\InputButton.cs" />
     <Compile Include="Assets\Scripts\MovementController.cs" />
     <Compile Include="Assets\Scripts\CharacterAnimationController.cs" />
-    <Compile Include="Assets\Scripts\NPC_AnimationController.cs" />
+    <Compile Include="Assets\Scripts\CameraHandler.cs" />
+    <Compile Include="Assets\Scripts\NPC_InputController.cs" />
     <Compile Include="Assets\Scripts\TargetLine.cs" />
     <Compile Include="Assets\Scripts\Hand.cs" />
+    <Compile Include="Assets\Scripts\ISelectable.cs" />
     <Compile Include="Assets\Scripts\HandGripButton.cs" />
     <Compile Include="Assets\Scripts\IkHint.cs" />
   </ItemGroup>

@@ -4,47 +4,72 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 
-public class HandGripButton : MonoBehaviour,IPointerClickHandler
+public class HandGripButton : MonoBehaviour
 {
+    [SerializeField]
+    bool isLeft;
 
     [SerializeField]
-    Button button;
+    Image image;
 
-    [SerializeField]
+
     Hand hand;
 
     private void Awake()
     {
-        button = GetComponent<Button>();
-        Grip.OnSense += GripSensed;
-        Grip.OnUnSense += GripUnSensed;
-        button.image.enabled = false;
+        image = GetComponent<Image>();
+        image.enabled = false;
+        SelectionHandler.OnSelectionConfirmed += HandleSelection;
+    }
+
+    private void HandleSelection(ISelectable obj)
+    {
+        if(obj.transform.GetComponent<Gripper>() != null)
+        {
+            AssignGripper(obj.transform.GetComponent<Gripper>());
+        }
+    }
+
+    Gripper _gripper;
+
+    public void AssignGripper(Gripper gripper)
+    {
+        _gripper = gripper;
+        if(hand != null)
+        {
+            hand.OnGripSense-= SetGripFound;
+            hand.OnGripUnSense -= SetGripUnFound;
+        }
+        if (isLeft)
+        {
+            hand = gripper.leftHand;
+            hand.OnGripSense += SetGripFound;
+            
+        }
+        else
+        {
+            hand = gripper.rightHand;
+            hand.OnGripUnSense += SetGripUnFound;
+        }
+    }
+
+    private void SetGripUnFound()
+    {
+        gripFound = false;
+        image.enabled = false;
+    }
+
+    private void SetGripFound()
+    {
+        gripFound = true;
+        image.color = Color.green;
+        image.enabled = true;
     }
 
     bool gripFound;
     bool docked;
 
-    private void GripUnSensed(Grip grip, Hand handSensed)
-    {
-        if (handSensed == hand)
-        {
-            button.image.enabled = false;
-            gripFound = false;
-
-        }
-    }
-
-    private void GripSensed(Grip grip, Hand handSensed)
-    {
-        if(handSensed == hand)
-        {
-            gripFound = true;
-            button.image.enabled = true;
-            button.image.color = Color.green;
-        }
-    }
-
-    public void OnPointerClick(PointerEventData eventData)
+    public void Click()
     {
         if (gripFound && !docked)
         {
@@ -60,16 +85,29 @@ public class HandGripButton : MonoBehaviour,IPointerClickHandler
 
     void Dock()
     {
+        if (isLeft)
+        {
+            _gripper.LeftDock();
+        }
+        else
+        {
+            _gripper.RightDock();
+        }
         docked = true;
-        hand.DockCommand();
-        button.image.color = Color.red;
+        image.color = Color.red;
     }
 
     public void UnDock()
     {
+        if (isLeft)
+        {
+            _gripper.LeftUnDock();
+        }
+        else
+        {
+            _gripper.RightUnDock();
+        }
         docked = false;
-        button.image.color = Color.green;
-        hand.UnDockCommand();
-
+        image.color = Color.green;
     }
 }

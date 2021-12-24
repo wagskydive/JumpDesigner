@@ -4,6 +4,8 @@ using UnityEngine.Animations.Rigging;
 
 public class Hand : MonoBehaviour
 {
+    public event Action OnGripSense;
+    public event Action OnGripUnSense;
 
     public event Action OnUnDock;
     public event Action OnDock;
@@ -21,13 +23,14 @@ public class Hand : MonoBehaviour
     public void GripSense(Grip sensorGrip)
     {
         availableGrip = sensorGrip;
-
+        OnGripSense?.Invoke();
     }
     
     public void GripUnSense(Grip senserGrip)
     {
         availableGrip = null;
         dockedTo = null;
+        OnGripUnSense?.Invoke();
     }
 
 

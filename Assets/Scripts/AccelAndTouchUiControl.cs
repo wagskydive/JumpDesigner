@@ -7,6 +7,8 @@ public class AccelAndTouchUiControl : MonoBehaviour, IInput
 
     public Vector4 MovementVector => GetInputs();
 
+    public int CurrentButtonsState => GetCurrentButtonsState();
+
     [SerializeField]
     private Slider leftSlider;
     DragHelper leftButton;
@@ -20,7 +22,10 @@ public class AccelAndTouchUiControl : MonoBehaviour, IInput
     private Slider UpDownSlider;
     DragHelper UpDownButton;
 
-
+    public void PressButton(int index)
+    {
+        OnButtonPressed?.Invoke(index);
+    }
 
     private void Awake()
     {
@@ -34,6 +39,36 @@ public class AccelAndTouchUiControl : MonoBehaviour, IInput
 
 
     }
+
+    private void Start()
+    {
+        SelectionHandler.OnSelectionConfirmed += SetInputs;
+        //SelectionHandler.OnDeselect += RemoveInputs;
+    }
+
+    private void SetInputs(ISelectable obj)
+    {
+        RemoveInputs();
+        currentConnected = obj.transform.GetComponent<MovementController>();
+        if (currentConnected != null)
+        {
+            currentConnected.ReplaceInput(this);
+        }
+    }
+
+    MovementController currentConnected;
+
+    public event Action<int> OnButtonPressed;
+
+    private void RemoveInputs()
+    {
+        if (currentConnected != null)
+        {
+            currentConnected.ReplaceInput(null);
+        }
+    }
+
+
 
     private void ResetUpDown()
     {
@@ -62,5 +97,18 @@ public class AccelAndTouchUiControl : MonoBehaviour, IInput
         
     }
 
-    public int CurrentButtonsState => throw new System.NotImplementedException();
+    public int GetCurrentButtonsState()
+    {
+        int buttonState = 0;
+        if (SelectionHandler.Instance.HasSelection())
+        {            
+            buttonState += 1;
+        }
+        if (Input.GetMouseButton(1))
+        {
+            buttonState += 2;
+        }
+        return buttonState;
+    }
+
 }
