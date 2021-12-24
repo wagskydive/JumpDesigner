@@ -20,6 +20,7 @@ public class Grip : MonoBehaviour
         dockVisual.transform.SetParent(transform);
         dockVisual.transform.localScale = Vector3.one * sphereCollider.radius;
         dockVisual.GetComponent<MeshRenderer>().material = MaterialManager.Instance.GreenTransparent;
+        Destroy(dockVisual.GetComponent<Collider>());//.isTrigger = true;
         dockVisual.SetActive(false);
         //sphereCollider.
     }

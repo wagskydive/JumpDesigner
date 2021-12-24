@@ -44,11 +44,13 @@ public class HandGripButton : MonoBehaviour
         {
             hand = gripper.leftHand;
             hand.OnGripSense += SetGripFound;
+            hand.OnGripUnSense += SetGripUnFound;
             
         }
         else
         {
             hand = gripper.rightHand;
+            hand.OnGripSense += SetGripFound;
             hand.OnGripUnSense += SetGripUnFound;
         }
     }

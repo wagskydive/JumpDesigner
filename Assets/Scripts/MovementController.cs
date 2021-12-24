@@ -13,7 +13,7 @@ public enum FreefallOrientation
 
 }
 
-[RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(Rigidbody)), RequireComponent(typeof(CapsuleCollider))]
 public class MovementController : MonoBehaviour
 {
     public event Action<FreefallOrientation> OnTransition;
@@ -30,6 +30,14 @@ public class MovementController : MonoBehaviour
     private float turnSpeed = 2f;
     [SerializeField]
     public float xOffset = 0;
+
+    CapsuleCollider collider;
+
+    //[SerializeField]
+    //SkinnedMeshRenderer meshRenderer;
+
+    //[SerializeField]
+    //Transform pelvis;
 
 
     [SerializeField]
@@ -165,13 +173,27 @@ public class MovementController : MonoBehaviour
         }
     }
 
+    void SetColliderAxis(FreefallOrientation orientation)
+    {
+        if(orientation == FreefallOrientation.Back || orientation == FreefallOrientation.Belly)
+        {
+            collider.direction = 2;
+            
+        }
+        else
+        {
+            collider.direction = 1;
+        }
+        //collider.center = transform.InverseTransformPoint(meshRenderer.bounds.center);// transform.InverseTransformPoint(pelvis.position);
+    }
+
     void Transition(FreefallOrientation end, Vector3 axis, int repeat = 1)
     {
         transitionTimer = transitionSpeed;
         Vector3 axisWorld = transform.TransformDirection(axis);
         CharacterOffset.transform.Rotate(CharacterOffset.transform.InverseTransformDirection(axisWorld), 90 * repeat);
         CurrentOrientation = end;
-
+        SetColliderAxis(end);
 
         OnTransition?.Invoke(end);
 
@@ -179,7 +201,7 @@ public class MovementController : MonoBehaviour
 
     private void Awake()
     {
-        
+        collider = GetComponent<CapsuleCollider>();
         rb = gameObject.GetComponent<Rigidbody>();
         rb.useGravity = false;
         controlMode = 1;
@@ -240,6 +262,15 @@ public class MovementController : MonoBehaviour
                         {
                             TransitionBackward();
                         }
+
+                        if (inputs.z == 1 && inputs.y == 1)
+                        {
+                            TransitionBackward();
+                        }
+                        if (inputs.z == -1 && inputs.y == -1)
+                        {
+                            TransitionForward();
+                        }
                     }
                 }
             }
@@ -247,10 +278,31 @@ public class MovementController : MonoBehaviour
         
         //transform.rotation.eulerAngles = Vector3.up* transform.rotation.eulerAngles.y;
 
-        //rb.AddForce(new Vector3(gravity.x, 0, gravity.y) * movementSpeed);
+        rb.AddForce(new Vector3(0, -SpeedMultiplierFromOrientation(CurrentOrientation), 0) * movementSpeed);
 
     }
 
+
+
+    float SpeedMultiplierFromOrientation(FreefallOrientation orientation)
+    {
+        if(orientation == FreefallOrientation.Belly)
+        {
+            return 0;
+        }
+        if (orientation == FreefallOrientation.Back)
+        {
+            return 0.2f;
+        }
+        if (orientation == FreefallOrientation.HeadUp)
+        {
+            return 0.7f;
+        }
+        else
+        {
+            return 0.9f;
+        }
+    }
 
     protected void LateUpdate()
     {
