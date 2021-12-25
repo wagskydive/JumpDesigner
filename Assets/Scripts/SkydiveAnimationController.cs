@@ -122,6 +122,7 @@ public class SkydiveAnimationController : MonoBehaviour
                     overflow = false;
                 }
                 transitioning = false;
+                progress = 0;
             }
         }
     }

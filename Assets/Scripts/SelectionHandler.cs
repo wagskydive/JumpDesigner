@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class SelectionHandler : MonoBehaviour
 {
@@ -8,7 +9,7 @@ public class SelectionHandler : MonoBehaviour
 
     public static event Action<ISelectable> OnSelected;
     public static event Action<ISelectable> OnSelectionConfirmed;
-    public static event Action<ISelectable> OnDeselect;
+    public static event Action<ISelectable> OnDeselected;
 
     public static SelectionHandler Instance
     {
@@ -53,21 +54,33 @@ public class SelectionHandler : MonoBehaviour
 
     public void SetSelection(ISelectable selectable)
     {
+        selectable.Select();
         selected = selectable;
+        
         OnSelected?.Invoke(selected);
     }
     public void Deselect()
     {
         if (HasSelection())
         {
-            OnDeselect?.Invoke(selected);
+            selected.Deselect();
+            OnDeselected?.Invoke(selected);
             selected = null;
+        }
+    }
+
+    void MoveToCommand(ISelectable target)
+    {
+        if(selected != null && selected.GetType() == typeof(NPC_Ai_FromState))
+        {
+            NPC_Ai_FromState selecterAi = (NPC_Ai_FromState)selected;
+            selecterAi.SetState(new SkydiveState(target));
         }
     }
 
     private void Update()
     {
-       if (Input.GetMouseButtonDown(0))
+       if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject(0))
         {
             
             RaycastHit hit;
@@ -75,18 +88,23 @@ public class SelectionHandler : MonoBehaviour
 
             if (Physics.Raycast(ray, out hit))
             {
-
-                if(hit.transform.GetComponent<ISelectable>() != null)
+                ISelectable selectedHit = hit.transform.GetComponent<ISelectable>();
+                if (selectedHit != null)
                 {
-                    if(HasSelection() && hit.transform.GetComponent<ISelectable>() == selected)
+                    if(!HasSelection())
+                    {
+                        SetSelection(selectedHit);
+                    }
+                    else if (selectedHit == selected)
                     {
                         ConfirmSelection();
-                        
+                        Deselect();
                     }
                     else
                     {
-                        hit.transform.GetComponent<ISelectable>().Select();
+                        MoveToCommand(selectedHit);
                     }
+
                     
                     
                 }

@@ -558,7 +558,6 @@ GameObject:
   - component: {fileID: 2071084465}
   - component: {fileID: 2071084466}
   - component: {fileID: 5108962671209189377}
-  - component: {fileID: 2638255012768717041}
   m_Layer: 0
   m_Name: SkydiveCharacter
   m_TagString: Untagged
@@ -654,9 +653,7 @@ MonoBehaviour:
   movementSpeed: 5
   turnSpeed: 0.2
   xOffset: 0
-  meshRenderer: {fileID: 4372358877525543815}
-  pelvis: {fileID: 6310820302666219690}
-  transitionSpeed: 3
+  transitionSpeed: 1
   CurrentOrientation: 3
 --- !u!114 &8428141740906732345
 MonoBehaviour:
@@ -718,18 +715,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   leftHand: {fileID: 1229855195548902784}
   rightHand: {fileID: 7232434997509049761}
---- !u!114 &2638255012768717041
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5554678695719654870}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 68c3cacd1e7f75e4dadbb51878b2eb82, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &6497607836104376757
 GameObject:
   m_ObjectHideFlags: 0
@@ -1148,11 +1133,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8167678293537509603, guid: 7907d407f5efddb418cf17dc638feb14, type: 3}
   m_PrefabInstance: {fileID: 5554678697778749807}
   m_PrefabAsset: {fileID: 0}
---- !u!137 &4372358877525543815 stripped
-SkinnedMeshRenderer:
-  m_CorrespondingSourceObject: {fileID: -1028065483470427416, guid: 7907d407f5efddb418cf17dc638feb14, type: 3}
-  m_PrefabInstance: {fileID: 5554678697778749807}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4404175334564660679 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8072958490752820392, guid: 7907d407f5efddb418cf17dc638feb14, type: 3}
@@ -1185,11 +1165,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 068ecf010b7d8fe4db2c6bec05929b87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!4 &6310820302666219690 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1910273332024336837, guid: 7907d407f5efddb418cf17dc638feb14, type: 3}
-  m_PrefabInstance: {fileID: 5554678697778749807}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6885596826336992273 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1340000167433583998, guid: 7907d407f5efddb418cf17dc638feb14, type: 3}

@@ -43,7 +43,14 @@ public class AccelAndTouchUiControl : MonoBehaviour, IInput
     private void Start()
     {
         SelectionHandler.OnSelectionConfirmed += SetInputs;
+        SelectionHandler.OnSelected += Dissapear;
+
         //SelectionHandler.OnDeselect += RemoveInputs;
+    }
+
+    private void Dissapear(ISelectable obj)
+    {
+        transform.localScale *= 2;
     }
 
     private void SetInputs(ISelectable obj)
@@ -54,6 +61,7 @@ public class AccelAndTouchUiControl : MonoBehaviour, IInput
         {
             currentConnected.ReplaceInput(this);
         }
+        transform.localScale = Vector3.one;
     }
 
     MovementController currentConnected;

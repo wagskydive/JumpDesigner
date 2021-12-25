@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
+
 public enum FreefallOrientation
 {
     HeadDown,
@@ -31,7 +32,7 @@ public class MovementController : MonoBehaviour
     [SerializeField]
     public float xOffset = 0;
 
-    CapsuleCollider collider;
+    CapsuleCollider capsCollider;
 
     //[SerializeField]
     //SkinnedMeshRenderer meshRenderer;
@@ -41,7 +42,7 @@ public class MovementController : MonoBehaviour
 
 
     [SerializeField]
-    private IInput input;
+    public IInput inputSource;
 
     Gyroscope gyro;
 
@@ -62,6 +63,8 @@ public class MovementController : MonoBehaviour
     public FreefallOrientation CurrentOrientation = FreefallOrientation.Belly;
 
     public int controlMode { get; private set; }
+
+
 
     public void TransitionForward()
     {
@@ -98,16 +101,20 @@ public class MovementController : MonoBehaviour
     
     public void Turn180Left()
     {
-        Vector3 axisWorld = transform.TransformDirection(Vector3.up);
-        CharacterOffset.transform.Rotate(CharacterOffset.transform.InverseTransformDirection(axisWorld), 180);
+        //Vector3 axisWorld = transform.TransformDirection(Vector3.up);
+        //CharacterOffset.transform.Rotate(CharacterOffset.transform.InverseTransformDirection(axisWorld), 180);
+        Transition(CurrentOrientation, Vector3.down, 2);
         controlMode *= -1;
 
     }
 
     public void Turn180Right()
     {
-        Vector3 axisWorld = transform.TransformDirection(Vector3.up);
-        CharacterOffset.transform.Rotate(CharacterOffset.transform.InverseTransformDirection(axisWorld), -180);
+        //Vector3 axisWorld = transform.TransformDirection(Vector3.up);
+        //CharacterOffset.transform.Rotate(CharacterOffset.transform.InverseTransformDirection(axisWorld), -180);
+
+
+        Transition(CurrentOrientation, Vector3.up, 2);
         controlMode *= -1;
     }
 
@@ -127,16 +134,16 @@ public class MovementController : MonoBehaviour
 
     public void ReplaceInput(IInput newInput)
     {
-        if(input != null)
+        if(inputSource != null)
         {
-            input.OnButtonPressed -= HandleButtonPress;
+            inputSource.OnButtonPressed -= HandleButtonPress;
         }
 
-        input = newInput;
+        inputSource = newInput;
 
         if(newInput != null)
         {
-            input.OnButtonPressed += HandleButtonPress;
+            inputSource.OnButtonPressed += HandleButtonPress;
         }
         
     }
@@ -177,20 +184,33 @@ public class MovementController : MonoBehaviour
     {
         if(orientation == FreefallOrientation.Back || orientation == FreefallOrientation.Belly)
         {
-            collider.direction = 2;
+            capsCollider.direction = 2;
             
         }
         else
         {
-            collider.direction = 1;
+            capsCollider.direction = 1;
         }
         //collider.center = transform.InverseTransformPoint(meshRenderer.bounds.center);// transform.InverseTransformPoint(pelvis.position);
+    }
+
+
+    public void TransitionTo(FreefallOrientation freefallOrientation, bool controlMode)
+    {
+        // 0 > 1 
+        //
+        //
+        //
+        //
+        //CurrentOrientation
     }
 
     void Transition(FreefallOrientation end, Vector3 axis, int repeat = 1)
     {
         transitionTimer = transitionSpeed;
         Vector3 axisWorld = transform.TransformDirection(axis);
+
+        //LeanTween.rotateAroundLocal(CharacterOffset.gameObject, CharacterOffset.transform.InverseTransformDirection(axisWorld), 90 * repeat, transitionSpeed);//.followDamp(dude1, followArrow, LeanProp.scale, 1.1f);
         CharacterOffset.transform.Rotate(CharacterOffset.transform.InverseTransformDirection(axisWorld), 90 * repeat);
         CurrentOrientation = end;
         SetColliderAxis(end);
@@ -201,7 +221,7 @@ public class MovementController : MonoBehaviour
 
     private void Awake()
     {
-        collider = GetComponent<CapsuleCollider>();
+        capsCollider = GetComponent<CapsuleCollider>();
         rb = gameObject.GetComponent<Rigidbody>();
         rb.useGravity = false;
         controlMode = 1;
@@ -225,18 +245,18 @@ public class MovementController : MonoBehaviour
 
         HandleTransitionTimer();
 
-        if (input == null)
+        if (inputSource == null)
         {
-            input = GetComponent<IInput>();
+            inputSource = GetComponent<IInput>();
         }
         
-        if(input != null)
+        if(inputSource != null)
         {
-            Vector4 inputs = input.MovementVector;
+            Vector4 inputs = inputSource.MovementVector;
             if (inputs != Vector4.zero)
             {
 
-                if (Convert.ToString(input.CurrentButtonsState, 2).EndsWith("1"))
+                if (Convert.ToString(inputSource.CurrentButtonsState, 2).EndsWith("1"))
                 {
 
                 }
