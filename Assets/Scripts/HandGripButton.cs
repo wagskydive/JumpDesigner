@@ -19,7 +19,7 @@ public class HandGripButton : MonoBehaviour
     {
         image = GetComponent<Image>();
         image.enabled = false;
-        SelectionHandler.OnSelectionConfirmed += HandleSelection;
+        SelectionHandler.OnTakeControlConfirmed += HandleSelection;
     }
 
     private void HandleSelection(ISelectable obj)

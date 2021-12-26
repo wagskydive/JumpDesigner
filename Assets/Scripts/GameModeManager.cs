@@ -1,18 +1,34 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class GameModeManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public event Action OnResetButtonPressed;
+
+    public void ResetButtonPressed()
     {
-        
+        OnResetButtonPressed.Invoke();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void FollowMeModeButtonPressed()
     {
-        
+
+
+        SkydiveManager skydiveManager = FindObjectOfType<SkydiveManager>();
+
+
+        if (skydiveManager.SpawnedSkydivers.Count > 0)
+        {
+            for (int i = 0; i < skydiveManager.SpawnedSkydivers.Count; i++)
+            {
+                if (skydiveManager.SpawnedSkydivers[i] != SelectionHandler.Instance.player)// && skydiveManager.SpawnedSkydivers[i].GetType() == typeof(NPC_Ai_FromState))
+                {
+                    NPC_Ai_FromState ai = skydiveManager.SpawnedSkydivers[i].transform.GetComponent<NPC_Ai_FromState>();
+                    ai.SetState(new SkydiveState(SelectionHandler.Instance.player));
+                }
+            }
+        }
     }
 }

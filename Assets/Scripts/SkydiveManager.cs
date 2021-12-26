@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class SkydiveManager : MonoBehaviour
@@ -17,6 +18,14 @@ public class SkydiveManager : MonoBehaviour
         spawner = FindObjectOfType<SkydiveSpawner>();
     }
 
+    public void SelectAllButtonPress()
+    {
+        if(!SelectionHandler.Instance.selectedList.SequenceEqual(SpawnedSkydivers))
+        {
+            SelectionHandler.Instance.SetSelectionList(new List<ISelectable>(SpawnedSkydivers));
+        }
+        
+    }
 
     public void AddSkydiverButtonPress()
     {

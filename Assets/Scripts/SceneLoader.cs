@@ -23,26 +23,55 @@ public class SceneLoader : MonoBehaviour
     {
         DontDestroyOnLoad(this.gameObject);
         SceneManager.sceneLoaded += HandleSceneLoad;
+        SceneManager.LoadScene("FreefallScene");
     }
 
     public void LoadSceneButtonPress()
     {
-        if(amountToLoad > 0)
-        {
-            SceneManager.LoadScene("FreefallScene");
-        }
-
+        //if(amountToLoad > 0)
+        //{
+        //    SceneManager.LoadScene("FreefallScene");
+        //
+        //}
+        //
           
     }
+
+
 
     private void HandleSceneLoad(Scene scene, LoadSceneMode arg1)
     {
         if(scene== SceneManager.GetSceneByName("FreefallScene"))
         {
             SceneManager.SetActiveScene(scene);
-            FindObjectOfType<SkydiveSpawner>().SpawnSkydivers(amountToLoad);
-            startUi.SetActive(false);
+
+
+
+
+            FindObjectOfType<GameModeManager>().OnResetButtonPressed += Restart;
+            //startUi.SetActive(false);
         }
 
+    }
+    public void ResetButtonPressed()
+    {
+        Restart();
+    }
+
+    void Restart()
+    {
+        if(SceneManager.GetActiveScene().buildIndex == SceneManager.GetSceneByName("FreefallScene").buildIndex)
+        {
+            FindObjectOfType<GameModeManager>().OnResetButtonPressed -= Restart;
+            SceneManager.LoadScene("FreefallScene");
+            //SceneManager.UnloadSceneAsync(SceneManager.GetSceneByName("FreefallScene").buildIndex);
+            //SceneManager.sceneUnloaded += HandleUnloadedForReset;
+        }
+
+    }
+
+    private void HandleUnloadedForReset(Scene arg0)
+    {
+        SceneManager.LoadScene("FreefallScene");
     }
 }

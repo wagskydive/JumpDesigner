@@ -14,7 +14,7 @@ public class Arrow : MonoBehaviour
     {
         skydiveManager = FindObjectOfType<SkydiveManager>();
         //SelectionHandler.OnSelected += HandleSelected;
-        SelectionHandler.OnSelectionConfirmed += HandleSelectedConfirmed;
+        SelectionHandler.OnTakeControlConfirmed += HandleSelectedConfirmed;
         SelectionHandler.OnDeselected += HandleDeselected;
         arrow.SetActive(false);
 

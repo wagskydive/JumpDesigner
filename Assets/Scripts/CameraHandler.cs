@@ -13,7 +13,7 @@ public class CameraHandler : MonoBehaviour
     {
         vcam = GetComponent<CinemachineVirtualCamera>();
         SelectionHandler.OnSelected += SetCameraAim;
-        SelectionHandler.OnSelectionConfirmed += SetCameraTargetAndFollow;
+        SelectionHandler.OnTakeControlConfirmed += SetCameraTargetAndFollow;
         SelectionHandler.OnDeselected += ResetCameraAim;
     }
 

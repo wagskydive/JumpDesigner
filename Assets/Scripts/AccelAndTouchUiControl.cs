@@ -42,7 +42,7 @@ public class AccelAndTouchUiControl : MonoBehaviour, IInput
 
     private void Start()
     {
-        SelectionHandler.OnSelectionConfirmed += SetInputs;
+        SelectionHandler.OnTakeControlConfirmed += SetInputs;
         SelectionHandler.OnSelected += Dissapear;
 
         //SelectionHandler.OnDeselect += RemoveInputs;

@@ -7,6 +7,11 @@ public static class ExtentionMethods
     {
         return new Vector3(vector3.x, 0, vector3.z);
     }
+
+    public static Vector3 OnlyY(this Vector3 vector3)
+    {
+        return new Vector3(0, vector3.y, 0);
+    }
 }
 
 
@@ -54,9 +59,18 @@ public class NPC_Ai_FromState : MonoBehaviour, IInput
         {
             target = skydiveManager.middlepointNPCS;
         }
+
         if (Vector3.Distance(target.position, transform.position) > 1.5f)
         {
-            movement.w =   -Vector3.Angle(transform.forward, target.position.Flatten() - transform.position.Flatten())/360;
+            if(target.position.y - transform.position.y < -20)
+            {
+                OnButtonPressed?.Invoke(10);
+            }
+            if (target.position.y - transform.position.y > 20)
+            {
+                OnButtonPressed?.Invoke(7);
+            }
+            movement.w = Mathf.Clamp(Vector3.SignedAngle(transform.forward, target.position.Flatten() - transform.position.Flatten(),transform.up)/180,-1,1);
             movement.z = Mathf.Clamp(Vector3.Distance(target.position.Flatten(), transform.position.Flatten()) / 5,-.95f,.95f);
             movement.y = -Mathf.Clamp(transform.position.y- target.position.y, -.95f,.95f);
         }

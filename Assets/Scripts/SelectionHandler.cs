@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -8,8 +9,10 @@ public class SelectionHandler : MonoBehaviour
     Camera sceneCamera;
 
     public static event Action<ISelectable> OnSelected;
-    public static event Action<ISelectable> OnSelectionConfirmed;
+    public static event Action<List<ISelectable>> OnSelectedList;
+    public static event Action<ISelectable> OnTakeControlConfirmed;
     public static event Action<ISelectable> OnDeselected;
+    public static event Action<ISelectable,Vector3> OnDrag;
 
     public static SelectionHandler Instance
     {
@@ -35,6 +38,14 @@ public class SelectionHandler : MonoBehaviour
     [SerializeField]
     public ISelectable selected;
 
+
+    [SerializeField]
+    public ISelectable player;
+
+
+    [SerializeField]
+    public List<ISelectable> selectedList = new List<ISelectable>();
+
     public bool HasSelection()
     {
         return selected != null;
@@ -49,6 +60,15 @@ public class SelectionHandler : MonoBehaviour
         else
         {
             return null;
+        }
+    }
+
+    public void SelectFirst()
+    {
+        SkydiveManager skydiveManager = FindObjectOfType<SkydiveManager>();
+        if (skydiveManager.SpawnedSkydivers.Count > 0)
+        {
+            SetSelection(skydiveManager.SpawnedSkydivers[0]);
         }
     }
 
@@ -67,7 +87,20 @@ public class SelectionHandler : MonoBehaviour
             OnDeselected?.Invoke(selected);
             selected = null;
         }
+        if(selectedList.Count > 0)
+        {
+            selectedList = new List<ISelectable>();
+        }
     }
+
+    public void SetSelectionList(List<ISelectable> selectable)
+    {
+
+        selectedList = selectable;
+
+        OnSelectedList?.Invoke(selectedList);
+    }
+
 
     void MoveToCommand(ISelectable target)
     {
@@ -80,7 +113,7 @@ public class SelectionHandler : MonoBehaviour
 
     private void Update()
     {
-       if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject(0))
+       if (Input.GetMouseButton(0) && !EventSystem.current.IsPointerOverGameObject(0))
         {
             
             RaycastHit hit;
@@ -88,27 +121,37 @@ public class SelectionHandler : MonoBehaviour
 
             if (Physics.Raycast(ray, out hit))
             {
+
+
                 ISelectable selectedHit = hit.transform.GetComponent<ISelectable>();
                 if (selectedHit != null)
                 {
                     if(!HasSelection())
                     {
-                        SetSelection(selectedHit);
+                        if (Input.GetMouseButtonDown(0))
+                        {
+                            SetSelection(selectedHit);
+                        }
+                        
                     }
                     else if (selectedHit == selected)
                     {
-                        ConfirmSelection();
-                        Deselect();
+                        if (Input.GetMouseButtonDown(0))
+                        {
+                            //ResetDrag();
+                        }
+                        Drag(hit.point);
+                            
                     }
                     else
                     {
-                        MoveToCommand(selectedHit);
+                        SetSelection(selectedHit);
                     }
 
                     
                     
                 }
-                else if (HasSelection())
+                else if (HasSelection() && Input.GetMouseButtonDown(0))
                 {
                     Deselect();
                 }
@@ -121,11 +164,44 @@ public class SelectionHandler : MonoBehaviour
         }
     }
 
-    private void ConfirmSelection()
+    //private void ResetDrag()
+    //{
+    //    lastMousePosition = Input.mousePosition;
+    //}
+    //
+    //Vector3 lastPositionCharacter;
+    //Vector3 lastMousePosition;
+
+    
+
+    private void Drag(Vector3 hit)
+    {
+        //Vector3 mousePosition = Input.mousePosition;
+        //mousePosition.z = sceneCamera.WorldToScreenPoint(hit).z;
+        //
+        //
+        //
+        //Vector3 MouseWorldPosition = sceneCamera.ScreenToWorldPoint(mousePosition);
+        //
+        //Vector3 mouseVelocity = MouseWorldPosition-lastMousePosition;
+        //
+        //Vector3 hitDiff = hit - selected.transform.position;
+        //
+        //
+        //selected.transform.position += hitDiff.Flatten();
+
+        //lastMousePosition = MouseWorldPosition;
+        //OnDrag?.Invoke(selected, mouseVelocity);
+
+    }
+
+    public void TakeControOfSelection()
     {
         if (HasSelection())
         {
-            OnSelectionConfirmed?.Invoke(selected);
+            player = selected;
+            OnTakeControlConfirmed?.Invoke(selected);
+            Deselect();
         }
         
     }

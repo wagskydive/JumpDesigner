@@ -178,6 +178,22 @@ public class MovementController : MonoBehaviour
         {
             Turn180Right();
         }
+        if (obj == 7)
+        {
+            TransitionTo(FreefallOrientation.HeadDown);
+        }
+        if (obj == 8)
+        {
+            TransitionTo(FreefallOrientation.Back);
+        }
+        if (obj == 9)
+        {
+            TransitionTo(FreefallOrientation.HeadUp);
+        }
+        if (obj == 10)
+        {
+            TransitionTo(FreefallOrientation.Belly);
+        }
     }
 
     void SetColliderAxis(FreefallOrientation orientation)
@@ -195,8 +211,20 @@ public class MovementController : MonoBehaviour
     }
 
 
-    public void TransitionTo(FreefallOrientation freefallOrientation, bool controlMode)
+    public void TransitionTo(FreefallOrientation freefallOrientationTarget)
     {
+        if((int)CurrentOrientation-(int)freefallOrientationTarget == 1)
+        {
+            TransitionBackward();
+        }
+        else if((int)CurrentOrientation - (int)freefallOrientationTarget == -1)
+        {
+            TransitionForward();
+        }
+        else if(Mathf.Abs((int)CurrentOrientation - (int)freefallOrientationTarget) == 2)
+        {
+            TransitionLeft();
+        }
         // 0 > 1 
         //
         //
