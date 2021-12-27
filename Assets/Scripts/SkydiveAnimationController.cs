@@ -38,8 +38,11 @@ public class SkydiveAnimationController : MonoBehaviour
     float difference;
 
     bool overflow;
+    [SerializeField]
+    TwoBoneIKConstraint leftLegIK;
 
-
+    [SerializeField]
+    TwoBoneIKConstraint rightLegIK;
 
     [SerializeField]
     Transform ChestMovementHandler;
@@ -123,6 +126,7 @@ public class SkydiveAnimationController : MonoBehaviour
                 }
                 transitioning = false;
                 progress = 0;
+                transitionCompletionFactor = 0;
             }
         }
     }
@@ -146,8 +150,8 @@ public class SkydiveAnimationController : MonoBehaviour
     private void Movement(Vector4 currentInputs)
     {
 
-
-
+        animator.SetFloat("ForwardSpeed", currentInputs.z * .8f);
+        animator.SetLayerWeight(1, Mathf.Abs(currentInputs.z * .6f));
         //animator.SetFloat("TurnSpeed", (Vector3.up * currentInputs.w).y*.5f);
 
 
@@ -162,11 +166,20 @@ public class SkydiveAnimationController : MonoBehaviour
 
         ChestMovementHandler.transform.localPosition = new Vector3(0, 1, currentInputs.z * movementController.controlMode * headUpOrDown);
 
+        //leftLegIK.weight = Mathf.Clamp(currentInputs.x, -1, 0)*-1;
+        //rightLegIK.weight = Mathf.Clamp(currentInputs.x, 0, 1);
 
         spineIK.weight = Mathf.Abs(currentInputs.z);
-        spineRotationIK.weight = Mathf.Abs(currentInputs.w);
+        float spineX = currentInputs.x * 35;
+        if (movementController.CurrentOrientation == FreefallOrientation.Back)
+        {
+            spineX *= -1;
+        }
+        
 
-        ChestRotationHandler.transform.localEulerAngles = new Vector3(0, -currentInputs.w * headUpOrDown * 65,0); //localPosition = new Vector3(currentInputs.w, 1, 0);// * movementController.controlMode * headUpOrDown);    //.LookAt(transform.right, ChestRotationHandler.up);// Rotate(new Vector3(0,currentInputs.w, 0),.1f);//.localRotation.se.SetLookRotation(new Vector3(currentInputs.w, 1, 1), ChestRotationHandler.up);
+        spineRotationIK.weight = Mathf.Abs(currentInputs.w + currentInputs.x*.3f);
+
+        ChestRotationHandler.transform.localEulerAngles = new Vector3(0, (-currentInputs.w * headUpOrDown * 65) - spineX, 0); //localPosition = new Vector3(currentInputs.w, 1, 0);// * movementController.controlMode * headUpOrDown);    //.LookAt(transform.right, ChestRotationHandler.up);// Rotate(new Vector3(0,currentInputs.w, 0),.1f);//.localRotation.se.SetLookRotation(new Vector3(currentInputs.w, 1, 1), ChestRotationHandler.up);
 
         animator.SetFloat("Acceleration", -currentInputs.y * .8f);
 

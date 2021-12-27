@@ -123,7 +123,7 @@ public class MovementController : MonoBehaviour
     Rigidbody rb;
 
     [SerializeField]
-    Transform CharacterOffset;
+    public Transform CharacterOffset;
 
     [SerializeField]
     private float movementSpeed;
@@ -367,6 +367,7 @@ public class MovementController : MonoBehaviour
 
     }
 
+    Vector4 lastMovemntInputs = Vector4.zero;
 
     private void FixedUpdate()
     {
@@ -384,8 +385,8 @@ public class MovementController : MonoBehaviour
 
         if (inputSource != null)
         {
-            Vector4 inputs = inputSource.MovementVector;
-            if (inputs != Vector4.zero)
+            Vector4 movementInputs = inputSource.MovementVector;
+            if (movementInputs != Vector4.zero)
             {
 
                 if (Convert.ToString(inputSource.CurrentButtonsState, 2).EndsWith("1"))
@@ -394,37 +395,44 @@ public class MovementController : MonoBehaviour
                 }
                 else
                 {
-                    Vector4 movementVectorAdjusted = new Vector4(inputs.x, inputs.y, inputs.z, inputs.w);
+                    Vector4 movementVectorAdjusted = new Vector4(movementInputs.x, movementInputs.y, movementInputs.z, movementInputs.w);
 
                     rb.AddRelativeForce(movementVectorAdjusted * movementSpeed);
 
 
                     rb.AddTorque(Vector3.up * movementVectorAdjusted.w * turnSpeed);
 
-                    OnMovement?.Invoke(movementVectorAdjusted);
+                    
 
 
                     if (TransitionPossible)
                     {
-                        if (inputs.z == 1 && inputs.y == -1)
+                        if (movementInputs.z == 1 && movementInputs.y == -1)
                         {
                             //TransitionForward();
                         }
-                        if (inputs.z == -1 && inputs.y == 1)
+                        if (movementInputs.z == -1 && movementInputs.y == 1)
                         {
                             //TransitionBackward();
                         }
 
-                        if (inputs.z == 1 && inputs.y == 1)
+                        if (movementInputs.z == 1 && movementInputs.y == 1)
                         {
                             //TransitionBackward();
                         }
-                        if (inputs.z == -1 && inputs.y == -1)
+                        if (movementInputs.z == -1 && movementInputs.y == -1)
                         {
                             //TransitionForward();
                         }
                     }
+                    //movementInputs = movementVectorAdjusted;
                 }
+                
+            }
+            if(lastMovemntInputs != movementInputs)
+            {
+                OnMovement?.Invoke(movementInputs);
+                lastMovemntInputs = movementInputs;
             }
         }
 

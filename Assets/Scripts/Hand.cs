@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
 
+
 public class Hand : MonoBehaviour
 {
     public event Action OnGripSense;
