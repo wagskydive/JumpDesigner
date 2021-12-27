@@ -73,6 +73,7 @@
     <Compile Include="Assets\Scripts\GameModeManager.cs" />
     <Compile Include="Assets\Scripts\FollowGyro.cs" />
     <Compile Include="Assets\Scripts\Inputs\IInput.cs" />
+    <Compile Include="Assets\Scripts\SecondarySelectionIndicator.cs" />
     <Compile Include="Assets\Scripts\RotationFollow.cs" />
     <Compile Include="Assets\Scripts\Inputs\NPC_Ai_FromState.cs" />
     <Compile Include="Assets\Scripts\SkydiveManager.cs" />
@@ -85,13 +86,13 @@
     <Compile Include="Assets\Scripts\Inputs\NPC_InputController.cs" />
     <Compile Include="Assets\Scripts\TargetLine.cs" />
     <Compile Include="Assets\Scripts\SceneLoader.cs" />
+    <Compile Include="Assets\Scripts\FormationSlotIndicator.cs" />
     <Compile Include="Assets\Scripts\Hand.cs" />
     <Compile Include="Assets\Scripts\ISelectable.cs" />
     <Compile Include="Assets\Scripts\RotationHandle.cs" />
     <Compile Include="Assets\Scripts\HandGripButton.cs" />
     <Compile Include="Assets\Scripts\IkHint.cs" />
-    <Compile Include="Assets\Scripts\FormationSlotIndicator.cs" />
-    <Compile Include="Assets\Scripts\SecondarySelectionIndicator.cs" />
+    <Compile Include="Assets\Scripts\PID_ValuesTester.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Scripts\Scripts.asmdef" />

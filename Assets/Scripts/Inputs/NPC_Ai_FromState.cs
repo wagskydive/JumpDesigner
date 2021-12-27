@@ -91,7 +91,12 @@ public class NPC_Ai_FromState : MonoBehaviour, IInput
 
     SkydiveManager skydiveManager;
 
-    PID xPidController = new PID(.4f, .2f, .3f);
+    PID yPidController = new PID(3.5f, 1f, 1.5f);
+
+
+    PID xPidController = new PID(3.5f, 1f, 1.5f);
+    PID zPidController = new PID(3.5f, 1f, 1.5f);
+    PID wPidController = new PID(3.5f, 1f, 1.5f);
 
 
     Rigidbody rb;
@@ -101,6 +106,43 @@ public class NPC_Ai_FromState : MonoBehaviour, IInput
         skydiveManager = FindObjectOfType<SkydiveManager>();
         rb = GetComponent<Rigidbody>();
         selectable = GetComponent<Selectable>();
+        PID_ValuesTester.OnxzPidValuesChanged += SetxzPIDValues;
+        PID_ValuesTester.OnyPidValuesChanged += SetyPIDValues;
+        PID_ValuesTester.OnwPidValuesChanged += SetwPIDValues;
+    }
+
+    private void SetwPIDValues(Vector3 pid)
+    {
+        wPidController.Kp = pid.x;
+        wPidController.Ki = pid.y;
+        wPidController.Kd = pid.z;
+    }
+
+    private void SetyPIDValues(Vector3 pid)
+    {
+        yPidController.Kp = pid.x;
+        yPidController.Ki = pid.y;
+        yPidController.Kd = pid.z;
+    }
+
+    void ResetPIDS()
+    {
+        PID_ValuesTester tester = FindObjectOfType<PID_ValuesTester>();
+        
+        yPidController = new PID(tester.yKp, tester.yKi, tester.yKd);
+        xPidController = new PID(tester.xzKp, tester.xzKi, tester.xzKd);
+        zPidController = new PID(tester.xzKp, tester.xzKi, tester.xzKd);
+        wPidController = new PID(tester.wKp, tester.wKi, tester.wKd);
+    }
+
+    private void SetxzPIDValues(Vector3 pid)
+    {
+        xPidController.Kp = pid.x;
+        xPidController.Ki = pid.y;
+        xPidController.Kd = pid.z;
+        zPidController.Kp = pid.x;
+        zPidController.Ki = pid.y;
+        zPidController.Kd = pid.z;
 
     }
 
@@ -171,6 +213,7 @@ public class NPC_Ai_FromState : MonoBehaviour, IInput
     {
         currentState = state;
         target = currentState.Target.transform;
+        ResetPIDS();
         //currentSlot = state.Slot;
     }
 
@@ -204,7 +247,7 @@ public class NPC_Ai_FromState : MonoBehaviour, IInput
         {
             float wPut = Vector3.SignedAngle(transform.forward, targetWithSlotOffset.Flatten() - transform.position.Flatten(), transform.up) / 180;
             Debug.Log(wPut);
-           movement.w = Mathf.Clamp(wPut,-1,1);
+            movement.w = Mathf.Clamp(wPidController.GetOutput(wPut, Time.deltaTime), -1,1);
             movement.z = Mathf.Clamp(Vector3.Distance(targetWithSlotOffset.Flatten(), transform.position.Flatten()) / 5,-.95f,.95f);
             
         }
@@ -213,21 +256,22 @@ public class NPC_Ai_FromState : MonoBehaviour, IInput
 
             Vector3 to = transform.InverseTransformDirection(targetWithSlotOffset.Flatten() - transform.position.Flatten());
             
-            movement.z = Mathf.Clamp(to.z/(distaceThreshold*.3f), -.95f, .95f);           
-            movement.x = Mathf.Clamp(to.x/(distaceThreshold * .3f), -.95f, .95f);
+            movement.z = Mathf.Clamp(zPidController.GetOutput(to.z/distaceThreshold, Time.fixedDeltaTime),-.99f,.99f);           
+            movement.x = Mathf.Clamp(xPidController.GetOutput(to.x/distaceThreshold, Time.fixedDeltaTime), -.99f, .99f);
+            //movement.x = Mathf.Clamp(to.x/(distaceThreshold * .3f), -.95f, .95f);
 
-            if(Vector3.Distance(transform.position.Flatten(),target.position.Flatten()) < Vector3.Distance(transform.position.Flatten(), targetWithSlotOffset.Flatten()))
+            if (Vector3.Distance(transform.position.Flatten(),target.position.Flatten()) < Vector3.Distance(transform.position.Flatten(), targetWithSlotOffset.Flatten()))
             {
                 targetWithSlotOffset.y += .5f;
             }
 
 
             float wPut = Vector3.SignedAngle(transform.forward, target.forward, transform.up) / 45;
-            Debug.Log(wPut);
-            movement.w = Mathf.Clamp(wPut, -.95f, .95f);
+            //Debug.Log(wPut);
+            movement.w = Mathf.Clamp( wPidController.GetOutput(wPut,Time.deltaTime),-1,1);
         }
 
-        movement.y = -Mathf.Clamp(transform.position.y - targetWithSlotOffset.y, -.95f, .95f);
+        movement.y = Mathf.Clamp(-yPidController.GetOutput(transform.position.y - targetWithSlotOffset.y, Time.fixedDeltaTime), -.99f, .99f);
         return movement;
     }
 }

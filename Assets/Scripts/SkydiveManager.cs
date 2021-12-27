@@ -81,6 +81,9 @@ public class SkydiveManager : MonoBehaviour
 
     private void FixedUpdate()
     {
-        middlepointNPCS.position = GetAveragePosition();
+        if (SpawnedSkydivers.Count > 0)
+        {
+            middlepointNPCS.position = GetAveragePosition();
+        }
     }
 }

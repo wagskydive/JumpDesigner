@@ -14,6 +14,106 @@ public enum FreefallOrientation
 
 }
 
+public class OrientationHandler
+{
+    public void Transition(FreefallOrientation currentOrientation, FreefallOrientation endOrientation, GameObject CharacterOffset, float transitionSpeed)
+    {
+
+
+        int difference = (int)endOrientation - (int)currentOrientation;
+
+        if (difference == 3)
+        {
+            difference -= 4;
+            if (difference == 13)
+            {
+                difference += 4;
+
+
+                float rotation = difference * 90;
+
+
+                LeanTween.rotateAroundLocal(CharacterOffset.transform.gameObject, Vector3.right, rotation, transitionSpeed * Mathf.Abs(difference));
+            }
+        }
+    }
+
+
+    //void HandleHeadDown()
+    //{
+    //
+    //    CharacterOffset.transform.localEulerAngles = new Vector3(180, 0, 0);
+    //}
+    //
+    //
+    //void HandleBack()
+    //{
+    //
+    //    CharacterOffset.transform.localEulerAngles = new Vector3(-90, 0, 0);
+    //}
+    //
+    //
+    //void HandleHeadUp()
+    //{
+    //    CharacterOffset.transform.localEulerAngles = new Vector3(0, 0, 0);
+    //}
+    //
+    //
+    //void HandleBelly()
+    //{
+    //    CharacterOffset.transform.localEulerAngles = new Vector3(90, 0, 0);
+    //}
+    //
+    //
+    //
+    //
+    //void Transition(FreefallOrientation end)
+    //{
+    //    if (CurrentOrientation != end)
+    //    {
+    //
+    //
+    //        //transitionTimer = transitionSpeed;
+    //        //Vector3 axisWorld = transform.TransformDirection(axis);
+    //        if (end == FreefallOrientation.HeadDown)
+    //        {
+    //            if (CharacterOffset.transform.localEulerAngles == new Vector3(-90, 0, 0))
+    //            {
+    //                CharacterOffset.transform.localEulerAngles += Vector3.right * 360;
+    //            }
+    //            LeanTween.rotateAroundLocal(CharacterOffset.transform.gameObject, Vector3.right, 180 - CharacterOffset.transform.localEulerAngles.x, transitionSpeed).setOnComplete(HandleHeadDown);
+    //            //LeanTween.rotateLocal(CharacterOffset.transform.gameObject, Vector3.right*180, transitionSpeed);
+    //        }
+    //        if (end == FreefallOrientation.Back)
+    //        {
+    //            if (CharacterOffset.transform.localEulerAngles == new Vector3(180, 0, 0))
+    //            {
+    //                CharacterOffset.transform.localEulerAngles -= Vector3.right * 360;
+    //            }
+    //            LeanTween.rotateAroundLocal(CharacterOffset.transform.gameObject, Vector3.right, -90 - CharacterOffset.transform.localEulerAngles.x, transitionSpeed).setOnComplete(HandleBack);
+    //        }
+    //        if (end == FreefallOrientation.HeadUp)
+    //        {
+    //            LeanTween.rotateAroundLocal(CharacterOffset.transform.gameObject, Vector3.right, -CharacterOffset.transform.localEulerAngles.x, transitionSpeed).setOnComplete(HandleHeadUp);
+    //        }
+    //        if (end == FreefallOrientation.Belly)
+    //        {
+    //            LeanTween.rotateAroundLocal(CharacterOffset.transform.gameObject, Vector3.right, 90 - CharacterOffset.transform.localEulerAngles.x, transitionSpeed).setOnComplete(HandleBelly);
+    //        }
+    //        //LeanTween.rotateAroundLocal(CharacterOffset.gameObject, CharacterOffset.transform.InverseTransformDirection(axisWorld), 90 * repeat, transitionSpeed);//.followDamp(dude1, followArrow, LeanProp.scale, 1.1f);
+    //        //CharacterOffset.transform.Rotate(CharacterOffset.transform.InverseTransformDirection(axisWorld), 90 * repeat);
+    //        CurrentOrientation = end;
+    //
+    //
+    //
+    //        SetColliderAxis(end);
+    //
+    //        OnTransition?.Invoke(end);
+    //    }
+    //
+    //}
+}
+
 [RequireComponent(typeof(Rigidbody)), RequireComponent(typeof(CapsuleCollider))]
 public class MovementController : MonoBehaviour
 {
@@ -53,7 +153,7 @@ public class MovementController : MonoBehaviour
     [SerializeField]
     private float transitionSpeed = 2;
 
-    public float TransitionSpeed { get => transitionSpeed;}
+    public float TransitionSpeed { get => transitionSpeed; }
 
 
     bool directControl;
@@ -65,12 +165,45 @@ public class MovementController : MonoBehaviour
     public int controlMode { get; private set; }
 
 
+    public void Transition(FreefallOrientation end)
+    {
+
+
+        int difference = (int)end - (int)CurrentOrientation;
+
+        if (difference == 3)
+        {
+            difference -= 4;
+        }
+        if (difference == -3)
+        {
+            difference += 4;
+        }
+
+        float rotation = difference * 90;
+
+
+        LeanTween.rotateAroundLocal(CharacterOffset.transform.gameObject, Vector3.right, rotation, transitionSpeed * Mathf.Abs(difference));
+
+
+        CurrentOrientation = end;
+
+
+
+        SetColliderAxis(end);
+
+        OnTransition?.Invoke(end);
+    }
+
+
+
+
 
     public void TransitionForward()
     {
-        int nextOrentationIndex = (int)CurrentOrientation + controlMode; 
-        if(nextOrentationIndex > 3) { nextOrentationIndex = 0; }
-        Transition((FreefallOrientation)nextOrentationIndex, Vector3.right);
+        int nextOrentationIndex = (int)CurrentOrientation + controlMode;
+        if (nextOrentationIndex > 3) { nextOrentationIndex = 0; }
+        Transition((FreefallOrientation)nextOrentationIndex);
     }
 
 
@@ -78,15 +211,15 @@ public class MovementController : MonoBehaviour
     {
         int nextOrentationIndex = (int)CurrentOrientation - controlMode;
         if (nextOrentationIndex < 0) { nextOrentationIndex = 3; }
-        Transition((FreefallOrientation)nextOrentationIndex, Vector3.left);
+        Transition((FreefallOrientation)nextOrentationIndex);
     }
 
-    
+
     public void TransitionRight()
     {
         int nextOrentationIndex = (int)CurrentOrientation + 2;
-        if (nextOrentationIndex > 3 ) { nextOrentationIndex -= 4; }
-        Transition((FreefallOrientation)nextOrentationIndex, Vector3.back,2);
+        if (nextOrentationIndex > 3) { nextOrentationIndex -= 4; }
+        Transition((FreefallOrientation)nextOrentationIndex);
         controlMode *= -1;
     }
 
@@ -95,15 +228,15 @@ public class MovementController : MonoBehaviour
     {
         int nextOrentationIndex = (int)CurrentOrientation + 2;
         if (nextOrentationIndex > 3) { nextOrentationIndex -= 4; }
-        Transition((FreefallOrientation)nextOrentationIndex, Vector3.forward,2);
+        Transition((FreefallOrientation)nextOrentationIndex);
         controlMode *= -1;
     }
-    
+
     public void Turn180Left()
     {
         //Vector3 axisWorld = transform.TransformDirection(Vector3.up);
         //CharacterOffset.transform.Rotate(CharacterOffset.transform.InverseTransformDirection(axisWorld), 180);
-        Transition(CurrentOrientation, Vector3.down, 2);
+        //Transition(CurrentOrientation);
         controlMode *= -1;
 
     }
@@ -114,14 +247,14 @@ public class MovementController : MonoBehaviour
         //CharacterOffset.transform.Rotate(CharacterOffset.transform.InverseTransformDirection(axisWorld), -180);
 
 
-        Transition(CurrentOrientation, Vector3.up, 2);
+        //Transition(CurrentOrientation);
         controlMode *= -1;
     }
 
 
     void HandleTransitionTimer()
     {
-        if(transitionTimer > 0)
+        if (transitionTimer > 0)
         {
             transitionTimer -= Time.fixedDeltaTime;
         }
@@ -134,18 +267,18 @@ public class MovementController : MonoBehaviour
 
     public void ReplaceInput(IInput newInput)
     {
-        if(inputSource != null)
+        if (inputSource != null)
         {
             inputSource.OnButtonPressed -= HandleButtonPress;
         }
 
         inputSource = newInput;
 
-        if(newInput != null)
+        if (newInput != null)
         {
             inputSource.OnButtonPressed += HandleButtonPress;
         }
-        
+
     }
 
 
@@ -154,7 +287,7 @@ public class MovementController : MonoBehaviour
 
     private void HandleButtonPress(int obj)
     {
-        if(obj == 1)
+        if (obj == 1)
         {
             TransitionForward();
         }
@@ -180,28 +313,28 @@ public class MovementController : MonoBehaviour
         }
         if (obj == 7)
         {
-            TransitionTo(FreefallOrientation.HeadDown);
+            Transition(FreefallOrientation.HeadDown);
         }
         if (obj == 8)
         {
-            TransitionTo(FreefallOrientation.Back);
+            Transition(FreefallOrientation.Back);
         }
         if (obj == 9)
         {
-            TransitionTo(FreefallOrientation.HeadUp);
+            Transition(FreefallOrientation.HeadUp);
         }
         if (obj == 10)
         {
-            TransitionTo(FreefallOrientation.Belly);
+            Transition(FreefallOrientation.Belly);
         }
     }
 
     void SetColliderAxis(FreefallOrientation orientation)
     {
-        if(orientation == FreefallOrientation.Back || orientation == FreefallOrientation.Belly)
+        if (orientation == FreefallOrientation.Back || orientation == FreefallOrientation.Belly)
         {
             capsCollider.direction = 2;
-            
+
         }
         else
         {
@@ -211,41 +344,8 @@ public class MovementController : MonoBehaviour
     }
 
 
-    public void TransitionTo(FreefallOrientation freefallOrientationTarget)
-    {
-        if((int)CurrentOrientation-(int)freefallOrientationTarget == 1)
-        {
-            TransitionBackward();
-        }
-        else if((int)CurrentOrientation - (int)freefallOrientationTarget == -1)
-        {
-            TransitionForward();
-        }
-        else if(Mathf.Abs((int)CurrentOrientation - (int)freefallOrientationTarget) == 2)
-        {
-            TransitionLeft();
-        }
-        // 0 > 1 
-        //
-        //
-        //
-        //
-        //CurrentOrientation
-    }
 
-    void Transition(FreefallOrientation end, Vector3 axis, int repeat = 1)
-    {
-        transitionTimer = transitionSpeed;
-        Vector3 axisWorld = transform.TransformDirection(axis);
 
-        //LeanTween.rotateAroundLocal(CharacterOffset.gameObject, CharacterOffset.transform.InverseTransformDirection(axisWorld), 90 * repeat, transitionSpeed);//.followDamp(dude1, followArrow, LeanProp.scale, 1.1f);
-        CharacterOffset.transform.Rotate(CharacterOffset.transform.InverseTransformDirection(axisWorld), 90 * repeat);
-        CurrentOrientation = end;
-        SetColliderAxis(end);
-
-        OnTransition?.Invoke(end);
-
-    }
 
     private void Awake()
     {
@@ -255,16 +355,16 @@ public class MovementController : MonoBehaviour
         controlMode = 1;
     }
 
-    
+
     float ForwardSign(FreefallOrientation orientation)
     {
         int cur = 1;
-        if(orientation == FreefallOrientation.HeadUp || orientation == FreefallOrientation.HeadDown)
+        if (orientation == FreefallOrientation.HeadUp || orientation == FreefallOrientation.HeadDown)
         {
-            cur =  -1;
+            cur = -1;
         }
-        return cur* controlMode;
-        
+        return cur * controlMode;
+
     }
 
 
@@ -275,14 +375,14 @@ public class MovementController : MonoBehaviour
 
         if (inputSource == null)
         {
-            if(GetComponent<IInput>() != null)
+            if (GetComponent<IInput>() != null)
             {
                 ReplaceInput(GetComponent<IInput>());
             }
-            
+
         }
-        
-        if(inputSource != null)
+
+        if (inputSource != null)
         {
             Vector4 inputs = inputSource.MovementVector;
             if (inputs != Vector4.zero)
@@ -308,26 +408,26 @@ public class MovementController : MonoBehaviour
                     {
                         if (inputs.z == 1 && inputs.y == -1)
                         {
-                            TransitionForward();
+                            //TransitionForward();
                         }
                         if (inputs.z == -1 && inputs.y == 1)
                         {
-                            TransitionBackward();
+                            //TransitionBackward();
                         }
 
                         if (inputs.z == 1 && inputs.y == 1)
                         {
-                            TransitionBackward();
+                            //TransitionBackward();
                         }
                         if (inputs.z == -1 && inputs.y == -1)
                         {
-                            TransitionForward();
+                            //TransitionForward();
                         }
                     }
                 }
             }
         }
-        
+
         //transform.rotation.eulerAngles = Vector3.up* transform.rotation.eulerAngles.y;
 
         rb.AddForce(new Vector3(0, -SpeedMultiplierFromOrientation(CurrentOrientation), 0) * movementSpeed);
@@ -338,7 +438,7 @@ public class MovementController : MonoBehaviour
 
     float SpeedMultiplierFromOrientation(FreefallOrientation orientation)
     {
-        if(orientation == FreefallOrientation.Belly)
+        if (orientation == FreefallOrientation.Belly)
         {
             return 0;
         }
@@ -358,7 +458,7 @@ public class MovementController : MonoBehaviour
 
     protected void LateUpdate()
     {
-        transform.localEulerAngles = new Vector3(0,transform.localEulerAngles.y,0);
+        transform.localEulerAngles = new Vector3(0, transform.localEulerAngles.y, 0);
     }
 
     public void SetOffset(float offset)

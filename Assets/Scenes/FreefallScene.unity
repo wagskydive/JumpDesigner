@@ -1690,7 +1690,7 @@ GameObject:
   - component: {fileID: 450395169}
   - component: {fileID: 450395168}
   m_Layer: 5
-  m_Name: TransitionLeftButton
+  m_Name: TransitionBelly
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1729,7 +1729,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d35c54c5be7ca1a4e8ed37eba6365da2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttonIndex: 4
+  buttonIndex: 10
   uiControl: {fileID: 1302964045}
 --- !u!114 &450395169
 MonoBehaviour:
@@ -1859,6 +1859,7 @@ GameObject:
   - component: {fileID: 534506289}
   - component: {fileID: 534506294}
   - component: {fileID: 534506293}
+  - component: {fileID: 534506295}
   m_Layer: 0
   m_Name: MANAGERS
   m_TagString: Untagged
@@ -1943,6 +1944,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c43f796869db7f34a8feb8c47ffe089b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &534506295
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 534506288}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8aa928398bff1594bab9811793846ed5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  xzKp: 18
+  xzKi: 0.5
+  xzKd: 5.2
+  xzLastPID: {x: 18, y: 0.5, z: 5.2}
+  yKp: 10.05
+  yKi: 0.19
+  yKd: 2.37
+  yLastPID: {x: 10.05, y: 0.19, z: 2.37}
+  wKp: 4.33
+  wKi: 0.18
+  wKd: 1.32
+  wLastPID: {x: 4.33, y: 0.18, z: 1.32}
 --- !u!1 &572749969
 GameObject:
   m_ObjectHideFlags: 0
@@ -2166,7 +2191,7 @@ GameObject:
   - component: {fileID: 609782361}
   - component: {fileID: 609782360}
   m_Layer: 5
-  m_Name: TransitionRightButton
+  m_Name: TransitionHeadUp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2205,7 +2230,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d35c54c5be7ca1a4e8ed37eba6365da2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttonIndex: 3
+  buttonIndex: 9
   uiControl: {fileID: 1302964045}
 --- !u!114 &609782361
 MonoBehaviour:
@@ -4349,7 +4374,7 @@ GameObject:
   - component: {fileID: 1061362477}
   - component: {fileID: 1061362476}
   m_Layer: 5
-  m_Name: TransitionForwardButton
+  m_Name: TransitionHeadDown
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4388,7 +4413,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d35c54c5be7ca1a4e8ed37eba6365da2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttonIndex: 1
+  buttonIndex: 7
   uiControl: {fileID: 1302964045}
 --- !u!114 &1061362477
 MonoBehaviour:
@@ -9969,7 +9994,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1201064899}
-  m_LocalRotation: {x: 0.2727282, y: 0.0026524728, z: -0.009356532, w: 0.96204203}
+  m_LocalRotation: {x: 0.2727401, y: 0.00074959086, z: -0.0026441633, w: 0.9620839}
   m_LocalPosition: {x: 0, y: 2.91, z: -4.72}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -16827,7 +16852,7 @@ GameObject:
   - component: {fileID: 1532128550}
   - component: {fileID: 1532128549}
   m_Layer: 5
-  m_Name: TransitionBackwardsButton
+  m_Name: TransitionBack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16866,7 +16891,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d35c54c5be7ca1a4e8ed37eba6365da2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttonIndex: 2
+  buttonIndex: 8
   uiControl: {fileID: 1302964045}
 --- !u!114 &1532128550
 MonoBehaviour:
@@ -18213,7 +18238,7 @@ MonoBehaviour:
     OrthographicSize: 10
     NearClipPlane: 0.1
     FarClipPlane: 50000
-    Dutch: -1.114448
+    Dutch: -0.3149393
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
