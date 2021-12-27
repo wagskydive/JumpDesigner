@@ -570,7 +570,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: CanopyFlight
+  m_Name: CANOPY FLIGHT
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -903,7 +903,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Blend Tree
+  m_Name: SKYDIVE ANIMATIONS
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -1139,31 +1139,31 @@ AnimatorStateMachine:
     m_Position: {x: -440, y: 600, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 5325487923839732013}
-    m_Position: {x: -150, y: 30, z: 0}
+    m_Position: {x: -140, y: 160, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 18808974416882679}
-    m_Position: {x: 0, y: -60, z: 0}
+    m_Position: {x: 130, y: 170, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 5859188376740751152}
-    m_Position: {x: 260, y: 400, z: 0}
+    m_Position: {x: -160, y: 780, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -2611089601504747667}
-    m_Position: {x: 370.09683, y: 316.22565, z: 0}
+    m_Position: {x: -160, y: 840, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -8007001009967289869}
-    m_Position: {x: -110, y: 470, z: 0}
+    m_Position: {x: -230, y: 630, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -293808731357144708}
-    m_Position: {x: 40, y: 600, z: 0}
+    m_Position: {x: -170, y: 700, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -7469249682557114034}
-    m_Position: {x: -390, y: 400, z: 0}
+    m_Position: {x: -380, y: 390, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -4106944018074939350}
-    m_Position: {x: 94.51511, y: 717.88257, z: 0}
+    m_Position: {x: -150, y: 740, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 4701764128738753553}
-    m_Position: {x: 0, y: 380, z: 0}
+    m_Position: {x: -130, y: 320, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions:
   - {fileID: 3986310495199917227}
@@ -1171,7 +1171,7 @@ AnimatorStateMachine:
   m_StateMachineTransitions: {}
   m_StateMachineBehaviours: []
   m_AnyStatePosition: {x: -390, y: 160, z: 0}
-  m_EntryPosition: {x: -750, y: 100, z: 0}
+  m_EntryPosition: {x: -410, y: 250, z: 0}
   m_ExitPosition: {x: 800, y: 120, z: 0}
   m_ParentStateMachinePosition: {x: 800, y: 20, z: 0}
   m_DefaultState: {fileID: 4701764128738753553}

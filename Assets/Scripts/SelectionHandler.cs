@@ -11,6 +11,10 @@ public class SelectionHandler : MonoBehaviour
     public static event Action<ISelectable> OnSelected;
     public static event Action<List<ISelectable>> OnSelectedList;
     public static event Action<ISelectable> OnTakeControlConfirmed;
+
+
+    public static event Action<ISelectable> OnSecondarySelected;
+
     public static event Action<ISelectable> OnDeselected;
     public static event Action<ISelectable,Vector3> OnDrag;
 
@@ -63,7 +67,7 @@ public class SelectionHandler : MonoBehaviour
         }
     }
 
-    public void SelectFirst()
+    public void SelectFirstSpwaned()
     {
         SkydiveManager skydiveManager = FindObjectOfType<SkydiveManager>();
         if (skydiveManager.SpawnedSkydivers.Count > 0)
@@ -71,6 +75,12 @@ public class SelectionHandler : MonoBehaviour
             SetSelection(skydiveManager.SpawnedSkydivers[0]);
         }
     }
+
+    public void SetSecondarySelection(ISelectable selectable)
+    {
+        OnSecondarySelected?.Invoke(selectable);
+    } 
+
 
     public void SetSelection(ISelectable selectable)
     {
@@ -140,12 +150,13 @@ public class SelectionHandler : MonoBehaviour
                         {
                             //ResetDrag();
                         }
-                        Drag(hit.point);
+                        //Drag(hit.point);
                             
                     }
                     else
                     {
-                        SetSelection(selectedHit);
+                        SetSecondarySelection(selectedHit);
+                        //SetSelection(selectedHit);
                     }
 
                     
@@ -153,7 +164,7 @@ public class SelectionHandler : MonoBehaviour
                 }
                 else if (HasSelection() && Input.GetMouseButtonDown(0))
                 {
-                    Deselect();
+                    //Deselect();
                 }
 
             }
@@ -204,5 +215,13 @@ public class SelectionHandler : MonoBehaviour
             Deselect();
         }
         
+    }
+
+    public void SetSlotTarget(ISelectable target, int slot)
+    {
+        if(selected != null && selected.transform.GetComponent< NPC_Ai_FromState>() != null)
+        {
+            selected.transform.GetComponent<NPC_Ai_FromState>().SetState(new SkydiveState(target, slot));
+        }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class SelectionIndicator : MonoBehaviour
 {
     [SerializeField]
@@ -39,6 +40,7 @@ public class SelectionIndicator : MonoBehaviour
         if (selected != null)
         {
             transform.position = selected.transform.position;
+            transform.rotation = selected.transform.rotation;
         }
     }
 }

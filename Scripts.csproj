@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <LangVersion>7.3</LangVersion>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -68,12 +68,13 @@
     <Compile Include="Assets\Scripts\GyroManager.cs" />
     <Compile Include="Assets\Scripts\HorizonCorrector.cs" />
     <Compile Include="Assets\Scripts\SelectionHandler.cs" />
-    <Compile Include="Assets\Scripts\AccelAndTouchUiControl.cs" />
+    <Compile Include="Assets\Scripts\Inputs\AccelAndTouchUiControl.cs" />
+    <Compile Include="Assets\Scripts\SelectedInput.cs" />
     <Compile Include="Assets\Scripts\GameModeManager.cs" />
     <Compile Include="Assets\Scripts\FollowGyro.cs" />
-    <Compile Include="Assets\Scripts\IInput.cs" />
+    <Compile Include="Assets\Scripts\Inputs\IInput.cs" />
     <Compile Include="Assets\Scripts\RotationFollow.cs" />
-    <Compile Include="Assets\Scripts\NPC_Ai_FromState.cs" />
+    <Compile Include="Assets\Scripts\Inputs\NPC_Ai_FromState.cs" />
     <Compile Include="Assets\Scripts\SkydiveManager.cs" />
     <Compile Include="Assets\Scripts\InSceneUi.cs" />
     <Compile Include="Assets\Scripts\DragHelper.cs" />
@@ -81,13 +82,16 @@
     <Compile Include="Assets\Scripts\MovementController.cs" />
     <Compile Include="Assets\Scripts\CharacterAnimationController.cs" />
     <Compile Include="Assets\Scripts\CameraHandler.cs" />
-    <Compile Include="Assets\Scripts\NPC_InputController.cs" />
+    <Compile Include="Assets\Scripts\Inputs\NPC_InputController.cs" />
     <Compile Include="Assets\Scripts\TargetLine.cs" />
     <Compile Include="Assets\Scripts\SceneLoader.cs" />
     <Compile Include="Assets\Scripts\Hand.cs" />
     <Compile Include="Assets\Scripts\ISelectable.cs" />
+    <Compile Include="Assets\Scripts\RotationHandle.cs" />
     <Compile Include="Assets\Scripts\HandGripButton.cs" />
     <Compile Include="Assets\Scripts\IkHint.cs" />
+    <Compile Include="Assets\Scripts\FormationSlotIndicator.cs" />
+    <Compile Include="Assets\Scripts\SecondarySelectionIndicator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Scripts\Scripts.asmdef" />

@@ -275,7 +275,11 @@ public class MovementController : MonoBehaviour
 
         if (inputSource == null)
         {
-            inputSource = GetComponent<IInput>();
+            if(GetComponent<IInput>() != null)
+            {
+                ReplaceInput(GetComponent<IInput>());
+            }
+            
         }
         
         if(inputSource != null)
