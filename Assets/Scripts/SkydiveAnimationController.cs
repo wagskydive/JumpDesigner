@@ -76,61 +76,78 @@ public class SkydiveAnimationController : MonoBehaviour
     }
 
 
-    private void Transition(FreefallOrientation orientation)
+    private void Transition(FreefallOrientation orientation, float xRotation)
     {
+        animator.SetFloat("Orientation", (int)orientation);
 
-        int orientationInt = (int)orientation;
-        if(orientationInt == 0)
-        {
-            if(lastOrientationInt == 3)
-            {
-                orientationInt = 4;
-                overflow = true;
-            }
-        }
-
-        if (orientationInt == 3)
-        {
-            if (lastOrientationInt == 0)
-            {
-                animator.SetFloat("Orientation", 4);
-            }
-        }
-        orientationFloatGoal = orientationInt;
-        lastOrientation = animator.GetFloat("Orientation");
-
-        difference = orientationFloatGoal - lastOrientation;
-        transitioning = true;
-
-
-        lastOrientationInt = orientationInt;
+        //currentRotation = xRotation;
+        //int orientationInt = (int)orientation;
+        //if(orientationInt == 0)
+        //{
+        //    if(lastOrientationInt == 3)
+        //    {
+        //        orientationInt = 4;
+        //        overflow = true;
+        //    }
+        //}
+        //
+        //if (orientationInt == 3)
+        //{
+        //    if (lastOrientationInt == 0)
+        //    {
+        //        animator.SetFloat("Orientation", 4);
+        //    }
+        //}
+        //orientationFloatGoal = orientationInt;
+        //lastOrientation = animator.GetFloat("Orientation");
+        //
+        //
+        //animator.SetFloat("Orientation", (int)orientation);
+        //
+        //difference = orientationFloatGoal - lastOrientation;
+        //transitioning = true;
+        //
+        //
+        //lastOrientationInt = orientationInt;
     }
 
 
-    private void Update()
+    float currentRotation;
+    private void FixedUpdate()
     {
-        if (transitioning)
-        {
-            transitionCompletionFactor += Time.deltaTime;
+        //if (transitioning)
+        //{
+        //    transitionCompletionFactor += Time.deltaTime;
+        //
+        //    float progress = transitionCompletionFactor / movementController.TransitionSpeed;
+        //
+        //    animator.SetFloat("Orientation",lastOrientation+(difference* progress) );
+        //    //
+        //    if (progress >= 1)
+        //    {
+        //        if (overflow)
+        //        {
+        //            
+        //            animator.SetFloat("Orientation", 0);
+        //            overflow = false;
+        //        }
+        //        transitioning = false;
+        //        progress = 0;
+        //        transitionCompletionFactor = 0;
+        //    }
+        //}
 
-            float progress = transitionCompletionFactor / movementController.TransitionSpeed;
 
-            animator.SetFloat("Orientation",lastOrientation+(difference* progress) );
-            
-            if(progress >= 1)
-            {
-                if (overflow)
-                {
-                    animator.SetFloat("Orientation", 0);
-                    overflow = false;
-                }
-                transitioning = false;
-                progress = 0;
-                transitionCompletionFactor = 0;
-            }
-        }
+
+        
     }
+    float OrientationFloatToDegrees()
+    {
+        float orientFloat = (animator.GetFloat("Orientation")*90)-180;
 
+
+        return orientFloat;
+    }
 
     int CurrentAveragInt = 0;
 
@@ -147,6 +164,11 @@ public class SkydiveAnimationController : MonoBehaviour
         return integral / average;
     }
 
+    private void Movement(Vector3 translation, float steering)
+    {
+        Movement(new Vector4(translation.x, translation.y, translation.z, steering));
+    }
+
     private void Movement(Vector4 currentInputs)
     {
 
@@ -154,6 +176,7 @@ public class SkydiveAnimationController : MonoBehaviour
         animator.SetLayerWeight(1, Mathf.Abs(currentInputs.z * .6f));
         //animator.SetFloat("TurnSpeed", (Vector3.up * currentInputs.w).y*.5f);
 
+        
 
         animator.SetFloat("SidewaysMovement", currentInputs.x * .8f);
 
@@ -162,14 +185,22 @@ public class SkydiveAnimationController : MonoBehaviour
         if(movementController.CurrentOrientation == FreefallOrientation.HeadDown || movementController.CurrentOrientation == FreefallOrientation.HeadUp)
         {
             headUpOrDown = -1;
+            animator.SetFloat("Orientation", (int)movementController.CurrentOrientation - currentInputs.z * .5f);
+        }
+        else
+        {
+            animator.SetFloat("Orientation", (int)movementController.CurrentOrientation + currentInputs.z * .5f);
         }
 
-        ChestMovementHandler.transform.localPosition = new Vector3(0, 1, currentInputs.z * movementController.controlMode * headUpOrDown);
+        //ChestMovementHandler.transform.localPosition = new Vector3(0, 1, currentInputs.z * movementController.controlMode * headUpOrDown);
+
+        movementController.CharacterOffset.localEulerAngles = new Vector3(OrientationFloatToDegrees(), 0, 0);
+
 
         //leftLegIK.weight = Mathf.Clamp(currentInputs.x, -1, 0)*-1;
         //rightLegIK.weight = Mathf.Clamp(currentInputs.x, 0, 1);
 
-        spineIK.weight = Mathf.Abs(currentInputs.z);
+        //spineIK.weight = Mathf.Abs(currentInputs.z);
         float spineX = currentInputs.x * 35;
         if (movementController.CurrentOrientation == FreefallOrientation.Back)
         {

@@ -17,6 +17,8 @@ public class AccelAndTouchUiControl : MonoBehaviour, IInput
     private Slider rightSlider;
     DragHelper rightButton;
 
+    [SerializeField]
+    TransitionPanel transitionPanel;
         
     [SerializeField]
     private Slider UpDownSlider;
@@ -37,6 +39,21 @@ public class AccelAndTouchUiControl : MonoBehaviour, IInput
         rightButton.ÓnDragEndEvent += ResetRight;
         UpDownButton.ÓnDragEndEvent += ResetUpDown;
 
+        transitionPanel.OnTransitionPanelEnter += HandleTransition;
+    }
+
+    private void HandleTransition()
+    {
+        if(leftSlider.value > .85f)
+        {
+            OnButtonPressed?.Invoke(11);
+            transitionPanel.gameObject.SetActive(false);
+        }
+        if (leftSlider.value < -.85f)
+        {
+            OnButtonPressed?.Invoke(12);
+            transitionPanel.gameObject.SetActive(false);
+        }
 
     }
 
@@ -96,6 +113,26 @@ public class AccelAndTouchUiControl : MonoBehaviour, IInput
     private void ResetSlider(Slider slider)
     {
         slider.value = 0;
+    }
+
+    float lastSliderValue;
+
+    private void Update()
+    {
+        float sliderValue = leftSlider.value;
+        if (sliderValue != lastSliderValue)
+        {
+            if(lastSliderValue < .85f && sliderValue >= .85f || lastSliderValue > -.85f && sliderValue <= -.85f)
+            {
+                transitionPanel.gameObject.SetActive(true);
+            }
+            else if(lastSliderValue >= .85f && sliderValue <.85f || lastSliderValue <= -.85f && sliderValue > -.85f)
+            {
+                transitionPanel.gameObject.SetActive(false);
+            }
+        }
+        lastSliderValue = sliderValue;
+        
     }
 
     private Vector4 GetInputs()

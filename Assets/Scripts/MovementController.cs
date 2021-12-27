@@ -117,7 +117,7 @@ public class OrientationHandler
 [RequireComponent(typeof(Rigidbody)), RequireComponent(typeof(CapsuleCollider))]
 public class MovementController : MonoBehaviour
 {
-    public event Action<FreefallOrientation> OnTransition;
+    public event Action<FreefallOrientation, float> OnTransition;
     public event Action<Vector4> OnMovement;
 
     Rigidbody rb;
@@ -183,7 +183,7 @@ public class MovementController : MonoBehaviour
         float rotation = difference * 90;
 
 
-        LeanTween.rotateAroundLocal(CharacterOffset.transform.gameObject, Vector3.right, rotation, transitionSpeed * Mathf.Abs(difference));
+        //LeanTween.rotateAroundLocal(CharacterOffset.transform.gameObject, Vector3.right, rotation, transitionSpeed * Mathf.Abs(difference));
 
 
         CurrentOrientation = end;
@@ -192,7 +192,8 @@ public class MovementController : MonoBehaviour
 
         SetColliderAxis(end);
 
-        OnTransition?.Invoke(end);
+        OnTransition?.Invoke(end,rotation);
+        OnMovement?.Invoke(inputSource.MovementVector);
     }
 
 
@@ -327,6 +328,32 @@ public class MovementController : MonoBehaviour
         {
             Transition(FreefallOrientation.Belly);
         }
+        if (obj == 11)
+        {
+            LeanTransitionForward();
+        }
+        if (obj == 12)
+        {
+            LeanTransitionBackward();
+        }
+    }
+
+    private void LeanTransitionForward()
+    {
+        if(CurrentOrientation == FreefallOrientation.Back || CurrentOrientation == FreefallOrientation.Belly)
+        {
+            TransitionForward();
+        }
+        else { TransitionBackward(); }
+    }
+
+    private void LeanTransitionBackward()
+    {
+        if (CurrentOrientation == FreefallOrientation.Back || CurrentOrientation == FreefallOrientation.Belly)
+        {
+            TransitionBackward();
+        }
+        else { TransitionForward(); }
     }
 
     void SetColliderAxis(FreefallOrientation orientation)
@@ -372,7 +399,7 @@ public class MovementController : MonoBehaviour
     private void FixedUpdate()
     {
 
-        HandleTransitionTimer();
+        //HandleTransitionTimer();
 
         if (inputSource == null)
         {
@@ -402,30 +429,6 @@ public class MovementController : MonoBehaviour
 
                     rb.AddTorque(Vector3.up * movementVectorAdjusted.w * turnSpeed);
 
-                    
-
-
-                    if (TransitionPossible)
-                    {
-                        if (movementInputs.z == 1 && movementInputs.y == -1)
-                        {
-                            //TransitionForward();
-                        }
-                        if (movementInputs.z == -1 && movementInputs.y == 1)
-                        {
-                            //TransitionBackward();
-                        }
-
-                        if (movementInputs.z == 1 && movementInputs.y == 1)
-                        {
-                            //TransitionBackward();
-                        }
-                        if (movementInputs.z == -1 && movementInputs.y == -1)
-                        {
-                            //TransitionForward();
-                        }
-                    }
-                    //movementInputs = movementVectorAdjusted;
                 }
                 
             }
@@ -435,8 +438,6 @@ public class MovementController : MonoBehaviour
                 lastMovemntInputs = movementInputs;
             }
         }
-
-        //transform.rotation.eulerAngles = Vector3.up* transform.rotation.eulerAngles.y;
 
         rb.AddForce(new Vector3(0, -SpeedMultiplierFromOrientation(CurrentOrientation), 0) * movementSpeed);
 

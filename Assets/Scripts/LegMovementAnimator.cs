@@ -48,11 +48,11 @@ public class LegMovementAnimator : MonoBehaviour
         }
         else
         {
-            Vector3 leftMidPos = leftFootBone.position + movementController.CharacterOffset.up * -.15f;
-            Vector3 rightMidPos = rightFootBone.position + movementController.CharacterOffset.up * -.15f; ;
 
             if(movementController.CurrentOrientation == FreefallOrientation.Back)
             {
+                Vector3 leftMidPos = leftFootBone.position + movementController.CharacterOffset.up * -.15f;
+                Vector3 rightMidPos = rightFootBone.position + movementController.CharacterOffset.up * -.15f; ;
 
                 leftFootTarget.position = leftMidPos + movementController.CharacterOffset.forward * (movement.z * -.2f + movement.x * .1f - movement.w * .1f);// + movementController.transform.right * movement.x * .3f;
 
@@ -62,6 +62,8 @@ public class LegMovementAnimator : MonoBehaviour
             }
             if (movementController.CurrentOrientation == FreefallOrientation.Belly)
             {
+                Vector3 leftMidPos = leftFootBone.position + movementController.CharacterOffset.up * .15f;
+                Vector3 rightMidPos = rightFootBone.position + movementController.CharacterOffset.up * .15f; ;
 
                 leftFootTarget.position = leftMidPos + movementController.CharacterOffset.forward * (movement.z * -.2f - movement.x * .1f - movement.w * .1f);// + movementController.transform.right * movement.x * .3f;
 
