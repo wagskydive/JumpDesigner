@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
+
+
 public class RotationHandle : MonoBehaviour
 {
     [SerializeField]
@@ -10,7 +12,8 @@ public class RotationHandle : MonoBehaviour
 
     private void OnMouseDown()
     {
-        selectedInput.SetRotating(true);
+        SelectionHandler.Instance.RotateInSlot();
+        //selectedInput.SetRotating(true);
         Debug.Log("Rotations start");
     }
     private void OnMouseUp()

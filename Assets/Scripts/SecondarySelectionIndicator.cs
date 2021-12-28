@@ -74,7 +74,7 @@ public class SecondarySelectionIndicator : MonoBehaviour
         {
             if(obj == slotIndicators[i].GetComponent<FormationSlotIndicator>())
             {
-                SelectionHandler.Instance.SetSlotTarget(secondayeSelected, i + 1);
+                SelectionHandler.Instance.SetSlotTarget(secondayeSelected, i + 1,0);
             }
         }
         

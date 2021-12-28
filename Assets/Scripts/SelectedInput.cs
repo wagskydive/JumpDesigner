@@ -27,27 +27,12 @@ public class SelectedInput : MonoBehaviour, IInput
         obj.transform.GetComponent<MovementController>().ReplaceInput(this);
     }
 
-    public void SetRotating(bool value)
-    {
-        isRotating = value;
-        lastMousePosition = Input.mousePosition;
-    }
-
-    bool isRotating;
-
     Vector3 lastMousePosition;
 
     private Vector4 GetMovementVector()
     {
         Vector4 inputs = Vector4.zero;
-        if (isRotating)
-        {
-            //inputs.w = -Mathf.Clamp((Input.mousePosition.x - lastMousePosition.x) / 30,-1,1);
-            //if (Input.GetMouseButtonUp(0))
-            //{
-            //    isRotating = false;
-            //}
-        }
+
 
 
         lastMousePosition = Input.mousePosition;

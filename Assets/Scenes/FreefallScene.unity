@@ -1785,7 +1785,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &450395167
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2286,7 +2286,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &609782359
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2948,7 +2948,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &694858065
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4469,7 +4469,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1061362475
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10084,7 +10084,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1201064899}
-  m_LocalRotation: {x: 0.2727407, y: 0.00046635597, z: -0.0016450591, w: 0.9620861}
+  m_LocalRotation: {x: 0.2727319, y: -0.0022403777, z: 0.0079028765, w: 0.962055}
   m_LocalPosition: {x: 0, y: 2.91, z: -4.72}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -16948,7 +16948,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1532128548
 RectTransform:
   m_ObjectHideFlags: 0
@@ -17494,7 +17494,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1612061026
 RectTransform:
   m_ObjectHideFlags: 0
@@ -18329,7 +18329,7 @@ MonoBehaviour:
     OrthographicSize: 10
     NearClipPlane: 0.1
     FarClipPlane: 50000
-    Dutch: -0.1959385
+    Dutch: 0.9413001
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
@@ -19005,6 +19005,34 @@ PrefabInstance:
     - target: {fileID: 6485678210155128115, guid: ca3169c3555abeb438d19ad506e556fa, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6485678210590513788, guid: ca3169c3555abeb438d19ad506e556fa, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.35000002
+      objectReference: {fileID: 0}
+    - target: {fileID: 6485678210590513788, guid: ca3169c3555abeb438d19ad506e556fa, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.35000002
+      objectReference: {fileID: 0}
+    - target: {fileID: 6485678210590513788, guid: ca3169c3555abeb438d19ad506e556fa, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.35000002
+      objectReference: {fileID: 0}
+    - target: {fileID: 6485678210590513788, guid: ca3169c3555abeb438d19ad506e556fa, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6485678210590513788, guid: ca3169c3555abeb438d19ad506e556fa, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.158
+      objectReference: {fileID: 0}
+    - target: {fileID: 6485678210590513788, guid: ca3169c3555abeb438d19ad506e556fa, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6485678210590513789, guid: ca3169c3555abeb438d19ad506e556fa, type: 3}
+      propertyPath: m_Name
+      value: RotateButton
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ca3169c3555abeb438d19ad506e556fa, type: 3}

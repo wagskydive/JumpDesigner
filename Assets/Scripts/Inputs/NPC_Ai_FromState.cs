@@ -209,6 +209,8 @@ public class NPC_Ai_FromState : MonoBehaviour, IInput
 
     SkydiveState currentState;
 
+    public SkydiveState CurrentState { get => currentState; }
+
     public void SetState(SkydiveState state)
     {
         currentState = state;
@@ -266,7 +268,7 @@ public class NPC_Ai_FromState : MonoBehaviour, IInput
             }
 
 
-            float wPut = Vector3.SignedAngle(transform.forward, target.forward, transform.up) / 45;
+            float wPut = Vector3.SignedAngle(transform.forward, target.TransformDirection(Quaternion.AngleAxis(currentState.BaseRotation, Vector3.up)*Vector3.forward), transform.up) / 45;
             //Debug.Log(wPut);
             movement.w = Mathf.Clamp( wPidController.GetOutput(wPut,Time.deltaTime),-1,1);
         }
@@ -278,18 +280,18 @@ public class NPC_Ai_FromState : MonoBehaviour, IInput
 
 public class SkydiveState
 {
-    public SkydiveState(ISelectable target, int slot = 0, Grip leftGrip = null, Grip rightGrip = null)
+    public SkydiveState(ISelectable target,int slot = 0 , float baseRotation = 0, Grip leftGrip = null, Grip rightGrip = null)
     {
         LeftGrip = leftGrip;
         RightGrip = rightGrip;
         Target = target;
         Slot = slot;
-
+        BaseRotation = baseRotation;
     }
 
     public Grip LeftGrip { get; private set; }
     public Grip RightGrip { get; private set; }
     public ISelectable Target { get; private set; }
     public int Slot { get; private set; }
-
+    public float BaseRotation{ get; private set; }
 }

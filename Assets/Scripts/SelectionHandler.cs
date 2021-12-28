@@ -217,11 +217,22 @@ public class SelectionHandler : MonoBehaviour
         
     }
 
-    public void SetSlotTarget(ISelectable target, int slot)
+    public void SetSlotTarget(ISelectable target, int slot, float rotation)
     {
         if(selected != null && selected.transform.GetComponent< NPC_Ai_FromState>() != null)
         {
-            selected.transform.GetComponent<NPC_Ai_FromState>().SetState(new SkydiveState(target, slot));
+
+            selected.transform.GetComponent<NPC_Ai_FromState>().SetState(new SkydiveState(target,slot));
+        }
+    }
+
+    public void RotateInSlot()
+    {
+
+        if (selected != null && selected.transform.GetComponent<NPC_Ai_FromState>() != null)
+        {
+            NPC_Ai_FromState npc = selected.transform.GetComponent<NPC_Ai_FromState>();
+            npc.SetState(new SkydiveState(npc.CurrentState.Target,npc.CurrentState.Slot,npc.CurrentState.BaseRotation+90));
         }
     }
 }

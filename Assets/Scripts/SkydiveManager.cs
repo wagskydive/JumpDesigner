@@ -3,6 +3,21 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+
+
+public class JumpSequence
+{
+    int amountOfJumpers;
+
+
+}
+
+public class Formation
+{
+
+}
+
+
 public class SkydiveManager : MonoBehaviour
 {
     public event Action<ISelectable> OnSkydiverAdded;

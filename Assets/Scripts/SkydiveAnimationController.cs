@@ -185,11 +185,11 @@ public class SkydiveAnimationController : MonoBehaviour
         if(movementController.CurrentOrientation == FreefallOrientation.HeadDown || movementController.CurrentOrientation == FreefallOrientation.HeadUp)
         {
             headUpOrDown = -1;
-            animator.SetFloat("Orientation", (int)movementController.CurrentOrientation - currentInputs.z * .5f);
+            animator.SetFloat("Orientation", (int)movementController.CurrentOrientation - currentInputs.z * .35f);
         }
         else
         {
-            animator.SetFloat("Orientation", (int)movementController.CurrentOrientation + currentInputs.z * .5f);
+            animator.SetFloat("Orientation", (int)movementController.CurrentOrientation + currentInputs.z * .35f);
         }
 
         //ChestMovementHandler.transform.localPosition = new Vector3(0, 1, currentInputs.z * movementController.controlMode * headUpOrDown);
