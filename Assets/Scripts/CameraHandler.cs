@@ -8,13 +8,24 @@ using Cinemachine;
 public class CameraHandler : MonoBehaviour
 {
     CinemachineVirtualCamera vcam;
-    // Start is called before the first frame update
+
+    SkydiveManager skydiveManager;
+
     void Start()
     {
         vcam = GetComponent<CinemachineVirtualCamera>();
         SelectionHandler.OnSelected += SetCameraAim;
         SelectionHandler.OnTakeControlConfirmed += SetCameraTargetAndFollow;
         SelectionHandler.OnDeselected += ResetCameraAim;
+
+        skydiveManager = FindObjectOfType<SkydiveManager>();
+        skydiveManager.OnPlaybackStarted += HandlePlayback;
+    }
+
+    private void HandlePlayback()
+    {
+        vcam.LookAt = skydiveManager.middlepointNPCS;
+        vcam.Follow = skydiveManager.middlepointNPCS;
     }
 
     private void SetCameraTargetAndFollow(ISelectable obj)

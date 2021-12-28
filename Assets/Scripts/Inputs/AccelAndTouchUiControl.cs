@@ -124,6 +124,7 @@ public class AccelAndTouchUiControl : MonoBehaviour, IInput
         {
             if(lastSliderValue < .85f && sliderValue >= .85f || lastSliderValue > -.85f && sliderValue <= -.85f)
             {
+                //Vibrator.Vibrate(20);
                 transitionPanel.gameObject.SetActive(true);
             }
             else if(lastSliderValue >= .85f && sliderValue <.85f || lastSliderValue <= -.85f && sliderValue > -.85f)

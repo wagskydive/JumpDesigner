@@ -6,16 +6,18 @@ using UnityEngine;
 public class SkydiveSpawner : MonoBehaviour
 {
 
-
+    Transform spawnPoint;
     private void Start()
     {
         SelectionHandler.OnSelected += SetFollow;
+        spawnPoint = transform;
     }
 
     private void SetFollow(ISelectable obj)
     {
-        transform.SetParent(obj.transform);
-        transform.localPosition = Vector3.zero;
+        spawnPoint = obj.transform;
+        //transform.SetParent(obj.transform);
+        //transform.localPosition = Vector3.zero;
 
     }
 
@@ -33,7 +35,7 @@ public class SkydiveSpawner : MonoBehaviour
 
     public GameObject SpawnSkydiverWithAi(FreefallOrientation orientation = FreefallOrientation.Belly)
     {
-        GameObject skydiver = Instantiate(Resources.Load("Prefabs/SkydiveCharacter") as GameObject, transform.position, Quaternion.identity);
+        GameObject skydiver = Instantiate(Resources.Load("Prefabs/SkydiveCharacter") as GameObject, spawnPoint.position, Quaternion.identity);
         NPC_Ai_FromState aiInput = skydiver.AddComponent<NPC_Ai_FromState>();
         skydiver.GetComponent<MovementController>().ReplaceInput(aiInput);
 

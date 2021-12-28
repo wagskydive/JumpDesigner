@@ -182,17 +182,45 @@ public class SkydiveAnimationController : MonoBehaviour
 
         int headUpOrDown = 1;
 
-        if(movementController.CurrentOrientation == FreefallOrientation.HeadDown || movementController.CurrentOrientation == FreefallOrientation.HeadUp)
+        float orientationBend = currentInputs.z;
+
+        if(orientationBend < 0)
         {
-            headUpOrDown = -1;
-            animator.SetFloat("Orientation", (int)movementController.CurrentOrientation - currentInputs.z * .35f);
+            if (orientationBend > -.8f)
+            {
+                orientationBend = 0;
+            }
+            else
+            {
+                orientationBend = (orientationBend + .8f) * 5;
+            }
+
+
         }
         else
         {
-            animator.SetFloat("Orientation", (int)movementController.CurrentOrientation + currentInputs.z * .35f);
+            if (orientationBend < .8f)
+            {
+                orientationBend = 0;
+            }
+            else
+            {
+                orientationBend = (orientationBend - .8f) * 5;
+            }
+
         }
 
-        //ChestMovementHandler.transform.localPosition = new Vector3(0, 1, currentInputs.z * movementController.controlMode * headUpOrDown);
+        if (movementController.CurrentOrientation == FreefallOrientation.HeadDown || movementController.CurrentOrientation == FreefallOrientation.HeadUp)
+        {
+            headUpOrDown = -1;
+            animator.SetFloat("Orientation", (int)movementController.CurrentOrientation - orientationBend * .5f);
+        }
+        else
+        {
+            animator.SetFloat("Orientation", (int)movementController.CurrentOrientation + orientationBend * .5f);
+        }
+
+        ChestMovementHandler.transform.localPosition = new Vector3(0, 1, (currentInputs.z-orientationBend) * movementController.controlMode * headUpOrDown);
 
         movementController.CharacterOffset.localEulerAngles = new Vector3(OrientationFloatToDegrees(), 0, 0);
 
@@ -200,7 +228,9 @@ public class SkydiveAnimationController : MonoBehaviour
         //leftLegIK.weight = Mathf.Clamp(currentInputs.x, -1, 0)*-1;
         //rightLegIK.weight = Mathf.Clamp(currentInputs.x, 0, 1);
 
-        //spineIK.weight = Mathf.Abs(currentInputs.z);
+        spineIK.weight = Mathf.Abs(currentInputs.z);
+
+
         float spineX = currentInputs.x * 35;
         if (movementController.CurrentOrientation == FreefallOrientation.Back)
         {

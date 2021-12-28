@@ -214,7 +214,12 @@ public class NPC_Ai_FromState : MonoBehaviour, IInput
     public void SetState(SkydiveState state)
     {
         currentState = state;
-        target = currentState.Target.transform;
+        if(currentState.Target != null)
+        {
+            target = currentState.Target.transform;
+        }
+        
+        OnButtonPressed?.Invoke((int)state.Orientation);
         ResetPIDS();
         //currentSlot = state.Slot;
     }
@@ -232,7 +237,7 @@ public class NPC_Ai_FromState : MonoBehaviour, IInput
         Vector4 movement = Vector4.zero;
         if (target == null)
         {
-            target = skydiveManager.middlepointNPCS;
+            target = transform ;
         }
 
 
@@ -250,7 +255,7 @@ public class NPC_Ai_FromState : MonoBehaviour, IInput
             float wPut = Vector3.SignedAngle(transform.forward, targetWithSlotOffset.Flatten() - transform.position.Flatten(), transform.up) / 180;
             Debug.Log(wPut);
             movement.w = Mathf.Clamp(wPidController.GetOutput(wPut, Time.deltaTime), -1,1);
-            movement.z = Mathf.Clamp(Vector3.Distance(targetWithSlotOffset.Flatten(), transform.position.Flatten()) / 5,-.95f,.95f);
+            movement.z = Mathf.Clamp(Vector3.Distance(targetWithSlotOffset.Flatten(), transform.position.Flatten()) / 5,-.8f,.8f);
             
         }
         else if(currentState != null && currentState.Slot > 0)
@@ -258,8 +263,8 @@ public class NPC_Ai_FromState : MonoBehaviour, IInput
 
             Vector3 to = transform.InverseTransformDirection(targetWithSlotOffset.Flatten() - transform.position.Flatten());
             
-            movement.z = Mathf.Clamp(zPidController.GetOutput(to.z/distaceThreshold, Time.fixedDeltaTime),-.99f,.99f);           
-            movement.x = Mathf.Clamp(xPidController.GetOutput(to.x/distaceThreshold, Time.fixedDeltaTime), -.99f, .99f);
+            movement.z = Mathf.Clamp(zPidController.GetOutput(to.z/distaceThreshold, Time.fixedDeltaTime),-.8f,.8f);           
+            movement.x = Mathf.Clamp(xPidController.GetOutput(to.x/distaceThreshold, Time.fixedDeltaTime), -.8f, .8f);
             //movement.x = Mathf.Clamp(to.x/(distaceThreshold * .3f), -.95f, .95f);
 
             if (Vector3.Distance(transform.position.Flatten(),target.position.Flatten()) < Vector3.Distance(transform.position.Flatten(), targetWithSlotOffset.Flatten()))
@@ -276,22 +281,4 @@ public class NPC_Ai_FromState : MonoBehaviour, IInput
         movement.y = Mathf.Clamp(-yPidController.GetOutput(transform.position.y - targetWithSlotOffset.y, Time.fixedDeltaTime), -.99f, .99f);
         return movement;
     }
-}
-
-public class SkydiveState
-{
-    public SkydiveState(ISelectable target,int slot = 0 , float baseRotation = 0, Grip leftGrip = null, Grip rightGrip = null)
-    {
-        LeftGrip = leftGrip;
-        RightGrip = rightGrip;
-        Target = target;
-        Slot = slot;
-        BaseRotation = baseRotation;
-    }
-
-    public Grip LeftGrip { get; private set; }
-    public Grip RightGrip { get; private set; }
-    public ISelectable Target { get; private set; }
-    public int Slot { get; private set; }
-    public float BaseRotation{ get; private set; }
 }

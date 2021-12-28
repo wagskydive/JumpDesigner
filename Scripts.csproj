@@ -74,6 +74,7 @@
     <Compile Include="Assets\Scripts\GameModeManager.cs" />
     <Compile Include="Assets\Scripts\FollowGyro.cs" />
     <Compile Include="Assets\Scripts\Inputs\IInput.cs" />
+    <Compile Include="Assets\Scripts\TransitionPanel.cs" />
     <Compile Include="Assets\Scripts\SecondarySelectionIndicator.cs" />
     <Compile Include="Assets\Scripts\RotationFollow.cs" />
     <Compile Include="Assets\Scripts\Inputs\NPC_Ai_FromState.cs" />
@@ -84,6 +85,7 @@
     <Compile Include="Assets\Scripts\MovementController.cs" />
     <Compile Include="Assets\Scripts\CharacterAnimationController.cs" />
     <Compile Include="Assets\Scripts\CameraHandler.cs" />
+    <Compile Include="Assets\Scripts\LegMovementAnimator.cs" />
     <Compile Include="Assets\Scripts\Inputs\NPC_InputController.cs" />
     <Compile Include="Assets\Scripts\TargetLine.cs" />
     <Compile Include="Assets\Scripts\SceneLoader.cs" />
@@ -93,8 +95,12 @@
     <Compile Include="Assets\Scripts\RotationHandle.cs" />
     <Compile Include="Assets\Scripts\HandGripButton.cs" />
     <Compile Include="Assets\Scripts\IkHint.cs" />
-    <Compile Include="Assets\Scripts\LegMovementAnimator.cs" />
-    <Compile Include="Assets\Scripts\TransitionPanel.cs" />
+    <Compile Include="Assets\Scripts\Inputs\SkydiveFormationSlot.cs" />
+    <Compile Include="Assets\Scripts\JumpCreator.cs" />
+    <Compile Include="Assets\Scripts\Formation.cs" />
+    <Compile Include="Assets\Scripts\Inputs\SkydiveState.cs" />
+    <Compile Include="Assets\Scripts\JumpSequence.cs" />
+    <Compile Include="Assets\Scripts\Vibrator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Scripts\Scripts.asmdef" />

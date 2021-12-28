@@ -128,7 +128,7 @@ public class MovementController : MonoBehaviour
     [SerializeField]
     private float movementSpeed;
     [SerializeField]
-    private float turnSpeed = 2f;
+    private float turnSpeed = 4f;
     [SerializeField]
     public float xOffset = 0;
 
@@ -288,46 +288,50 @@ public class MovementController : MonoBehaviour
 
     private void HandleButtonPress(int obj)
     {
-        if (obj == 1)
-        {
-            TransitionForward();
-        }
-        if (obj == 2)
-        {
-            TransitionBackward();
-        }
-        if (obj == 3)
-        {
-            TransitionLeft();
-        }
-        if (obj == 4)
-        {
-            TransitionRight();
-        }
-        if (obj == 5)
-        {
-            Turn180Left();
-        }
-        if (obj == 6)
-        {
-            Turn180Right();
-        }
-        if (obj == 7)
+        if (obj == 0)
         {
             Transition(FreefallOrientation.HeadDown);
         }
-        if (obj == 8)
+        if (obj == 1)
         {
             Transition(FreefallOrientation.Back);
         }
-        if (obj == 9)
+        if (obj == 2)
         {
             Transition(FreefallOrientation.HeadUp);
         }
-        if (obj == 10)
+        if (obj == 3)
         {
             Transition(FreefallOrientation.Belly);
         }
+
+        if (obj == 4)
+        {
+            TransitionForward();
+        }
+        if (obj == 5)
+        {
+            TransitionBackward();
+        }
+        if (obj == 6)
+        {
+            TransitionLeft();
+        }
+        if (obj == 7)
+        {
+            TransitionRight();
+        }
+        if (obj == 8)
+        {
+            Turn180Left();
+        }
+        if (obj == 9)
+        {
+            Turn180Right();
+        }
+
+
+
         if (obj == 11)
         {
             LeanTransitionForward();
