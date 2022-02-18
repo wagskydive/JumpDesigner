@@ -17,9 +17,11 @@ public class CameraHandler : MonoBehaviour
         SelectionHandler.OnSelected += SetCameraAim;
         SelectionHandler.OnTakeControlConfirmed += SetCameraTargetAndFollow;
         SelectionHandler.OnDeselected += ResetCameraAim;
+        FindObjectOfType<SkydiveManager>().OnPlaybackStarted += HandlePlayback;
+        FindObjectOfType<SkydiveSpawner>().OnSkydiverSpawned += SetCameraTargetAndFollow;
 
-        skydiveManager = FindObjectOfType<SkydiveManager>();
-        skydiveManager.OnPlaybackStarted += HandlePlayback;
+        //skydiveManager = FindObjectOfType<SkydiveManager>();
+        //skydiveManager.OnPlaybackStarted += HandlePlayback;
     }
 
     private void HandlePlayback()

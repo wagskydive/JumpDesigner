@@ -1,104 +1,104 @@
 fileFormatVersion: 2
 guid: b05b5c3d0a7c1b44b9a9caf9e991cc5d
 ModelImporter:
-  serializedVersion: 20101
+  serializedVersion: 21202
   internalIDToNameTable: []
   externalObjects:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: female_casualsuit01
-    second: {fileID: 2100000, guid: 323e43e97f369ef41abb0f48473a86b0, type: 2}
+    second: {fileID: 2100000, guid: c4440641fdb17c3499cb56fba39aa4f6, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: female_casualsuit02
-    second: {fileID: 2100000, guid: 323e43e97f369ef41abb0f48473a86b0, type: 2}
+    second: {fileID: 2100000, guid: b594b9b2c6b53844a88da9123082686c, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: female_elegantsuit01
-    second: {fileID: 2100000, guid: 323e43e97f369ef41abb0f48473a86b0, type: 2}
+    second: {fileID: 2100000, guid: dfcd05ff1d296e946aee6c5b2d46cc68, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: female_generic
-    second: {fileID: 2100000, guid: 97d74cbed3d734b46a7d2deae52bcc8e, type: 2}
+    second: {fileID: 2100000, guid: 3eea5f1c12d430841a47856d8aa22c0b, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: female_sportsuit01
-    second: {fileID: 2100000, guid: 323e43e97f369ef41abb0f48473a86b0, type: 2}
+    second: {fileID: 2100000, guid: 6530cb4fb11dacc47a91770ca24afbaa, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: high-poly
-    second: {fileID: 2100000, guid: 323e43e97f369ef41abb0f48473a86b0, type: 2}
+    second: {fileID: 2100000, guid: 1a814aff23bf20349b154ce70bfa23ce, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: male_casualsuit01
-    second: {fileID: 2100000, guid: 323e43e97f369ef41abb0f48473a86b0, type: 2}
+    second: {fileID: 2100000, guid: a87a3c5516d0e7943baf0c5779a8196b, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: male_casualsuit02
-    second: {fileID: 2100000, guid: 323e43e97f369ef41abb0f48473a86b0, type: 2}
+    second: {fileID: 2100000, guid: 81584013cfba5b7479fee2d2b3416496, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: male_casualsuit03
-    second: {fileID: 2100000, guid: 323e43e97f369ef41abb0f48473a86b0, type: 2}
+    second: {fileID: 2100000, guid: ee28d385c59fdfc438185d858fe5989f, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: male_casualsuit04
-    second: {fileID: 2100000, guid: 323e43e97f369ef41abb0f48473a86b0, type: 2}
+    second: {fileID: 2100000, guid: 620f3d4b9a3010f43b1492242f00190c, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: male_casualsuit05
-    second: {fileID: 2100000, guid: 323e43e97f369ef41abb0f48473a86b0, type: 2}
+    second: {fileID: 2100000, guid: 85d637f9f7037734d8d03d438c091edd, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: male_elegantsuit01
-    second: {fileID: 2100000, guid: 323e43e97f369ef41abb0f48473a86b0, type: 2}
+    second: {fileID: 2100000, guid: 466054b2f58550b44be0b8b123d0c069, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: male_worksuit01
-    second: {fileID: 2100000, guid: 323e43e97f369ef41abb0f48473a86b0, type: 2}
+    second: {fileID: 2100000, guid: e9e3b763f2a1d8b418d796052a07edbd, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: ponytail01
-    second: {fileID: 2100000, guid: 323e43e97f369ef41abb0f48473a86b0, type: 2}
+    second: {fileID: 2100000, guid: 78aa7c9bddaa96c4dbdf1a257fe29e77, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: shoes01
-    second: {fileID: 2100000, guid: 323e43e97f369ef41abb0f48473a86b0, type: 2}
+    second: {fileID: 2100000, guid: 19f7899dd53f1ee4ab208d52fc6b3b70, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: shoes03
-    second: {fileID: 2100000, guid: 323e43e97f369ef41abb0f48473a86b0, type: 2}
+    second: {fileID: 2100000, guid: ae15203a4074ee5429d7fb339f2a1f8d, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: shoes04
-    second: {fileID: 2100000, guid: 323e43e97f369ef41abb0f48473a86b0, type: 2}
+    second: {fileID: 2100000, guid: 09141978ba9de1e498781c8e4ee05cca, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: shoes05
-    second: {fileID: 2100000, guid: 323e43e97f369ef41abb0f48473a86b0, type: 2}
+    second: {fileID: 2100000, guid: 086cf4c5614afc84182921eaca42852e, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: shoes06
-    second: {fileID: 2100000, guid: 323e43e97f369ef41abb0f48473a86b0, type: 2}
+    second: {fileID: 2100000, guid: 06f821a820e1d894f96a37ac08f1ee88, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0
@@ -109,6 +109,7 @@ ModelImporter:
     bakeSimulation: 0
     resampleCurves: 1
     optimizeGameObjects: 0
+    removeConstantScaleCurves: 0
     motionNodeName: 
     rigImportErrors: 
     rigImportWarnings: 
@@ -157,6 +158,7 @@ ModelImporter:
     importBlendShapes: 1
     importCameras: 1
     importLights: 1
+    nodeNameCollisionStrategy: 0
     fileIdsGeneration: 2
     swapUVChannels: 0
     generateSecondaryUV: 0
@@ -168,6 +170,7 @@ ModelImporter:
     skinWeightsMode: 0
     maxBonesPerVertex: 4
     minBoneWeight: 0.001
+    optimizeBones: 1
     meshOptimizationFlags: -1
     indexFormat: 0
     secondaryUVAngleDistortion: 8
@@ -995,6 +998,7 @@ ModelImporter:
   animationType: 3
   humanoidOversampling: 1
   avatarSetup: 1
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 0
   additionalBone: 0
   userData: 
   assetBundleName: 

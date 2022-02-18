@@ -73,7 +73,9 @@ public class SelectionHandler : MonoBehaviour
         if (skydiveManager.SpawnedSkydivers.Count > 0)
         {
             SetSelection(skydiveManager.SpawnedSkydivers[0]);
+            TakeControOfSelection();
         }
+
     }
 
     public void SetSecondarySelection(ISelectable selectable)
@@ -208,13 +210,14 @@ public class SelectionHandler : MonoBehaviour
 
     public void TakeControOfSelection()
     {
-        if (HasSelection())
+        if (!HasSelection())
         {
-            player = selected;
-            OnTakeControlConfirmed?.Invoke(selected);
-            Deselect();
+            selected = FindObjectOfType<Selectable>();
         }
-        
+        player = selected;
+        OnTakeControlConfirmed?.Invoke(selected);
+        Deselect();
+
     }
 
     public void SetSlotTarget(ISelectable target, int slot, float rotation)

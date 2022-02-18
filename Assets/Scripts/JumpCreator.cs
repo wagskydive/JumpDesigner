@@ -1,6 +1,14 @@
 ﻿
 public static class JumpCreator
 {
+    public static JumpSequence DefaultJump(int amount, FreefallOrientation orientation = FreefallOrientation.Belly)
+    {
+        JumpSequence jumpSequence = new JumpSequence();
+        jumpSequence.AddFormation(DefaultFormation(amount, orientation));
+        return jumpSequence;
+    }
+
+
     public static JumpSequence FourWayTestJump(FreefallOrientation orientation)
     {
         JumpSequence jumpSequence = new JumpSequence();
@@ -9,6 +17,16 @@ public static class JumpCreator
         jumpSequence.AddFormation(DoubleTwins4Way(orientation));
         jumpSequence.AddFormation(Compressed4Way(orientation));
         return jumpSequence;
+    }
+
+    private static Formation DefaultFormation(int amount, FreefallOrientation orientation)
+    {
+        Formation formation = new Formation(orientation);
+        for (int i = 0; i < amount-1; i++)
+        {
+            formation.AddSlot(new SkydiveFormationSlot(i + 1, orientation, 0, 0, 0));
+        }
+        return formation;
     }
 
     private static Formation DoubleTwins4Way(FreefallOrientation orientation)

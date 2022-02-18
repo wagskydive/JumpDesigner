@@ -24,6 +24,7 @@ public class SkydiveManager : MonoBehaviour
     private void Awake()
     {
         spawner = FindObjectOfType<SkydiveSpawner>();
+        
     }
 
 
@@ -32,6 +33,8 @@ public class SkydiveManager : MonoBehaviour
         if(CurrentJumpSequence == null || !isPlayingBack)
         {
             StartPlayback(JumpCreator.FourWayTestJump(FreefallOrientation.HeadUp));
+
+
         }
         else
         {
@@ -43,6 +46,11 @@ public class SkydiveManager : MonoBehaviour
             HandoutNextSlots();
         }
         
+    }
+
+    public void StartDefaultJump(int amount)
+    {
+        StartPlayback(JumpCreator.DefaultJump(amount));
     }
 
     public void StartPlayback(JumpSequence sequence)

@@ -6,10 +6,16 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/LoadScene.unity
-    guid: 4c706099f1709884589f666195e7697b
+    path: Assets/Scenes/StartMenu.unity
+    guid: d883a68579d4514449a4c0ece689f457
   - enabled: 1
     path: Assets/Scenes/FreefallScene.unity
     guid: b83ed4feecc578a46bcaf98201e88f59
+  - enabled: 1
+    path: Assets/Scenes/CanopyScene.unity
+    guid: d760a0bb19ac5c745a412db0cf38abf4
+  - enabled: 1
+    path: Assets/Scenes/EmptyScene.unity
+    guid: 2f9df3d9c23b5b94eadc9f18fe9fe903
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: be62b5bbf13189e4eb38151b44c6d571, type: 2}

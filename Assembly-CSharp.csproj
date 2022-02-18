@@ -78,6 +78,7 @@
     <Compile Include="Assets\LeanTween\Examples\Scripts\GeneralBasic.cs" />
     <Compile Include="Assets\LeanTween\Examples\Archived\TestingRigidbodyCS.cs" />
     <Compile Include="Assets\LeanTween\Examples\Scripts\Following.cs" />
+    <Compile Include="Assets\ModifiableCharacter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\ExternalPackages\TextMesh Pro\Shaders\TMPro.cginc" />
@@ -850,6 +851,10 @@
     <ProjectReference Include="LeanTween.csproj">
       <Project>{FAEA5D7C-4C74-7BE8-05EE-47FE828891E1}</Project>
       <Name>LeanTween</Name>
+    </ProjectReference>
+    <ProjectReference Include="AircraftPhysics.csproj">
+      <Project>{B067AC5D-B616-6DD8-CE45-CC60EAFFBB8E}</Project>
+      <Name>AircraftPhysics</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

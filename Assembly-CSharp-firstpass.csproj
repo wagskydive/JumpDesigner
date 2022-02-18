@@ -809,6 +809,10 @@
       <Project>{FAEA5D7C-4C74-7BE8-05EE-47FE828891E1}</Project>
       <Name>LeanTween</Name>
     </ProjectReference>
+    <ProjectReference Include="AircraftPhysics.csproj">
+      <Project>{B067AC5D-B616-6DD8-CE45-CC60EAFFBB8E}</Project>
+      <Name>AircraftPhysics</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

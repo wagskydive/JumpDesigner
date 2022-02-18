@@ -91,7 +91,7 @@ public class NPC_Ai_FromState : MonoBehaviour, IInput
 
     SkydiveManager skydiveManager;
 
-    PID yPidController = new PID(3.5f, 1f, 1.5f);
+    PID yPidController = new PID(5f, 2f, 6f);
 
 
     PID xPidController = new PID(3.5f, 1f, 1.5f);
@@ -109,8 +109,10 @@ public class NPC_Ai_FromState : MonoBehaviour, IInput
         PID_ValuesTester.OnxzPidValuesChanged += SetxzPIDValues;
         PID_ValuesTester.OnyPidValuesChanged += SetyPIDValues;
         PID_ValuesTester.OnwPidValuesChanged += SetwPIDValues;
-    }
 
+        terrainTransform = FindObjectOfType<DetectorLowersLand>().transform;
+    }
+    Transform terrainTransform;
     private void SetwPIDValues(Vector3 pid)
     {
         wPidController.Kp = pid.x;
@@ -232,8 +234,18 @@ public class NPC_Ai_FromState : MonoBehaviour, IInput
     public event Action<int> OnButtonPressed;
 
     float distaceThreshold = 3;
+
+    bool isInFreefall = true;
+
     Vector4 GetMovementVector()
     {
+        if(transform.position.y - terrainTransform.position.y < 300 && isInFreefall)
+        {
+            GetComponent<MovementController>().PullParachute();
+            isInFreefall = false;
+        }
+
+
         Vector4 movement = Vector4.zero;
         if (target == null)
         {
@@ -278,7 +290,7 @@ public class NPC_Ai_FromState : MonoBehaviour, IInput
             movement.w = Mathf.Clamp( wPidController.GetOutput(wPut,Time.deltaTime),-1,1);
         }
 
-        movement.y = Mathf.Clamp(-yPidController.GetOutput(transform.position.y - targetWithSlotOffset.y, Time.fixedDeltaTime), -.99f, .99f);
+        movement.y = Mathf.Clamp(-yPidController.GetOutput(transform.position.y - targetWithSlotOffset.y, Time.fixedDeltaTime), -2f, 2f);
         return movement;
     }
 }

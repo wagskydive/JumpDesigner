@@ -5,9 +5,11 @@ using UnityEngine;
 
 public class SkydiveSpawner : MonoBehaviour
 {
-
+    public event Action<ISelectable> OnSkydiverSpawned;
     Transform spawnPoint;
-    private void Start()
+
+
+    private void Awake()
     {
         SelectionHandler.OnSelected += SetFollow;
         spawnPoint = transform;
@@ -38,7 +40,7 @@ public class SkydiveSpawner : MonoBehaviour
         GameObject skydiver = Instantiate(Resources.Load("Prefabs/SkydiveCharacter") as GameObject, spawnPoint.position, Quaternion.identity);
         NPC_Ai_FromState aiInput = skydiver.AddComponent<NPC_Ai_FromState>();
         skydiver.GetComponent<MovementController>().ReplaceInput(aiInput);
-
+        OnSkydiverSpawned?.Invoke(skydiver.GetComponent<Selectable>());
         return skydiver;
     }
 

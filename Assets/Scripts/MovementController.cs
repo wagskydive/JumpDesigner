@@ -382,8 +382,22 @@ public class MovementController : MonoBehaviour
     {
         capsCollider = GetComponent<CapsuleCollider>();
         rb = gameObject.GetComponent<Rigidbody>();
-        rb.useGravity = false;
+        rb.useGravity = true;
         controlMode = 1;
+    }
+
+
+    public void PullParachute()
+    {
+        CanopyController canopyController =  gameObject.AddComponent<CanopyController>();
+        gameObject.AddComponent<CanopyManualControlHelper>();
+        NPC_Ai_FromState nPC_Ai_FromState = GetComponent<NPC_Ai_FromState>();
+        if (nPC_Ai_FromState != null)
+        {
+            nPC_Ai_FromState.enabled = false;
+        }
+        canopyController.Pull();
+        enabled = false;
     }
 
 
@@ -444,7 +458,7 @@ public class MovementController : MonoBehaviour
         }
 
         rb.AddForce(new Vector3(0, -SpeedMultiplierFromOrientation(CurrentOrientation), 0) * movementSpeed);
-
+        rb.AddForce(new Vector3(0, -20, 0));
     }
 
 
