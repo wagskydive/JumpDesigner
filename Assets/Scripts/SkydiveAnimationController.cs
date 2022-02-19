@@ -61,6 +61,7 @@ public class SkydiveAnimationController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         movementController = GetComponent<MovementController>();
+        movementController.OnPull += PullAnimation;
         lastPosition = transform.position;
         PrevPos = new Vector3[average];
         for (int i = 0; i < average; i++)
@@ -75,6 +76,10 @@ public class SkydiveAnimationController : MonoBehaviour
         lastOrientationInt = (int)movementController.CurrentOrientation;
     }
 
+    private void PullAnimation()
+    {
+        animator.SetBool("Pull", true);
+    }
 
     private void Transition(FreefallOrientation orientation, float xRotation)
     {

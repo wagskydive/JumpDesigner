@@ -236,14 +236,29 @@ public class NPC_Ai_FromState : MonoBehaviour, IInput
     float distaceThreshold = 3;
 
     bool isInFreefall = true;
+    bool isSeperating = false;
+
+    float pullHeight = 1000;
+    float seperationHeight = 1800;
+
 
     Vector4 GetMovementVector()
     {
-        if(transform.position.y - terrainTransform.position.y < 300 && isInFreefall)
+
+
+
+        if(transform.position.y - terrainTransform.position.y < pullHeight && isInFreefall)
         {
             GetComponent<MovementController>().PullParachute();
             isInFreefall = false;
+
         }
+
+        if (transform.position.y - terrainTransform.position.y < seperationHeight && !isSeperating)
+        {           
+            isSeperating = true;
+        }
+
 
 
         Vector4 movement = Vector4.zero;
@@ -258,6 +273,10 @@ public class NPC_Ai_FromState : MonoBehaviour, IInput
         if(currentState != null)
         {
             targetWithSlotOffset = target.TransformPoint(SlotOffset(currentState.Slot));
+            if (isSeperating)
+            {
+                targetWithSlotOffset = (skydiveManager.middlepointNPCS.position- transform.position) * -20;
+            }
         }
 
 

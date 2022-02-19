@@ -10,6 +10,15 @@ public class AccelAndTouchUiControl : MonoBehaviour, IInput
     public int CurrentButtonsState => GetCurrentButtonsState();
 
     [SerializeField]
+    float LeftResetValue = 0;
+    
+    [SerializeField]
+    float RightResetValue = 0;
+    
+    [SerializeField]
+    float MidResetValue = 0;
+
+    [SerializeField]
     private Slider leftSlider;
     DragHelper leftButton;
     
@@ -21,7 +30,7 @@ public class AccelAndTouchUiControl : MonoBehaviour, IInput
     TransitionPanel transitionPanel;
         
     [SerializeField]
-    private Slider UpDownSlider;
+    private Slider MidSlider;
     DragHelper UpDownButton;
 
     public void PressButton(int index)
@@ -33,7 +42,7 @@ public class AccelAndTouchUiControl : MonoBehaviour, IInput
     {
         leftButton = leftSlider.GetComponent<DragHelper>();
         rightButton = rightSlider.GetComponent<DragHelper>();
-        UpDownButton = UpDownSlider.GetComponent<DragHelper>();
+        UpDownButton = MidSlider.GetComponent<DragHelper>();
 
         leftButton.ÓnDragEndEvent += ResetLeft;
         rightButton.ÓnDragEndEvent += ResetRight;
@@ -97,7 +106,7 @@ public class AccelAndTouchUiControl : MonoBehaviour, IInput
 
     private void ResetUpDown()
     {
-        ResetSlider(UpDownSlider);
+        ResetSlider(MidSlider);
     }
 
     private void ResetRight()
@@ -110,9 +119,22 @@ public class AccelAndTouchUiControl : MonoBehaviour, IInput
         ResetSlider(leftSlider);
     }
 
+
     private void ResetSlider(Slider slider)
     {
-        slider.value = 0;
+        if(slider == leftSlider)
+        {
+            slider.value = LeftResetValue;
+        }
+        if (slider == rightSlider)
+        {
+            slider.value = RightResetValue;
+        }
+        if (slider == MidSlider)
+        {
+            slider.value = MidResetValue;
+        }
+
     }
 
     float lastSliderValue;
@@ -139,7 +161,7 @@ public class AccelAndTouchUiControl : MonoBehaviour, IInput
     private Vector4 GetInputs()
     {
         
-        return (new Vector4(rightSlider.value, UpDownSlider.value, leftSlider.value, Input.acceleration.x));
+        return (new Vector4( MidSlider.value, rightSlider.value, leftSlider.value, Input.acceleration.x));
         
     }
 

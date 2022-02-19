@@ -20,6 +20,8 @@ public class CameraHandler : MonoBehaviour
         FindObjectOfType<SkydiveManager>().OnPlaybackStarted += HandlePlayback;
         FindObjectOfType<SkydiveSpawner>().OnSkydiverSpawned += SetCameraTargetAndFollow;
 
+        var transposer = vcam.GetCinemachineComponent<CinemachineTransposer>();
+        transposer.m_FollowOffset = new Vector3(0, 4, -4);
         //skydiveManager = FindObjectOfType<SkydiveManager>();
         //skydiveManager.OnPlaybackStarted += HandlePlayback;
     }
@@ -32,8 +34,20 @@ public class CameraHandler : MonoBehaviour
 
     private void SetCameraTargetAndFollow(ISelectable obj)
     {
-        vcam.LookAt = obj.transform;
+        SetCameraAim(obj);
         vcam.Follow = obj.transform;
+        obj.transform.GetComponent<MovementController>().OnPull += PullHandle;
+    }
+
+    void PullHandle()
+    {
+        Invoke("SetCanopyCamera", 1.4f);
+    }
+
+    private void SetCanopyCamera()
+    {
+        var transposer = vcam.GetCinemachineComponent<CinemachineTransposer>();
+        transposer.m_FollowOffset = new Vector3(0, 4, -20);
     }
 
     private void ResetCameraAim(ISelectable obj)

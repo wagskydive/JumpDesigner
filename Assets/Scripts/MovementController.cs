@@ -376,7 +376,7 @@ public class MovementController : MonoBehaviour
 
 
 
-
+    public event Action OnPull;
 
     private void Awake()
     {
@@ -397,9 +397,16 @@ public class MovementController : MonoBehaviour
             nPC_Ai_FromState.enabled = false;
         }
         canopyController.Pull();
+        rb.freezeRotation = false;
+        Invoke("ResetOffset", 1.4f);
+        OnPull?.Invoke();
         enabled = false;
     }
 
+    void ResetOffset()
+    {
+        CharacterOffset.localEulerAngles = Vector3.zero;
+    }
 
     float ForwardSign(FreefallOrientation orientation)
     {

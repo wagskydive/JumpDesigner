@@ -31,10 +31,7 @@ AnimatorStateTransition:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: 
-  m_Conditions:
-  - m_ConditionMode: 1
-    m_ConditionEvent: CanopyOpen
-    m_EventTreshold: 0
+  m_Conditions: []
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 18808974416882679}
   m_Solo: 0
@@ -1063,7 +1060,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Opening_Adult_Male|Opening_Adult_Male
-  m_Speed: 1
+  m_Speed: 2
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: -8497517215792489760}
@@ -1141,7 +1138,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 4188298191382927259, guid: cbf78f7885784414dbcd8c010fca6e72, type: 3}
+  m_Motion: {fileID: 2910742486769232160, guid: 66df4a45e424bec41918ed978a27f624, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 

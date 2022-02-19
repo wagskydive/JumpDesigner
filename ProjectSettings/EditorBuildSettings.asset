@@ -15,7 +15,7 @@ EditorBuildSettings:
     path: Assets/Scenes/CanopyScene.unity
     guid: d760a0bb19ac5c745a412db0cf38abf4
   - enabled: 1
-    path: Assets/Scenes/EmptyScene.unity
-    guid: 2f9df3d9c23b5b94eadc9f18fe9fe903
+    path: Assets/Scenes/CharacterScene.unity
+    guid: 1d8ad249fe9653047814d43375b123dd
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: be62b5bbf13189e4eb38151b44c6d571, type: 2}

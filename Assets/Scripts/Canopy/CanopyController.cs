@@ -7,6 +7,8 @@ using UnityEngine;
 public class CanopyController : MonoBehaviour
 {
     public event Action<Vector4> OnMovement;
+    public event Action OnPull;
+    public event Action OnCutaway;
 
     [SerializeField]
     public IInput inputSource;
@@ -28,19 +30,28 @@ public class CanopyController : MonoBehaviour
 
     CanopyConnector canopyConnector;
 
+    Rigidbody canopyRb;
+
     public void Pull()
     {
-        GameObject go =  Instantiate(Resources.Load("Prefabs/ValkyrieTest")) as GameObject;
+
+        OnPull?.Invoke();
+        Invoke("DeployParachute", 1.4f);
+    }
+
+    public void DeployParachute()
+    {
+        GameObject go = Instantiate(Resources.Load("Prefabs/ValkyrieTest")) as GameObject;
         go.transform.position = transform.position;
         canopyConnector = go.GetComponent<CanopyConnector>();
         canopyConnector.ConnectCanopy(this);
+        canopyRb = canopyConnector.GetComponent<Rigidbody>();
         go.transform.localScale = Vector3.one * .4f;
         midSurface.SetFlapAngle(.2f);
         LeanTween.scale(go, Vector3.one, 2);
 
 
         brakesReleased = false;
-        
     }
 
     public void Cutaway()
@@ -52,6 +63,7 @@ public class CanopyController : MonoBehaviour
             canopyConnector = null;
             SetControls(null, null, null);
             Destroy(go);
+            OnCutaway?.Invoke();
         }
     }
 
@@ -125,7 +137,8 @@ public class CanopyController : MonoBehaviour
                     midSurface.SetFlapAngle(movementInputs.x);
 
                 }
-                
+
+                canopyRb.AddRelativeTorque ( Vector3.forward*-800 * movementVectorAdjusted.w);
 
                 //leftSideSurface.transform.localEulerAngles += new Vector3(0,0,movementInputs.y);
                 //rightSideSurface.transform.localEulerAngles += new Vector3(0,0,movementInputs.z);

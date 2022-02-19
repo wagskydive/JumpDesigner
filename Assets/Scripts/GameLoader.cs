@@ -21,6 +21,11 @@ public class GameLoader : MonoBehaviour
     {
         SceneManager.LoadScene("CanopyScene");
     }
+        
+    public void CharacterButtonPress()
+    {
+        SceneManager.LoadScene("CharacterScene");
+    }
 
     public void FreefallButtonPress()
     {

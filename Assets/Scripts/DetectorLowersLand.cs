@@ -4,6 +4,7 @@ public class DetectorLowersLand : MonoBehaviour
 {
 
     float timerRunning = 0;
+    [SerializeField]
     float timeDelay = 4;
 
     public bool isTriggered;

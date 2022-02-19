@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &953258915
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 953258916}
+  m_Layer: 0
+  m_Name: Wearables
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &953258916
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 953258915}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6204415852391017997}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &138086907808653962
 GameObject:
   m_ObjectHideFlags: 0
@@ -136,8 +167,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 468565597898689558}
-  - component: {fileID: 112313086844056325}
-  - component: {fileID: 4566726402041692920}
   - component: {fileID: 5446685066095142000}
   - component: {fileID: 9086605174539422725}
   m_Layer: 0
@@ -164,48 +193,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &112313086844056325
-Animator:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 468565597898689559}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: b05b5c3d0a7c1b44b9a9caf9e991cc5d, type: 3}
-  m_Controller: {fileID: 9100000, guid: d45b65b0f17425f429f9870ba5fb7c81, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &4566726402041692920
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 468565597898689559}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fff0960ef4ea6e04eac66b4a7fd2189d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_RigLayers:
-  - m_Rig: {fileID: 0}
-    m_Active: 1
-  - m_Rig: {fileID: 0}
-    m_Active: 1
-  - m_Rig: {fileID: 0}
-    m_Active: 1
-  - m_Rig: {fileID: 0}
-    m_Active: 1
-  m_Effectors: []
 --- !u!136 &5446685066095142000
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1029,7 +1016,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3136748961931644297
 Transform:
   m_ObjectHideFlags: 0
@@ -1475,6 +1462,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8672382721069299857}
   - component: {fileID: 3004621557655504354}
+  - component: {fileID: 9086605174539422727}
   m_Layer: 0
   m_Name: female_sportsuit01Mesh
   m_TagString: Untagged
@@ -1568,6 +1556,19 @@ SkinnedMeshRenderer:
     m_Center: {x: 0.0036393702, y: -0.09245877, z: -0.052349105}
     m_Extent: {x: 0.30542013, y: 0.5895426, z: 0.47448862}
   m_DirtyAABB: 0
+--- !u!114 &9086605174539422727
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4396114820993354424}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e57cb2ca52c8e74db80abefa1a92b3a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SkinCoverMaskInt: 62592
 --- !u!1 &4426711960585103297
 GameObject:
   m_ObjectHideFlags: 0
@@ -1834,6 +1835,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1432297571126511688}
   - component: {fileID: 830616044241975047}
+  - component: {fileID: 9086605174539422728}
   m_Layer: 0
   m_Name: female_genericMesh
   m_TagString: Untagged
@@ -1876,7 +1878,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 3eea5f1c12d430841a47856d8aa22c0b, type: 2}
+  - {fileID: 2100000, guid: f68630af2a88ce642a8893cc246fb54f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1961,6 +1963,18 @@ SkinnedMeshRenderer:
     m_Center: {x: 0.00000023841858, y: -0.07479721, z: -0.024954438}
     m_Extent: {x: 0.7772874, y: 0.73679435, z: 0.5571251}
   m_DirtyAABB: 0
+--- !u!114 &9086605174539422728
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5208690019654355601}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c8317cd8df8bd046ac98e19360b86ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5246841761738564359
 GameObject:
   m_ObjectHideFlags: 0
@@ -3450,6 +3464,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7320862828152928642}
+  - {fileID: 953258916}
   m_Father: {fileID: 2724408566209906797}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

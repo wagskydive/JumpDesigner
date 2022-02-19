@@ -26,6 +26,6 @@ public class ModifiableCharacter : MonoBehaviour
 
     private void Update()
     {
-        transform.Rotate(Vector3.forward * Time.deltaTime * 8);
+        transform.Rotate(Vector3.forward * Time.deltaTime * 20);
     }
 }
