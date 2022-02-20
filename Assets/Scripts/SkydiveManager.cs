@@ -51,6 +51,7 @@ public class SkydiveManager : MonoBehaviour
     public void StartDefaultJump(int amount)
     {
         StartPlayback(JumpCreator.DefaultJump(amount));
+        
     }
 
     public void StartPlayback(JumpSequence sequence)

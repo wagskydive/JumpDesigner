@@ -7,6 +7,9 @@ public class DetectorLowersLand : MonoBehaviour
     [SerializeField]
     float timeDelay = 4;
 
+    [SerializeField]
+    float lowerAmount = 1500;
+
     public bool isTriggered;
 
     private void Update()
@@ -30,7 +33,7 @@ public class DetectorLowersLand : MonoBehaviour
 
     void LowerBox()
     {
-        transform.Translate(Vector3.down * 2000);
+        transform.Translate(Vector3.down * lowerAmount);
 
     }
 

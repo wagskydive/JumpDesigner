@@ -47,7 +47,7 @@ public class CanopyController : MonoBehaviour
         canopyConnector.ConnectCanopy(this);
         canopyRb = canopyConnector.GetComponent<Rigidbody>();
         go.transform.localScale = Vector3.one * .4f;
-        midSurface.SetFlapAngle(.2f);
+        //midSurface.SetFlapAngle(.2f);
         LeanTween.scale(go, Vector3.one, 2);
 
 
@@ -95,10 +95,28 @@ public class CanopyController : MonoBehaviour
 
         rb.mass = 80;
         rb.drag = 0;
+        rightZPos = rightSideSurface.transform.localPosition.z;
+        leftZPos = leftSideSurface.transform.localPosition.z;
 
+       
     }
 
     bool brakesReleased;
+
+    float rightZPos;
+    float leftZPos;
+
+    float riserSensitivity = 2;
+
+    void SetZPosLeft(float value)
+    {
+        leftSideSurface.transform.localPosition = new Vector3(leftSideSurface.transform.localPosition.x, leftSideSurface.transform.localPosition.y, leftZPos - value*riserSensitivity);
+    }
+    
+    void SetZPosRight(float value)
+    {
+        rightSideSurface.transform.localPosition = new Vector3(rightSideSurface.transform.localPosition.x, rightSideSurface.transform.localPosition.y, rightZPos - value * riserSensitivity);
+    }
 
     void FixedUpdate()
     {
@@ -125,18 +143,37 @@ public class CanopyController : MonoBehaviour
                 
                 Vector4 movementVectorAdjusted = new Vector4(movementInputs.x, movementInputs.y, movementInputs.z, movementInputs.w);
 
-                leftSideSurface.SetFlapAngle(movementInputs.y);
-                rightSideSurface.SetFlapAngle(movementInputs.z);
+                leftSideSurface.SetFlapAngle(movementInputs.y*-1);
+                //SetZPosLeft(movementInputs.y);
+                //leftSideSurface.Config.chord = chordOriginal+movementInputs.y*riserSensitivity;
+                //canopyRb.AddForceAtPosition(canopyRb.transform.up * movementInputs.y*50, rightSideSurface.transform.position);
 
-                if(movementInputs.x != 0 && !brakesReleased)
-                {
-                    brakesReleased = true;
-                }
-                if (brakesReleased)
-                {
-                    midSurface.SetFlapAngle(movementInputs.x);
 
+                rightSideSurface.SetFlapAngle(movementInputs.z*-1);
+                //SetZPosRight(movementInputs.z);
+                //rightSideSurface.Config.chord = chordOriginal + movementInputs.z * riserSensitivity;
+                //canopyRb.AddForceAtPosition(canopyRb.transform.up * movementInputs.z*50, leftSideSurface.transform.position);
+
+                if(movementInputs.y > .6f && movementInputs.z > .6f)
+                {
+                    float midflap = Mathf.Max(movementInputs.y, movementInputs.z)-.6f;
+
+                    midSurface.SetFlapAngle(midflap);
                 }
+                else
+                {
+                    midSurface.SetFlapAngle(0);
+                }
+
+                //if (movementInputs.x != 0 && !brakesReleased)
+                //{
+                //    brakesReleased = true;
+                //}
+                //if (brakesReleased)
+                //{
+                //    midSurface.SetFlapAngle(movementInputs.x);
+                //
+                //}
 
                 canopyRb.AddRelativeTorque ( Vector3.forward*-800 * movementVectorAdjusted.w);
 

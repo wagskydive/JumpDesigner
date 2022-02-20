@@ -4,62 +4,41 @@ using UnityEngine;
 
 public class ColorHelper : MonoBehaviour
 {
-    public Color Color_1;
-    public Color Color_2;
-    public Color Color_3;
-    public Color Color_4;
-
-    public Material Material_1;
-    public Material Material_2;
-    public Material Material_3;
-    public Material Material_4;
 
 
+    [SerializeField]
+    public Material[] materialsToAffect;
 
-    public void Redraw()
+    public Color[] colors;
+
+    public void Initialize()
     {
-        if(Material_1 != null)
-        {
-            Material_1.color = Color_1;
-        }
-        if(Material_2 != null)
-        {
-            Material_2.color = Color_2;
-        }
-        if(Material_3 != null)
-        {
-            Material_3.color = Color_3;
-        }
-        if(Material_4 != null)
-        {
-            Material_4.color = Color_4;
-        }
+        colors = new Color[materialsToAffect.Length];
 
-
+        for (int i = 0; i < materialsToAffect.Length; i++)
+        {
+            colors[i] = materialsToAffect[i].color;
+        }
     }
+
+
+    public void RedrawMaterialsInScene()
+    {
+        for (int i = 0; i < materialsToAffect.Length; i++)
+        {
+            materialsToAffect[i].color = colors[i];
+        }
+    }
+
     private void Start()
     {
-        Redraw();
+        Initialize();
     }
 
     public void ChangeColor(int index, Color color)
     {
-        if(index == 0)
-        {
-            Color_1 = color;
-        }
-        if (index == 1)
-        {
-            Color_2 = color;
-        }
-        if (index == 2)
-        {
-            Color_3 = color;
-        }
 
-        if (index == 3)
-        {
-            Color_4 = color;
-        }
+        colors[index] = color;
+        RedrawMaterialsInScene();
     }
 }

@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 public class GameLoader : MonoBehaviour
 {
     [SerializeField]
-    JumperAmount jumperAmount;
+    public JumperAmount jumperAmount;
 
     private void Awake()
     {

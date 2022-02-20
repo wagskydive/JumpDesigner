@@ -22,7 +22,7 @@ public class ColorSelector : MonoBehaviour
         {
             arrow.gameObject.SetActive(true);
             currentSelection = selection;
-            arrow.localPosition = Vector3.up * selection * -103;
+            arrow.localPosition = Vector3.up * selection * -56;
             OnSelectionChanged?.Invoke(currentSelection);
         }
 

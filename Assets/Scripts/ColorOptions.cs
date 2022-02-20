@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class ColorOptions : MonoBehaviour
@@ -8,13 +9,11 @@ public class ColorOptions : MonoBehaviour
     ColorHelper CurrentColorObject;
 
     [SerializeField]
-    ColorOptionSlot ColorOption1;
+    GameObject ColorOptionSlotPrefab;
+
     [SerializeField]
-    ColorOptionSlot ColorOption2;
-    [SerializeField]
-    ColorOptionSlot ColorOption3;
-    [SerializeField]
-    ColorOptionSlot ColorOption4;
+    ColorOptionSlot[] ColorOptionSlots;
+
 
     int currentSelection = 0;
 
@@ -22,128 +21,66 @@ public class ColorOptions : MonoBehaviour
     ColorSelector colorSelector;
 
     private void Start()
-    {
-        RedrawUi();
-        ColorOption1.OnColorChange += ChangeColor1;
-        ColorOption2.OnColorChange += ChangeColor2;
-        ColorOption3.OnColorChange += ChangeColor3;
-        ColorOption4.OnColorChange += ChangeColor4;
+    {       
         colorSelector.OnSelectionChanged += HandleSelectionChange;
+        if(CurrentColorObject == null)
+        {
+            SetCurrentColorObject(FindObjectOfType<ColorHelper>());
+        }
     }
 
-    void SetCurrentColorObject(ColorHelper colorHelper)
+    public void SetCurrentColorObject(ColorHelper colorHelper)
     {
         CurrentColorObject = colorHelper;
+        if (ColorOptionSlots.Any())
+        {
+            for (int i = 0; i < ColorOptionSlots.Length; i++)
+            {
+                Destroy(ColorOptionSlots[i].gameObject);
+            }
+        }
 
+        ColorOptionSlots = new ColorOptionSlot[CurrentColorObject.materialsToAffect.Length];
+
+        for (int i = 0; i < CurrentColorObject.materialsToAffect.Length; i++)
+        {
+            ColorOptionSlot colorOptionSlot = Instantiate(ColorOptionSlotPrefab, transform).GetComponent<ColorOptionSlot>();
+            colorOptionSlot.SetText(CurrentColorObject.materialsToAffect[i].name);
+            colorOptionSlot.index = i;
+            colorOptionSlot.OnSelect += HandleSelectionChange;
+            colorOptionSlot.OnColorChange += ChangeColor;
+            ColorOptionSlots[i] = colorOptionSlot;
+        }
+        RedrawUi();
     }
 
     void HandleSelectionChange(int newSelection)
     {
-        if(currentSelection == 0)
+        colorSelector.SetSelection(newSelection);
+        if(currentSelection != -1)
         {
-            ColorOption1.DetachColorPicker();
-        }
-        if (currentSelection == 1)
-        {
-            ColorOption2.DetachColorPicker();
-        }
-        if (currentSelection == 2)
-        {
-            ColorOption3.DetachColorPicker();
-        }
-        if (currentSelection == 3)
-        {
-            ColorOption4.DetachColorPicker();
+            ColorOptionSlots[currentSelection].DetachColorPicker();
         }
 
+        ColorOptionSlots[newSelection].AttachColorPicker();
 
-        if (newSelection == 0)
-        {
-            ColorOption1.ConnectColorPicker();
-        }
-        if (newSelection == 1)
-        {
-            ColorOption2.ConnectColorPicker();
-        }
-        if (newSelection == 2)
-        {
-            ColorOption3.ConnectColorPicker();
-        }
-        if (newSelection == 3)
-        {
-            ColorOption4.ConnectColorPicker();
-        }
         currentSelection = newSelection;
     }
 
     void RedrawUi()
     {
-
-        if(CurrentColorObject.Material_1 != null)
+        for (int i = 0; i < ColorOptionSlots.Length; i++)
         {
-            ColorOption1.gameObject.SetActive(true);
-            ColorOption1.SetColor(CurrentColorObject.Color_1);
-        }
-        else
-        {
-            ColorOption1.gameObject.SetActive(false);
-        }
-        
-        if(CurrentColorObject.Material_2 != null)
-        {
-            ColorOption2.gameObject.SetActive(true);
-            ColorOption2.SetColor(CurrentColorObject.Color_2);
-        }
-        else
-        {
-            ColorOption2.gameObject.SetActive(false);
-        }
-
-        if (CurrentColorObject.Material_3 != null)
-        {
-            ColorOption3.gameObject.SetActive(true);
-            ColorOption3.SetColor(CurrentColorObject.Color_3);
-        }
-        else
-        {
-            ColorOption3.gameObject.SetActive(false);
-        }
-
-        if (CurrentColorObject.Material_4 != null)
-        {
-            ColorOption4.gameObject.SetActive(true);
-            ColorOption4.SetColor(CurrentColorObject.Color_4);
-        }
-        else
-        {
-            ColorOption4.gameObject.SetActive(false);
+            ColorOptionSlots[i].SetColor(CurrentColorObject.colors[i]);
         }
 
     }
 
-    void ChangeColor1(Color color)
-    {
-        CurrentColorObject.Color_1 = color;
-        CurrentColorObject.Redraw();
-    }
 
-
-    void ChangeColor2(Color color)
+    void ChangeColor(Color color)
     {
-        CurrentColorObject.Color_2 = color;
-        CurrentColorObject.Redraw();
-    }
-
-    void ChangeColor3(Color color)
-    {
-        CurrentColorObject.Color_3 = color;
-        CurrentColorObject.Redraw();
-    }
-
-    void ChangeColor4(Color color)
-    {
-        CurrentColorObject.Color_4 = color;
-        CurrentColorObject.Redraw();
+        CurrentColorObject.ChangeColor(currentSelection,color);
+        CurrentColorObject.RedrawMaterialsInScene();
     }
 
 

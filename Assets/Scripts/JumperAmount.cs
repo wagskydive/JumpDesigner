@@ -11,6 +11,7 @@ public class JumperAmount : MonoBehaviour
 
     private void Start()
     {
+        FindObjectOfType<GameLoader>().jumperAmount = this;
         CurrentAmount = 1;
         OnAmountChanged?.Invoke(CurrentAmount);
     }

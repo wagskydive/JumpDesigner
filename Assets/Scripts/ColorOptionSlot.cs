@@ -3,11 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class ColorOptionSlot : MonoBehaviour
 {
     public event Action<Color> OnColorChange;
+    public event Action<int> OnSelect;
+
+    public int index;
 
     [SerializeField]
     Image colorPanel;
@@ -19,7 +23,13 @@ public class ColorOptionSlot : MonoBehaviour
     private void Start()
     {
         colorOptions = GetComponentInParent<ColorOptions>();
+
     }
+    public void SelectColorOption()
+    {
+        OnSelect?.Invoke(index);
+    }
+
 
     public void SetColor(Color color)
     {
@@ -31,7 +41,7 @@ public class ColorOptionSlot : MonoBehaviour
         textField.text = text;
     }
 
-    public void ConnectColorPicker()
+    public void AttachColorPicker()
     {
         ColorPicker.OnColorChanged += HandleColorChange;
     }
@@ -47,5 +57,10 @@ public class ColorOptionSlot : MonoBehaviour
     {
         SetColor(color);
         OnColorChange?.Invoke(color);
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        throw new NotImplementedException();
     }
 }

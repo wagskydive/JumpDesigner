@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
 
-
 [RequireComponent(typeof(CinemachineVirtualCamera))]
 public class CameraHandler : MonoBehaviour
 {
@@ -17,7 +16,9 @@ public class CameraHandler : MonoBehaviour
         SelectionHandler.OnSelected += SetCameraAim;
         SelectionHandler.OnTakeControlConfirmed += SetCameraTargetAndFollow;
         SelectionHandler.OnDeselected += ResetCameraAim;
-        FindObjectOfType<SkydiveManager>().OnPlaybackStarted += HandlePlayback;
+
+        skydiveManager = FindObjectOfType<SkydiveManager>();
+        skydiveManager.OnPlaybackStarted += HandlePlayback;
         FindObjectOfType<SkydiveSpawner>().OnSkydiverSpawned += SetCameraTargetAndFollow;
 
         var transposer = vcam.GetCinemachineComponent<CinemachineTransposer>();
@@ -46,7 +47,7 @@ public class CameraHandler : MonoBehaviour
 
     private void SetCanopyCamera()
     {
-        var transposer = vcam.GetCinemachineComponent<CinemachineTransposer>();
+        CinemachineTransposer transposer = vcam.GetCinemachineComponent<CinemachineTransposer>();
         transposer.m_FollowOffset = new Vector3(0, 4, -20);
     }
 
