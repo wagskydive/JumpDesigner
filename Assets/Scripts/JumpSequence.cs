@@ -4,6 +4,8 @@ public class JumpSequence
 {
     public int Count => DiveFlow.Count;
 
+    public string JumpName { get; private set; }
+
     public int TotalSkydivers()
     {
         int running = 0;
@@ -19,8 +21,9 @@ public class JumpSequence
 
     public List<Formation> DiveFlow { get; private set; }
 
-    public JumpSequence()
+    public JumpSequence(string jumpName)
     {
+        JumpName = jumpName;
         DiveFlow = new List<Formation>();
     }
 

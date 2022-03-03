@@ -3,7 +3,7 @@ public static class JumpCreator
 {
     public static JumpSequence DefaultJump(int amount, FreefallOrientation orientation = FreefallOrientation.Belly)
     {
-        JumpSequence jumpSequence = new JumpSequence();
+        JumpSequence jumpSequence = new JumpSequence("Default"+orientation.ToString());
         jumpSequence.AddFormation(DefaultFormation(amount, orientation));
         return jumpSequence;
     }
@@ -11,7 +11,7 @@ public static class JumpCreator
 
     public static JumpSequence FourWayTestJump(FreefallOrientation orientation)
     {
-        JumpSequence jumpSequence = new JumpSequence();
+        JumpSequence jumpSequence = new JumpSequence("FourWay"+orientation.ToString());
         jumpSequence.AddFormation(Star4Way(orientation));
         jumpSequence.AddFormation(OpenAccordian4Way(orientation));
         jumpSequence.AddFormation(DoubleTwins4Way(orientation));

@@ -7,6 +7,8 @@ public class GameLoader : MonoBehaviour
     [SerializeField]
     public JumperAmount jumperAmount;
 
+    int currentJumpers = 0;
+
     private void Awake()
     {
         if (FindObjectsOfType<GameLoader>().Length > 1)
@@ -15,6 +17,9 @@ public class GameLoader : MonoBehaviour
         }
 
         DontDestroyOnLoad(this.gameObject);
+        //FileHandler.WriteJumpSequenceToFile(JumpCreator.FourWayTestJump(FreefallOrientation.HeadDown));
+        //FileHandler.WriteJumpSequenceToFile(JumpCreator.FourWayTestJump(FreefallOrientation.Belly));
+        //FileHandler.WriteJumpSequenceToFile(JumpCreator.DefaultJump(4,FreefallOrientation.Back));
     }
     
     public void CanopyButtonPress()
@@ -34,7 +39,8 @@ public class GameLoader : MonoBehaviour
 
     public void JumpButtonPress()
     {
-        LoadJumpScene(jumperAmount.CurrentAmount);
+        currentJumpers = jumperAmount.CurrentAmount;
+        LoadJumpScene(currentJumpers);
     }
 
     void LoadJumpScene(int jumpers)
@@ -52,7 +58,7 @@ public class GameLoader : MonoBehaviour
     {
         if(scene.name == "FreefallScene")
         {
-            FindObjectOfType<SkydiveManager>().StartDefaultJump(jumperAmount.CurrentAmount);
+            FindObjectOfType<SkydiveManager>().StartDefaultJump(currentJumpers);
 
         }
         SceneManager.sceneLoaded -= SetSkydiveData;
