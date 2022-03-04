@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class SettingsButton : MonoBehaviour
 {
+    [SerializeField]
+    GameObject settingsPanel;
+
     public void SettingsButtonPress()
     {
-
+        settingsPanel.SetActive(!settingsPanel.activeSelf);
     }
 }

@@ -27,6 +27,11 @@ public class JumpSequence
         DiveFlow = new List<Formation>();
     }
 
+    public void SetJumpName(string jumpName)
+    {
+        JumpName = jumpName;
+    }
+
     public void AddFormation(Formation formation)
     {
         DiveFlow.Add(formation);

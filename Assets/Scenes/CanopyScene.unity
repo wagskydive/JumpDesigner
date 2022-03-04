@@ -521,7 +521,7 @@ GameObject:
   - component: {fileID: 94583874}
   - component: {fileID: 94583873}
   m_Layer: 5
-  m_Name: UiInputs (1)
+  m_Name: UiInputsCanopy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4815,7 +4815,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1279970026}
-  m_LocalRotation: {x: 0.26684532, y: -0.0068637747, z: 0.024780503, w: 0.9633963}
+  m_LocalRotation: {x: 0.26684532, y: -0.006863832, z: 0.02478052, w: 0.9633963}
   m_LocalPosition: {x: 0, y: 3.68, z: -9.85}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -5950,7 +5950,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1617076990}
-  m_LocalRotation: {x: 0.26693356, y: 0.000000028720944, z: -0.00000000795524, w: 0.96371496}
+  m_LocalRotation: {x: 0.26693356, y: -0.000000028720944, z: 0.00000000795524, w: 0.96371496}
   m_LocalPosition: {x: 0, y: 3.68, z: -9.85}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0

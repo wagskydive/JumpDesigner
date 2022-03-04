@@ -6,18 +6,19 @@ using UnityEngine;
 public class SkydiveSpawner : MonoBehaviour
 {
     public event Action<ISelectable> OnSkydiverSpawned;
+    [SerializeField]
     Transform spawnPoint;
 
 
     private void Awake()
     {
-        SelectionHandler.OnSelected += SetFollow;
-        spawnPoint = transform;
+        //SelectionHandler.OnSelected += SetFollow;
+        //spawnPoint = transform;
     }
 
     private void SetFollow(ISelectable obj)
     {
-        spawnPoint = obj.transform;
+        //spawnPoint = obj.transform;
         //transform.SetParent(obj.transform);
         //transform.localPosition = Vector3.zero;
 
@@ -29,16 +30,17 @@ public class SkydiveSpawner : MonoBehaviour
         List<GameObject> spawned = new List<GameObject>();
         for (int i = 0; i < amount; i++)
         {
-            GameObject go = SpawnSkydiverWithAi();
+            GameObject go = SpawnSkydiverWithAi(i);
             spawned.Add(go);
         }
         return spawned;
     }
 
-    public GameObject SpawnSkydiverWithAi(FreefallOrientation orientation = FreefallOrientation.Belly)
+    public GameObject SpawnSkydiverWithAi(int index,FreefallOrientation orientation = FreefallOrientation.Belly)
     {
         GameObject skydiver = Instantiate(Resources.Load("Prefabs/SkydiveCharacter") as GameObject, spawnPoint.position, Quaternion.identity);
         NPC_Ai_FromState aiInput = skydiver.AddComponent<NPC_Ai_FromState>();
+        aiInput.SetIndex(index);
         skydiver.GetComponent<MovementController>().ReplaceInput(aiInput);
         OnSkydiverSpawned?.Invoke(skydiver.GetComponent<Selectable>());
         return skydiver;

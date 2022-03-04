@@ -17,11 +17,16 @@ public class GameLoader : MonoBehaviour
         }
 
         DontDestroyOnLoad(this.gameObject);
-        //FileHandler.WriteJumpSequenceToFile(JumpCreator.FourWayTestJump(FreefallOrientation.HeadDown));
+        //FileHandler.WriteJumpSequenceToFile(JumpCreator.FourWayTestJump(FreefallOrientation.Back));
         //FileHandler.WriteJumpSequenceToFile(JumpCreator.FourWayTestJump(FreefallOrientation.Belly));
         //FileHandler.WriteJumpSequenceToFile(JumpCreator.DefaultJump(4,FreefallOrientation.Back));
     }
-    
+
+    public void DesignerButtonPressed()
+    {
+        SceneManager.LoadScene("UiJumpSequence");
+    }
+
     public void CanopyButtonPress()
     {
         SceneManager.LoadScene("CanopyScene");

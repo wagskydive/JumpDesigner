@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-
+[Serializable]
 public enum FreefallOrientation
 {
     HeadDown,

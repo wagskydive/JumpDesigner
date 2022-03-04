@@ -12,6 +12,17 @@ public static class FileHandler
 
         string path = Application.persistentDataPath + "/saves/";
 
+        if (!Directory.Exists(path))
+        {
+            Directory.CreateDirectory(Application.persistentDataPath + "/saves/");
+
+            File.Copy("Assets/Resources/DefaultJumps/AFF Level1.json", path+ "AFF Level1.json");
+            File.Copy("Assets/Resources/DefaultJumps/10Steps.json", path+ "10Steps.json");
+            File.Copy("Assets/Resources/DefaultJumps/Circle.json", path+ "Circle.json");
+            //var defaultJumps = Resources.LoadAll("DefaultJumps/");
+
+        }
+
         DirectoryInfo directoryInfo = new DirectoryInfo(path);
               
         for (int i = 0; i < directoryInfo.GetFiles().Length; i++)
@@ -51,7 +62,7 @@ public static class FileHandler
         {
             JSONObject formationObject = sequence[i].AsObject;
 
-            string orientationString = formationObject.GetValueOrDefault("Base Orientation", formationObject).ToString();
+            string orientationString = formationObject.GetValueOrDefault("Base Orientation", formationObject);
 
             FreefallOrientation orientation;
 
@@ -68,7 +79,7 @@ public static class FileHandler
                 float rotation = slotObject.GetValueOrDefault("Base Rotation", slotObject).AsFloat;
                 int skydiverIndex = slotObject.GetValueOrDefault("Skydiver Index", slotObject).AsInt;
                 FreefallOrientation childOrientation;
-                FreefallOrientation.TryParse(slotObject.GetValueOrDefault("Orientation", slotObject).ToString(), out childOrientation);
+                FreefallOrientation.TryParse(slotObject.GetValueOrDefault("Orientation", slotObject), out childOrientation);
                 int targetIndex = slotObject.GetValueOrDefault("Target Index", slotObject).AsInt;
                 int slot = slotObject.GetValueOrDefault("Slot", slotObject).AsInt;
 
@@ -116,7 +127,7 @@ public static class FileHandler
                 formationSlotsObject.Add("Slot"+j.ToString(),formationSlot);
             }
             formationObject.Add("Formation Slots", formationSlotsObject);
-            sequence.Add("Formation",formationObject);
+            sequence.Add("Formation" + i.ToString(),formationObject);
         }
         root.Add("Sequence", sequence);
 

@@ -1,11 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
 public class JumpSequenceSelector : MonoBehaviour
 {
-    public JumpSequence SelectedSequence { get; private set; }
+    public event Action<JumpSequence> OnSequenceSelected;
+
+    public JumpSequence SelectedSequence { get => allSequences[dropdown.value]; }
 
     public TMP_Dropdown dropdown;
 
@@ -15,6 +18,12 @@ public class JumpSequenceSelector : MonoBehaviour
     {
         GetSequences();
         PopulateDropdown();
+
+    }
+
+    public void HandleSelection()
+    {
+        OnSequenceSelected?.Invoke(SelectedSequence);
     }
 
     void GetSequences()

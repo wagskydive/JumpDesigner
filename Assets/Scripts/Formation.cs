@@ -14,11 +14,40 @@ public class Formation
         FormationSlots = new List<SkydiveFormationSlot>();
     }
 
+    public void SetBaseOrientation(FreefallOrientation freefallOrientation)
+    {
+        BaseOrientation = freefallOrientation;
+    }
+
     public void AddSlot(SkydiveFormationSlot slot)
     {
         if (ValidateNewSlot(slot))
         {
             FormationSlots.Add(slot);
+        }
+    }
+
+    public FreefallOrientation GetOrientation(int skydiverIndex)
+    {
+        if(skydiverIndex == 0)
+        {
+            return BaseOrientation;
+        }
+        else
+        {
+            return FormationSlots[skydiverIndex - 1].Orientation;
+        }
+    }
+
+    public float GetRotation(int skydiverIndex)
+    {
+        if (skydiverIndex == 0)
+        {
+            return 0;
+        }
+        else
+        {
+            return FormationSlots[skydiverIndex - 1].BaseRotation;
         }
     }
 

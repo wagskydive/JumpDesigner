@@ -7,9 +7,11 @@ using UnityEngine;
 public class SkydiveManager : MonoBehaviour
 {
     public event Action<ISelectable> OnSkydiverAdded;
+    public event Action<int> OnNextFormationSet;
     public List<ISelectable> SpawnedSkydivers = new List<ISelectable>();
 
-    public event Action OnPlaybackStarted;
+    public event Action<JumpSequence> OnPlaybackStarted;
+    public event Action OnJumpRunSet;
 
     SkydiveSpawner spawner;
 
@@ -17,7 +19,49 @@ public class SkydiveManager : MonoBehaviour
     public Transform middlepointNPCS;
 
     public JumpSequence CurrentJumpSequence;
-    int currentSequenceIndex;
+
+    int exitAltitude;
+    [SerializeField]
+    GameObject startButton;
+
+    [SerializeField]
+    AircraftTransforms aircraft;
+
+    public void SetupJumpRun(JumpSequence selectedSequence, int altitude)
+    {
+        CurrentJumpSequence = selectedSequence;
+        int skydiversNeeded = CurrentJumpSequence.TotalSkydivers();
+        if (SpawnedSkydivers.Count < skydiversNeeded)
+        {
+            int missing = skydiversNeeded - SpawnedSkydivers.Count;
+            for (int i = 0; i < missing; i++)
+            {
+                AddSkydiver();
+            }
+        }
+        aircraft.transform.position = Vector3.up * altitude;
+
+        for (int i = 0; i < SpawnedSkydivers.Count; i++)
+        {
+            SpawnedSkydivers[i].transform.GetComponent<Rigidbody>().isKinematic = true;
+            SpawnedSkydivers[i].transform.position = aircraft.ExitPositions[i].position;
+            SpawnedSkydivers[i].transform.SetParent(aircraft.transform);
+            SpawnedSkydivers[i].transform.GetComponent<Rigidbody>().velocity = Vector3.zero;
+        }
+        startButton.SetActive(true);
+        OnJumpRunSet?.Invoke();
+    }
+
+
+
+    public void StartButtonPressed()
+    {
+        startButton.SetActive(false);
+        StartPlayback(CurrentJumpSequence, exitAltitude);
+        
+    }
+
+    public int currentSequenceIndex;
 
     bool isPlayingBack;
 
@@ -28,51 +72,46 @@ public class SkydiveManager : MonoBehaviour
     }
 
 
-    public void StartTestPlayback()
-    {
-        if(CurrentJumpSequence == null || !isPlayingBack)
-        {
-            StartPlayback(JumpCreator.FourWayTestJump(FreefallOrientation.HeadUp));
-
-
-        }
-        else
-        {
-            currentSequenceIndex += 1;
-            if(currentSequenceIndex >= CurrentJumpSequence.Count)
-            {
-                currentSequenceIndex = 0;
-            }
-            HandoutNextSlots();
-        }
-        
-    }
 
     public void StartDefaultJump(int amount)
     {
-        StartPlayback(JumpCreator.DefaultJump(amount));
+        StartPlayback(JumpCreator.DefaultJump(amount),4600);
         
     }
 
-    public void StartPlayback(JumpSequence sequence)
+    public void StartPlayback(JumpSequence sequence, int altitude)
     {
         CurrentJumpSequence = sequence;
 
-        int skydiversNeeded = CurrentJumpSequence.TotalSkydivers();
-        if (SpawnedSkydivers.Count < skydiversNeeded)
+        for (int i = 0; i < SpawnedSkydivers.Count; i++)
         {
-            int missing = skydiversNeeded - SpawnedSkydivers.Count;
-            for (int i = 0; i < missing; i++)
-            {
-                AddSkydiver();
-            }
+            SpawnedSkydivers[i].transform.GetComponent<Rigidbody>().isKinematic = false;
+            SpawnedSkydivers[i].transform.SetParent(null);
         }
-
 
         currentSequenceIndex = 0;
         isPlayingBack = true;
-        OnPlaybackStarted?.Invoke();
+        OnPlaybackStarted?.Invoke(sequence);
         HandoutNextSlots();
+        startButton.SetActive(false);
+    }
+
+    public void SetNextFormation()
+    {
+
+            currentSequenceIndex++;
+        
+        if (currentSequenceIndex >= CurrentJumpSequence.DiveFlow.Count)
+        {
+            currentSequenceIndex = 0;
+        }
+        HandoutNextSlots();
+        OnNextFormationSet?.Invoke(currentSequenceIndex);
+    }
+
+    public void StopPlayback()
+    {
+        isPlayingBack = false;
     }
 
     void HandoutNextSlots()
@@ -98,7 +137,7 @@ public class SkydiveManager : MonoBehaviour
 
     public void AddSkydiver()
     {
-        ISelectable skydiver = spawner.SpawnSkydiverWithAi().GetComponent<ISelectable>();
+        ISelectable skydiver = spawner.SpawnSkydiverWithAi(SpawnedSkydivers.Count).GetComponent<ISelectable>();
         SpawnedSkydivers.Add(skydiver);
         OnSkydiverAdded?.Invoke(skydiver);
     }

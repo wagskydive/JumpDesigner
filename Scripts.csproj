@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <LangVersion>7.3</LangVersion>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -69,6 +69,7 @@
     <Compile Include="Assets\Scripts\WearablesStart.cs" />
     <Compile Include="Assets\Scripts\SettingsButton.cs" />
     <Compile Include="Assets\Scripts\JumperAmount.cs" />
+    <Compile Include="Assets\Scripts\PropRotator.cs" />
     <Compile Include="Assets\Scripts\ColorOptionSlot.cs" />
     <Compile Include="Assets\Scripts\DetectorLowersLand.cs" />
     <Compile Include="Assets\Scripts\GameModeManager.cs" />
@@ -84,12 +85,14 @@
     <Compile Include="Assets\Scripts\CutawayButton.cs" />
     <Compile Include="Assets\Scripts\ChildTerrainDetector.cs" />
     <Compile Include="Assets\Scripts\CameraHandler.cs" />
+    <Compile Include="Assets\Scripts\InGameInfoUi.cs" />
     <Compile Include="Assets\Scripts\Inputs\NPC_InputController.cs" />
     <Compile Include="Assets\Scripts\Inputs\SkydiveFormationSlot.cs" />
     <Compile Include="Assets\Scripts\SceneLoader.cs" />
     <Compile Include="Assets\Scripts\FormationSlotIndicator.cs" />
     <Compile Include="Assets\Scripts\SettingsPanel.cs" />
     <Compile Include="Assets\Scripts\HandGripButton.cs" />
+    <Compile Include="Assets\Scripts\AircraftTransforms.cs" />
     <Compile Include="Assets\Scripts\SelectionIndicator.cs" />
     <Compile Include="Assets\Scripts\ModifiableCharacter.cs" />
     <Compile Include="Assets\Scripts\ColorSelector.cs" />
@@ -106,6 +109,7 @@
     <Compile Include="Assets\Scripts\GyroManager.cs" />
     <Compile Include="Assets\Scripts\HorizonCorrector.cs" />
     <Compile Include="Assets\Scripts\CanopyCameraHandler.cs" />
+    <Compile Include="Assets\Scripts\JumpSequenceInfo.cs" />
     <Compile Include="Assets\Scripts\CharacterModifySelector.cs" />
     <Compile Include="Assets\Scripts\SelectionHandler.cs" />
     <Compile Include="Assets\Scripts\Inputs\AccelAndTouchUiControl.cs" />
@@ -117,6 +121,7 @@
     <Compile Include="Assets\Scripts\CharacterModeButton.cs" />
     <Compile Include="Assets\Scripts\Canopy\CanopyController.cs" />
     <Compile Include="Assets\Scripts\Canopy\CanopyConnector.cs" />
+    <Compile Include="Assets\Scripts\AircraftMovement.cs" />
     <Compile Include="Assets\Scripts\TransitionPanel.cs" />
     <Compile Include="Assets\Scripts\RotationFollow.cs" />
     <Compile Include="Assets\Scripts\Canopy\CanopyAnimationController.cs" />
@@ -144,6 +149,17 @@
     <Compile Include="Assets\Scripts\GameLoader.cs" />
     <Compile Include="Assets\Scripts\PullButton.cs" />
     <Compile Include="Assets\Scripts\IkHint.cs" />
+    <Compile Include="Assets\Scripts\JumpVisualizer2D.cs" />
+    <Compile Include="Assets\Scripts\Slot2D.cs" />
+    <Compile Include="Assets\Scripts\Selectable2D.cs" />
+    <Compile Include="Assets\Scripts\Selected2DColorHandler.cs" />
+    <Compile Include="Assets\Scripts\Deselector2D.cs" />
+    <Compile Include="Assets\Scripts\SelectionHandler2D.cs" />
+    <Compile Include="Assets\Scripts\OrientationButton.cs" />
+    <Compile Include="Assets\Scripts\RotationButton.cs" />
+    <Compile Include="Assets\Scripts\JumpSaveWindow.cs" />
+    <Compile Include="Assets\Scripts\EmptySlotUi.cs" />
+    <Compile Include="Assets\Scripts\Designer2DButton.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Scripts\Scripts.asmdef" />
