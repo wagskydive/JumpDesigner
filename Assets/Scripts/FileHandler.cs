@@ -6,22 +6,40 @@ using System;
 
 public static class FileHandler
 {
+    public static List<JumpSequence> ReadInternalJumps()
+    {
+        List<JumpSequence> internalJumpSequences = new List<JumpSequence>();
+
+        string path = "DefaultJumps/";
+
+        var loadFiles = Resources.LoadAll<TextAsset>(path);
+
+        for (int i = 0; i < loadFiles.Length; i++)
+        {
+
+            internalJumpSequences.Add(SequenceFromTextAsset(loadFiles[i]));
+        }
+
+
+        return internalJumpSequences;
+    }
+
+    public static JumpSequence SequenceFromTextAsset(TextAsset textAsset)
+    {
+        Debug.Log( textAsset.text);
+
+        JSONObject saveRead = JSONNode.Parse(textAsset.text).AsObject;
+
+        return JumpSequenceFromJSON(saveRead);
+    }
+
+
     public static List<JumpSequence> ReadSavedJumps()
     {
         List<JumpSequence> savedJumpSequences = new List<JumpSequence>();
 
         string path = Application.persistentDataPath + "/saves/";
 
-        if (!Directory.Exists(path))
-        {
-            Directory.CreateDirectory(Application.persistentDataPath + "/saves/");
-
-            File.Copy("Assets/Resources/DefaultJumps/AFF Level1.json", path+ "AFF Level1.json");
-            File.Copy("Assets/Resources/DefaultJumps/10Steps.json", path+ "10Steps.json");
-            File.Copy("Assets/Resources/DefaultJumps/Circle.json", path+ "Circle.json");
-            //var defaultJumps = Resources.LoadAll("DefaultJumps/");
-
-        }
 
         DirectoryInfo directoryInfo = new DirectoryInfo(path);
               

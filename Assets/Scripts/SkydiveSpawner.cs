@@ -42,10 +42,17 @@ public class SkydiveSpawner : MonoBehaviour
         NPC_Ai_FromState aiInput = skydiver.AddComponent<NPC_Ai_FromState>();
         aiInput.SetIndex(index);
         skydiver.GetComponent<MovementController>().ReplaceInput(aiInput);
+
         OnSkydiverSpawned?.Invoke(skydiver.GetComponent<Selectable>());
         return skydiver;
     }
 
+    public Transform SpawnGhost(int index)
+    {
 
+        GameObject ghost = Instantiate(Resources.Load("Prefabs/GhostCharacter") as GameObject);
+        ghost.GetComponent<GhostAnimationController>().SetSkydiverIndex(index);
+        return ghost.transform;
 
+    }
 }

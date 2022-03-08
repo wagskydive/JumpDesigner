@@ -26,7 +26,7 @@ public class GameModeManager : MonoBehaviour
                 if (skydiveManager.SpawnedSkydivers[i] != SelectionHandler.Instance.player)// && skydiveManager.SpawnedSkydivers[i].GetType() == typeof(NPC_Ai_FromState))
                 {
                     NPC_Ai_FromState ai = skydiveManager.SpawnedSkydivers[i].transform.GetComponent<NPC_Ai_FromState>();
-                    ai.SetState(new SkydiveState(FreefallOrientation.Belly, SelectionHandler.Instance.player));
+                    ai.SetState(new SkydiveState(FreefallOrientation.Belly));
                 }
             }
         }

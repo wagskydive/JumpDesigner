@@ -1,19 +1,21 @@
 ﻿public class SkydiveState
 {
-    public SkydiveState(FreefallOrientation freefallOrientation,ISelectable target = null, int slot = 0 , float baseRotation = 0, Grip leftGrip = null, Grip rightGrip = null)
+    public SkydiveState(SkydiveFormationSlot slot)
     {
-        Orientation = freefallOrientation;
-        LeftGrip = leftGrip;
-        RightGrip = rightGrip;
-        Target = target;
-        Slot = slot;
-        BaseRotation = baseRotation;
+        FormationSlot = slot;
+        Orientation = slot.Orientation;
     }
 
-    public Grip LeftGrip { get; private set; }
-    public Grip RightGrip { get; private set; }
-    public ISelectable Target { get; private set; }
-    public int Slot { get; private set; }
-    public float BaseRotation{ get; private set; }
-    public FreefallOrientation Orientation { get; private set; }
+    public SkydiveState(FreefallOrientation orientation)
+    {
+        Orientation = orientation;
+    }
+
+
+    public int Target { get => FormationSlot.TargetIndex; }
+    public int Slot { get => FormationSlot.Slot; }
+    public float BaseRotation{ get => FormationSlot.BaseRotation; }
+    public FreefallOrientation Orientation;
+
+    public SkydiveFormationSlot FormationSlot;
 }

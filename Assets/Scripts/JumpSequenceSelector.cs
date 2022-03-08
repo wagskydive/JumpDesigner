@@ -14,13 +14,19 @@ public class JumpSequenceSelector : MonoBehaviour
 
     List<JumpSequence> allSequences;
 
+    [SerializeField]
+    int filter;
+
     private void Start()
     {
-        GetSequences();
+        
         PopulateDropdown();
 
     }
-
+    private void OnEnable()
+    {
+        PopulateDropdown();
+    }
     public void HandleSelection()
     {
         OnSequenceSelected?.Invoke(SelectedSequence);
@@ -28,12 +34,19 @@ public class JumpSequenceSelector : MonoBehaviour
 
     void GetSequences()
     {
-        allSequences = FileHandler.ReadSavedJumps();        
+        allSequences = new List<JumpSequence>();
+
+        allSequences.AddRange(FileHandler.ReadInternalJumps());
+
+        allSequences.AddRange(FileHandler.ReadSavedJumps());
+
+
     }
 
     void PopulateDropdown()
     {
         dropdown.ClearOptions();
+        GetSequences();
         List<string> names = new List<string>();
         for (int i = 0; i < allSequences.Count; i++)
         {

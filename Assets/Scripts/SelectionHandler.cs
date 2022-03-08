@@ -119,7 +119,9 @@ public class SelectionHandler : MonoBehaviour
         if(selected != null && selected.GetType() == typeof(NPC_Ai_FromState))
         {
             NPC_Ai_FromState selecterAi = (NPC_Ai_FromState)selected;
-            selecterAi.SetState(new SkydiveState(FreefallOrientation.Belly,target));
+
+            Debug.Log("!! needs implementation");
+            selecterAi.SetState(new SkydiveState(FreefallOrientation.Belly));
         }
     }
 
@@ -224,8 +226,8 @@ public class SelectionHandler : MonoBehaviour
     {
         if(selected != null && selected.transform.GetComponent< NPC_Ai_FromState>() != null)
         {
-
-            selected.transform.GetComponent<NPC_Ai_FromState>().SetState(new SkydiveState(FreefallOrientation.Belly, target, slot));
+            Debug.Log("!!! needs re implemention");
+            //selected.transform.GetComponent<NPC_Ai_FromState>().SetState(new SkydiveState(FreefallOrientation.Belly, target, slot));
         }
     }
 
@@ -235,7 +237,10 @@ public class SelectionHandler : MonoBehaviour
         if (selected != null && selected.transform.GetComponent<NPC_Ai_FromState>() != null)
         {
             NPC_Ai_FromState npc = selected.transform.GetComponent<NPC_Ai_FromState>();
-            npc.SetState(new SkydiveState(npc.CurrentState.Orientation, npc.CurrentState.Target, npc.CurrentState.Slot,npc.CurrentState.BaseRotation+90));
+            SkydiveFormationSlot oldSlot = npc.CurrentState.FormationSlot;
+            SkydiveFormationSlot formationSlot = new SkydiveFormationSlot(oldSlot.SkydiverIndex, oldSlot.Orientation, oldSlot.TargetIndex, oldSlot.Slot, oldSlot.BaseRotation + 90, oldSlot.LeftGrip, oldSlot.RightGrip);
+
+            npc.SetState(new SkydiveState(formationSlot));
         }
     }
 }

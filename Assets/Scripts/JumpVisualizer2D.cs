@@ -50,7 +50,17 @@ public class JumpVisualizer2D : MonoBehaviour
         SelectionHandler2D.OnRotationChange += HandleRotationChange;
         SelectionHandler2D.OnMoveToRequest += HandleMoveRequest;
         jumpSequenceSelector.OnSequenceSelected += LoadSequence;
+        SkydiveManager skydiveManager = FindObjectOfType<SkydiveManager>();
+        if(skydiveManager != null)
+        {
+            skydiveManager.OnNextFormationSet += SetFormation;
+        }
+    }
 
+    private void SetFormation(int index)
+    {
+        currentFormation = index;
+        ReDraw();
     }
 
     public void AddSkydiver()
@@ -87,14 +97,24 @@ public class JumpVisualizer2D : MonoBehaviour
             }
             if(currentFormation > jumpSequence.DiveFlow.Count - 1)
             {
-                Formation formation = new Formation(jumpSequence.DiveFlow[currentFormation-1].BaseOrientation);
-                for (int i = 0; i < jumpSequence.DiveFlow[currentFormation-1].FormationSlots.Count; i++)
-                {
-                    SkydiveFormationSlot fmSl = jumpSequence.DiveFlow[currentFormation-1].FormationSlots[i];
-                    formation.AddSlot(new SkydiveFormationSlot(fmSl.SkydiverIndex, fmSl.Orientation, fmSl.TargetIndex, fmSl.Slot, fmSl.BaseRotation));
-                }
-                jumpSequence.AddFormation(formation);
+                currentFormation = 0;
             }
+            ReDraw();
+        }
+
+    }
+
+    public void AddFormation()
+    {
+        if(jumpSequence != null)
+        {
+            Formation formation = new Formation(jumpSequence.DiveFlow[jumpSequence.DiveFlow.Count - 1].BaseOrientation);
+            for (int i = 0; i < jumpSequence.DiveFlow[jumpSequence.DiveFlow.Count - 1].FormationSlots.Count; i++)
+            {
+                SkydiveFormationSlot fmSl = jumpSequence.DiveFlow[jumpSequence.DiveFlow.Count - 1].FormationSlots[i];
+                formation.AddSlot(new SkydiveFormationSlot(fmSl.SkydiverIndex, fmSl.Orientation, fmSl.TargetIndex, fmSl.Slot, fmSl.BaseRotation));
+            }
+            jumpSequence.AddFormation(formation);
             ReDraw();
         }
 

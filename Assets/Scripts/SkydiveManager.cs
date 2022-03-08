@@ -10,6 +10,8 @@ public class SkydiveManager : MonoBehaviour
     public event Action<int> OnNextFormationSet;
     public List<ISelectable> SpawnedSkydivers = new List<ISelectable>();
 
+    public List<Transform> SpawnedGhosts = new List<Transform>();
+
     public event Action<JumpSequence> OnPlaybackStarted;
     public event Action OnJumpRunSet;
 
@@ -39,6 +41,22 @@ public class SkydiveManager : MonoBehaviour
                 AddSkydiver();
             }
         }
+        if (SpawnedSkydivers.Count > skydiversNeeded)
+        {
+            int missing = skydiversNeeded - SpawnedSkydivers.Count;
+            for (int i = skydiversNeeded; i < SpawnedSkydivers.Count; i++)
+            {
+                SpawnedSkydivers[i].transform.gameObject.SetActive(false);
+                SpawnedGhosts[i].gameObject.SetActive(false);
+            }
+        }
+
+        for (int j = 0; j < skydiversNeeded; j++)
+        {
+            SpawnedSkydivers[j].transform.gameObject.SetActive(true);
+            SpawnedGhosts[j].gameObject.SetActive(true);
+        }
+
         aircraft.transform.position = Vector3.up * altitude;
 
         for (int i = 0; i < SpawnedSkydivers.Count; i++)
@@ -68,7 +86,7 @@ public class SkydiveManager : MonoBehaviour
     private void Awake()
     {
         spawner = FindObjectOfType<SkydiveSpawner>();
-        
+        go = new GameObject();
     }
 
 
@@ -113,6 +131,56 @@ public class SkydiveManager : MonoBehaviour
     {
         isPlayingBack = false;
     }
+    GameObject go;
+
+    public Vector3 FormationOffset(SkydiveFormationSlot formationSlot)
+    {
+        if(formationSlot == null)
+        {
+            return Vector3.zero;
+        }
+
+        List<int> formationFlow = new List<int>();
+        go.transform.position = Vector3.zero;
+        go.transform.rotation = Quaternion.identity;
+        if (formationSlot.TargetIndex != 0)
+        {
+
+            SkydiveFormationSlot slot = formationSlot;
+
+            for (int i = slot.TargetIndex; i > 0; i = slot.TargetIndex)
+            {
+                formationFlow.Add(slot.TargetIndex);
+
+                slot = CurrentJumpSequence.DiveFlow[currentSequenceIndex].FormationSlots[i - 1];
+            }
+            formationFlow.Add(slot.TargetIndex);
+
+            formationFlow.Reverse();
+
+            for (int j = 0; j < formationFlow.Count; j++)
+            {
+                Vector3 Offset = SlotPositionHelper.SlotOffset(slot.Slot);
+                //Offset = Quaternion.AngleAxis(slot.BaseRotation, go.transform.up) * Offset;
+                go.transform.position += Offset;
+                go.transform.Rotate(new Vector3(0, slot.BaseRotation, 0));
+
+                if (formationFlow[j] != 0)
+                {
+
+                    slot = CurrentJumpSequence.DiveFlow[currentSequenceIndex].FormationSlots[formationFlow[j] - 1];
+                }
+
+                
+            }
+            return SpawnedSkydivers[0].transform.TransformPoint(go.transform.position);
+        }
+        else
+        {
+            return SlotPositionHelper.SlotOffset(formationSlot.Slot);
+        }
+        
+    }
 
     void HandoutNextSlots()
     {
@@ -120,7 +188,7 @@ public class SkydiveManager : MonoBehaviour
         for (int i = 0; i < CurrentJumpSequence.DiveFlow[currentSequenceIndex].FormationSlots.Count; i++)
         {
             SkydiveFormationSlot formationSlot = CurrentJumpSequence.DiveFlow[currentSequenceIndex].FormationSlots[i];
-            SpawnedSkydivers[formationSlot.SkydiverIndex].transform.GetComponent<NPC_Ai_FromState>().SetState(new SkydiveState(formationSlot.Orientation, SpawnedSkydivers[formationSlot.TargetIndex], formationSlot.Slot, formationSlot.BaseRotation));
+            SpawnedSkydivers[i+1].transform.GetComponent<NPC_Ai_FromState>().SetState(new SkydiveState(formationSlot));
         }
 
     }
@@ -137,7 +205,12 @@ public class SkydiveManager : MonoBehaviour
 
     public void AddSkydiver()
     {
-        ISelectable skydiver = spawner.SpawnSkydiverWithAi(SpawnedSkydivers.Count).GetComponent<ISelectable>();
+        int newIndex = SpawnedSkydivers.Count;
+        ISelectable skydiver = spawner.SpawnSkydiverWithAi(newIndex).GetComponent<ISelectable>();
+
+
+        SpawnedGhosts.Add(spawner.SpawnGhost(newIndex));
+
         SpawnedSkydivers.Add(skydiver);
         OnSkydiverAdded?.Invoke(skydiver);
     }

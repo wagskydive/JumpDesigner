@@ -20,8 +20,11 @@ public class LegMovementAnimator : MonoBehaviour
     private void Start()
     {
         movementController = GetComponentInParent<MovementController>();
-
-        movementController.OnMovement += HandleMovement;
+        if(movementController != null)
+        {
+            movementController.OnMovement += HandleMovement;
+        }
+        
     }
 
     private void HandleMovement(Vector4 movement)

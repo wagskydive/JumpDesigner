@@ -7,6 +7,8 @@ using UnityEngine.Animations.Rigging;
 
 public class SkydiveAnimationController : MonoBehaviour
 {
+    
+
     [SerializeField]
     Animator animator;
 

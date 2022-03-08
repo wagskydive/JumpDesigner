@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <LangVersion>latest</LangVersion>
+    <LangVersion>7.3</LangVersion>
   </PropertyGroup>
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -59,24 +59,30 @@
     <Compile Include="Assets\Scripts\CloudLayer.cs" />
     <Compile Include="Assets\Scripts\Canopy\CanopyManualControlHelper.cs" />
     <Compile Include="Assets\Scripts\FileHandler.cs" />
+    <Compile Include="Assets\Scripts\EmptySlotUi.cs" />
     <Compile Include="Assets\Scripts\SkydiveAnimationController.cs" />
     <Compile Include="Assets\Scripts\QuitButton.cs" />
     <Compile Include="Assets\Scripts\Gripper.cs" />
     <Compile Include="Assets\Scripts\MaterialManager.cs" />
     <Compile Include="Assets\Scripts\Selectable.cs" />
+    <Compile Include="Assets\Scripts\SelectionHandler2D.cs" />
     <Compile Include="Assets\Scripts\ButtonDecoder.cs" />
     <Compile Include="Assets\Scripts\Vibrator.cs" />
     <Compile Include="Assets\Scripts\WearablesStart.cs" />
     <Compile Include="Assets\Scripts\SettingsButton.cs" />
     <Compile Include="Assets\Scripts\JumperAmount.cs" />
+    <Compile Include="Assets\Scripts\Slot2D.cs" />
     <Compile Include="Assets\Scripts\PropRotator.cs" />
     <Compile Include="Assets\Scripts\ColorOptionSlot.cs" />
     <Compile Include="Assets\Scripts\DetectorLowersLand.cs" />
+    <Compile Include="Assets\Scripts\JumpSaveWindow.cs" />
+    <Compile Include="Assets\Scripts\Selectable2D.cs" />
     <Compile Include="Assets\Scripts\GameModeManager.cs" />
     <Compile Include="Assets\Scripts\FollowGyro.cs" />
     <Compile Include="Assets\Scripts\SkinCutoutHelper.cs" />
     <Compile Include="Assets\Scripts\SecondarySelectionIndicator.cs" />
     <Compile Include="Assets\Scripts\JumpAmountText.cs" />
+    <Compile Include="Assets\Scripts\Selected2DColorHandler.cs" />
     <Compile Include="Assets\Scripts\ColorPicker.cs" />
     <Compile Include="Assets\Scripts\SkydiveManager.cs" />
     <Compile Include="Assets\Scripts\UiDigitalAltimeter.cs" />
@@ -94,6 +100,7 @@
     <Compile Include="Assets\Scripts\HandGripButton.cs" />
     <Compile Include="Assets\Scripts\AircraftTransforms.cs" />
     <Compile Include="Assets\Scripts\SelectionIndicator.cs" />
+    <Compile Include="Assets\Scripts\JumpVisualizer2D.cs" />
     <Compile Include="Assets\Scripts\ModifiableCharacter.cs" />
     <Compile Include="Assets\Scripts\ColorSelector.cs" />
     <Compile Include="Assets\Scripts\JumpSequenceSelector.cs" />
@@ -105,15 +112,19 @@
     <Compile Include="Assets\Scripts\ColorHelper.cs" />
     <Compile Include="Assets\Scripts\ExitHeightUi.cs" />
     <Compile Include="Assets\Scripts\JumpCreator.cs" />
+    <Compile Include="Assets\Scripts\OrientationButton.cs" />
     <Compile Include="Assets\Scripts\Grip.cs" />
+    <Compile Include="Assets\Scripts\Inputs\SlotPositionHelper.cs" />
     <Compile Include="Assets\Scripts\GyroManager.cs" />
     <Compile Include="Assets\Scripts\HorizonCorrector.cs" />
     <Compile Include="Assets\Scripts\CanopyCameraHandler.cs" />
     <Compile Include="Assets\Scripts\JumpSequenceInfo.cs" />
+    <Compile Include="Assets\Scripts\GhostAnimationController.cs" />
     <Compile Include="Assets\Scripts\CharacterModifySelector.cs" />
     <Compile Include="Assets\Scripts\SelectionHandler.cs" />
     <Compile Include="Assets\Scripts\Inputs\AccelAndTouchUiControl.cs" />
     <Compile Include="Assets\Scripts\SelectedInput.cs" />
+    <Compile Include="Assets\Scripts\Designer2DButton.cs" />
     <Compile Include="Assets\Scripts\FreefallModeButton.cs" />
     <Compile Include="Assets\Scripts\JumpModeButton.cs" />
     <Compile Include="Assets\Scripts\JumpSequence.cs" />
@@ -139,7 +150,9 @@
     <Compile Include="Assets\Scripts\TargetLine.cs" />
     <Compile Include="Assets\Scripts\Restarter.cs" />
     <Compile Include="Assets\Scripts\AltitudeLineIndicator.cs" />
+    <Compile Include="Assets\Scripts\RotationButton.cs" />
     <Compile Include="Assets\Scripts\ColorOptions.cs" />
+    <Compile Include="Assets\Scripts\Deselector2D.cs" />
     <Compile Include="Assets\Scripts\PlayButton.cs" />
     <Compile Include="Assets\Scripts\Hand.cs" />
     <Compile Include="Assets\Scripts\Formation.cs" />
@@ -149,17 +162,6 @@
     <Compile Include="Assets\Scripts\GameLoader.cs" />
     <Compile Include="Assets\Scripts\PullButton.cs" />
     <Compile Include="Assets\Scripts\IkHint.cs" />
-    <Compile Include="Assets\Scripts\JumpVisualizer2D.cs" />
-    <Compile Include="Assets\Scripts\Slot2D.cs" />
-    <Compile Include="Assets\Scripts\Selectable2D.cs" />
-    <Compile Include="Assets\Scripts\Selected2DColorHandler.cs" />
-    <Compile Include="Assets\Scripts\Deselector2D.cs" />
-    <Compile Include="Assets\Scripts\SelectionHandler2D.cs" />
-    <Compile Include="Assets\Scripts\OrientationButton.cs" />
-    <Compile Include="Assets\Scripts\RotationButton.cs" />
-    <Compile Include="Assets\Scripts\JumpSaveWindow.cs" />
-    <Compile Include="Assets\Scripts\EmptySlotUi.cs" />
-    <Compile Include="Assets\Scripts\Designer2DButton.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Scripts\Scripts.asmdef" />

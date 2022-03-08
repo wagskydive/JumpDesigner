@@ -12,6 +12,9 @@ public static class ExtentionMethods
     {
         return new Vector3(0, vector3.y, 0);
     }
+
+
+    
 }
 
 public class PID
@@ -116,14 +119,14 @@ public class NPC_Ai_FromState : MonoBehaviour, IInput
 
     private void WakeUp(JumpSequence sequence)
     {
-        if(formationIndex == 0)
+        if(skydiverIndex == 0)
         {
             SetState(new SkydiveState(sequence.DiveFlow[skydiveManager.currentSequenceIndex].BaseOrientation));
         }
         else
         {
-            SkydiveFormationSlot slot = sequence.DiveFlow[skydiveManager.currentSequenceIndex].FormationSlots[formationIndex];
-            SetState(new SkydiveState(slot.Orientation,skydiveManager.SpawnedSkydivers[slot.TargetIndex], slot.Slot,slot.BaseRotation));
+            SkydiveFormationSlot slot = sequence.DiveFlow[skydiveManager.currentSequenceIndex].FormationSlots[skydiverIndex-1];
+            SetState(new SkydiveState(slot));
         }
         //skydiveManager.getState
     }
@@ -164,62 +167,7 @@ public class NPC_Ai_FromState : MonoBehaviour, IInput
 
     }
 
-    Vector3 SlotOffset(int slot)
-    {
 
-        if (slot == 0)
-        {
-            return new Vector3(-1, 0, 1);
-        }
-
-
-
-        if (slot == 1)
-        {
-            return new Vector3(0, 0, 1);
-        }
-
-
-        if (slot == 2)
-        {
-            return new Vector3(1, 0, 1);
-        }
-
-
-        if (slot == 3)
-        {
-            return new Vector3(-1, 0, 0);
-        }
-
-
-
-        if (slot == 4)
-        {
-            return new Vector3(1, 0, 0);
-        }
-
-
-        if (slot == 5)
-        {
-            return new Vector3(-1, 0, -1);
-        }
-
-
-        if (slot == 6)
-        {
-            return new Vector3(0, 0, -1);
-        }
-
-
-        if (slot == 7)
-        {
-            return new Vector3(1, 0, -1);
-        }
-        else
-        {
-            return Vector3.zero;
-        }
-    }
 
     SkydiveState currentState;
 
@@ -228,9 +176,9 @@ public class NPC_Ai_FromState : MonoBehaviour, IInput
     public void SetState(SkydiveState state)
     {
         currentState = state;
-        if(currentState.Target != null)
+        if(currentState.FormationSlot != null)
         {
-            target = currentState.Target.transform;
+            target = skydiveManager.SpawnedGhosts[skydiverIndex];
         }
         
         OnButtonPressed?.Invoke((int)state.Orientation);
@@ -245,7 +193,7 @@ public class NPC_Ai_FromState : MonoBehaviour, IInput
 
     public event Action<int> OnButtonPressed;
 
-    float distaceThreshold = 3;
+    float distaceThreshold = 15;
 
     bool isInFreefall = true;
     bool isSeperating = false;
@@ -253,7 +201,7 @@ public class NPC_Ai_FromState : MonoBehaviour, IInput
     float pullHeight = 1000;
     float seperationHeight = 1800;
 
-    int formationIndex;
+    int skydiverIndex;
 
     Vector4 GetMovementVector()
     {
@@ -283,9 +231,10 @@ public class NPC_Ai_FromState : MonoBehaviour, IInput
 
         //Vector3 slotOffset = target.TransformDirection(SlotOffset(currentState.Slot));
         Vector3 targetWithSlotOffset = target.position;
-        if(currentState != null)
+        if(currentState != null && currentState.FormationSlot != null)
         {
-            targetWithSlotOffset = target.TransformPoint(SlotOffset(currentState.Slot));
+            //targetWithSlotOffset = target.position;
+            //targetWithSlotOffset = target.TransformPoint(SlotPositionHelper.SlotOffset(currentState.Slot));
             if (isSeperating)
             {
                 targetWithSlotOffset = (skydiveManager.middlepointNPCS.position- transform.position) * -20;
@@ -302,7 +251,7 @@ public class NPC_Ai_FromState : MonoBehaviour, IInput
             movement.z = Mathf.Clamp(Vector3.Distance(targetWithSlotOffset.Flatten(), transform.position.Flatten()) / 5,-.8f,.8f);
             
         }
-        else if(currentState != null && currentState.Slot > 0)
+        else if(currentState != null && currentState.FormationSlot != null && currentState.Slot > 0)
         {
 
             Vector3 to = transform.InverseTransformDirection(targetWithSlotOffset.Flatten() - transform.position.Flatten());
@@ -311,13 +260,14 @@ public class NPC_Ai_FromState : MonoBehaviour, IInput
             movement.x = Mathf.Clamp(xPidController.GetOutput(to.x/distaceThreshold, Time.fixedDeltaTime), -.8f, .8f);
             //movement.x = Mathf.Clamp(to.x/(distaceThreshold * .3f), -.95f, .95f);
 
-            if (Vector3.Distance(transform.position.Flatten(),target.position.Flatten()) < Vector3.Distance(transform.position.Flatten(), targetWithSlotOffset.Flatten()))
+            if (Vector3.Distance(transform.position.Flatten(),target.position.Flatten()) >.5f)// Vector3.Distance(transform.position.Flatten(), targetWithSlotOffset.Flatten()))
             {
                 targetWithSlotOffset.y += .5f;
             }
 
 
-            float wPut = Vector3.SignedAngle(transform.forward, target.TransformDirection(Quaternion.AngleAxis(currentState.BaseRotation, Vector3.down)*Vector3.forward), transform.up) / 45;
+            //float wPut = Vector3.SignedAngle(transform.forward, target.TransformDirection(Quaternion.AngleAxis(currentState.BaseRotation, Vector3.down)*Vector3.forward), transform.up) / 45;
+            float wPut = Vector3.SignedAngle(transform.forward, target.TransformDirection(Vector3.forward), transform.up) / 45;
             //Debug.Log(wPut);
             movement.w = Mathf.Clamp( wPidController.GetOutput(wPut,Time.deltaTime),-1,1);
         }
@@ -329,6 +279,6 @@ public class NPC_Ai_FromState : MonoBehaviour, IInput
 
     public void SetIndex(int index)
     {
-        formationIndex = index;
+        skydiverIndex = index;
     }
 }
