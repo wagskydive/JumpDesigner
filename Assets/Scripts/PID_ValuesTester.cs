@@ -9,6 +9,9 @@ public class PID_ValuesTester : MonoBehaviour
     public static event Action<Vector3> OnwPidValuesChanged;
 
 
+    public static event Action<Vector3> OnCanopywPidValuesChanged;
+
+
 
     [SerializeField]
     public float xzKp, xzKi, xzKd;
@@ -21,6 +24,10 @@ public class PID_ValuesTester : MonoBehaviour
     [SerializeField]
     public float wKp, wKi, wKd;
     public Vector3 wLastPID;
+    
+    [SerializeField]
+    public float CanopywKp, CanopywKi, CanopywKd;
+    public Vector3 CanopywLastPID;
 
 
 
@@ -31,9 +38,11 @@ public class PID_ValuesTester : MonoBehaviour
         xzLastPID = new Vector3(xzKp, xzKi, xzKd);
         yLastPID = new Vector3(yKp,yKi, yKd);
         wLastPID = new Vector3(wKp, wKi, wKd);
+        CanopywLastPID = new Vector3(CanopywKp, CanopywKi, CanopywKd);
         OnxzPidValuesChanged?.Invoke(xzLastPID);
-        OnxzPidValuesChanged?.Invoke(yLastPID);
-        OnxzPidValuesChanged?.Invoke(wLastPID);
+        OnyPidValuesChanged?.Invoke(yLastPID);
+        OnwPidValuesChanged?.Invoke(wLastPID);
+        OnCanopywPidValuesChanged?.Invoke(wLastPID);
     }
     // Update is called once per frame
     void Update()
@@ -53,6 +62,10 @@ public class PID_ValuesTester : MonoBehaviour
             wLastPID = new Vector3(wKp, wKi, wKd);
             OnwPidValuesChanged?.Invoke(wLastPID);
         }
-
+        if (CanopywKp != CanopywLastPID.x || CanopywKi != CanopywLastPID.y || CanopywKd != CanopywLastPID.z)
+        {
+            CanopywLastPID = new Vector3(CanopywKp, CanopywKi, CanopywKd);
+            OnCanopywPidValuesChanged?.Invoke(CanopywLastPID);
+        }
     }
 }

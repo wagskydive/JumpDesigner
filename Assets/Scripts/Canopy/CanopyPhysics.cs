@@ -34,9 +34,9 @@ public class CanopyPhysics : MonoBehaviour
         currentForceAndTorque = (forceAndTorqueThisFrame + forceAndTorquePrediction) * 0.5f;
 
         Vector3 appliedForce = Vector3.ClampMagnitude(currentForceAndTorque.p,10000);
-        Debug.Log("Force: "+appliedForce);
+        //Debug.Log("Force: "+appliedForce);
         Vector3 appliedTorque = Vector3.ClampMagnitude(currentForceAndTorque.q,10000);
-        Debug.Log("Torque: "+appliedTorque);
+        //Debug.Log("Torque: "+appliedTorque);
 
         rb.AddForce(appliedForce);
         rb.AddTorque(appliedTorque);

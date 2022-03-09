@@ -64,6 +64,14 @@ public class SkydiveAnimationController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         movementController = GetComponent<MovementController>();
         movementController.OnPull += PullAnimation;
+        movementController.OnRecover += Recover;
+
+        GetComponent<ImpactController>().OnImpact += Impact;
+
+        SkydiveManager skydiveManager = FindObjectOfType<SkydiveManager>();
+        skydiveManager.OnJumpRunSet += ExitAnimation;
+        skydiveManager.OnExitStarted += ExitTrigger;
+
         lastPosition = transform.position;
         PrevPos = new Vector3[average];
         for (int i = 0; i < average; i++)
@@ -76,6 +84,29 @@ public class SkydiveAnimationController : MonoBehaviour
 
         movementController.OnTransition += Transition;
         lastOrientationInt = (int)movementController.CurrentOrientation;
+        ExitAnimation();
+    }
+
+    private void Recover()
+    {
+        animator.SetTrigger("Recover");
+    }
+
+    void Impact(Collision collision)
+    {
+        animator.SetTrigger("Impact");
+    }
+
+    private void ExitTrigger()
+    {
+        animator.SetTrigger("Exit");
+    }
+
+    private void ExitAnimation()
+    {
+        
+        animator.Play("ExitAnimation");
+        movementController.ResetOffset();
     }
 
     private void PullAnimation()

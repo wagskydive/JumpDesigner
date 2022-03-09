@@ -94,12 +94,19 @@ public class NPC_Ai_FromState : MonoBehaviour, IInput
 
     SkydiveManager skydiveManager;
 
-    PID yPidController = new PID(5f, 2f, 6f);
+    //PID yPidController = new PID(5f, 2f, 6f);
+    //
+    //
+    //PID xPidController = new PID(3.5f, 1f, 1.5f);
+    //PID zPidController = new PID(3.5f, 1f, 1.5f);
+    //PID wPidController = new PID(3.5f, 1f, 1.5f);
+    
+    PID yPidController = new PID(10.05f, 0.19f, 2.37f);
 
 
-    PID xPidController = new PID(3.5f, 1f, 1.5f);
+    PID xPidController = new PID(18f, 0.5f, 5.2f);
     PID zPidController = new PID(3.5f, 1f, 1.5f);
-    PID wPidController = new PID(3.5f, 1f, 1.5f);
+    PID wPidController = new PID(4.33f, 0.18f, 1.32f);
 
 
     Rigidbody rb;
@@ -198,26 +205,29 @@ public class NPC_Ai_FromState : MonoBehaviour, IInput
     bool isInFreefall = true;
     bool isSeperating = false;
 
-    float pullHeight = 1000;
-    float seperationHeight = 1800;
+    float pullHeight = 800;
+    float seperationHeight = 1300;
 
     int skydiverIndex;
 
     Vector4 GetMovementVector()
     {
 
-
-
-        if(transform.position.y - terrainTransform.position.y < pullHeight && isInFreefall)
+        if (terrainTransform.gameObject.activeSelf)
         {
-            GetComponent<MovementController>().PullParachute();
-            isInFreefall = false;
 
-        }
+            if (transform.position.y - terrainTransform.position.y < pullHeight && isInFreefall)
+            {
+                GetComponent<MovementController>().PullParachute();
+                isInFreefall = false;
 
-        if (transform.position.y - terrainTransform.position.y < seperationHeight && !isSeperating)
-        {           
-            isSeperating = true;
+            }
+
+            if (transform.position.y - terrainTransform.position.y < seperationHeight && !isSeperating)
+            {
+                isSeperating = true;
+            }
+
         }
 
 

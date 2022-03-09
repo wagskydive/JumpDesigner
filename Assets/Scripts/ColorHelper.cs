@@ -1,15 +1,24 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+
+
 
 public class ColorHelper : MonoBehaviour
 {
+
+
 
 
     [SerializeField]
     public Material[] materialsToAffect;
 
     public Color[] colors;
+
+    public void LoadColorsFromCharacterData(CharacterData data)
+    {
+        colors = data.Colors;
+
+    }
 
     public void Initialize()
     {

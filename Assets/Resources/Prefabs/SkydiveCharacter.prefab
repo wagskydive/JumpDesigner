@@ -835,6 +835,7 @@ GameObject:
   - component: {fileID: 2071084465}
   - component: {fileID: 2071084466}
   - component: {fileID: 5108962671209189377}
+  - component: {fileID: 6698146521672455101}
   m_Layer: 0
   m_Name: SkydiveCharacter
   m_TagString: Untagged
@@ -996,6 +997,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   leftHand: {fileID: 1229855195548902784}
   rightHand: {fileID: 7232434997509049761}
+--- !u!114 &6698146521672455101
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5554678695719654870}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd6adfb84e7042241800b902fec5dedd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 5339447394255973060}
 --- !u!1 &6497607836104376757
 GameObject:
   m_ObjectHideFlags: 0

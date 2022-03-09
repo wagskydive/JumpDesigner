@@ -8,6 +8,7 @@ public class CanopyController : MonoBehaviour
 {
     public event Action<Vector4> OnMovement;
     public event Action OnPull;
+    public event Action<CanopyController> OnParachuteDeployed;
     public event Action OnCutaway;
 
     [SerializeField]
@@ -30,7 +31,7 @@ public class CanopyController : MonoBehaviour
 
     CanopyConnector canopyConnector;
 
-    Rigidbody canopyRb;
+    public Rigidbody canopyRb;
 
     public void Pull()
     {
@@ -50,8 +51,10 @@ public class CanopyController : MonoBehaviour
         //midSurface.SetFlapAngle(.2f);
         LeanTween.scale(go, Vector3.one, 2);
 
-
+        rightZPos = rightSideSurface.transform.localPosition.z;
+        leftZPos = leftSideSurface.transform.localPosition.z;
         brakesReleased = false;
+        OnParachuteDeployed?.Invoke(this);
     }
 
     public void Cutaway()
@@ -95,8 +98,7 @@ public class CanopyController : MonoBehaviour
 
         rb.mass = 80;
         rb.drag = 0;
-        rightZPos = rightSideSurface.transform.localPosition.z;
-        leftZPos = leftSideSurface.transform.localPosition.z;
+
 
        
     }

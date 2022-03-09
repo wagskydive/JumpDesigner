@@ -2,8 +2,12 @@
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
 
-public class GhostAnimationController : MonoBehaviour
+public class GhostController : MonoBehaviour
 {
+    public event Action<int> OnSkydiverArrived;
+    public event Action<int> OnSkydiverGone;
+
+
     [SerializeField]
     Animator animator;
 
@@ -46,6 +50,8 @@ public class GhostAnimationController : MonoBehaviour
 
     private void NextFormation(int index)
     {
+        skydiverInSlot = false;
+        skydiverInSlotAndRotated = false;
         if (!inPlayback) { inPlayback = true; }
         if (skydiverIndex > 0)
         {
@@ -146,17 +152,64 @@ public class GhostAnimationController : MonoBehaviour
                 transform.rotation = skydiveManager.SpawnedSkydivers[0].transform.rotation;
 
             }
+            if(Vector3.Distance( connectedSkydiver.position, transform.position) < inSlotTreshold)
+            {
+                if (!skydiverInSlot)
+                {
+                    //Debug.Log("Skydiver " + connectedSkydiver.transform.gameObject.name + " is In Slot");
+                    skydiverInSlot = true;
+                }
+                
+            }
+            else
+            {
+                if (skydiverInSlot)
+                {
+                    //Debug.Log("Skydiver " + connectedSkydiver.gameObject.name + " is out of Slot");
+                    skydiverInSlot = false;
+                    if (skydiverInSlotAndRotated)
+                    {
+                        skydiverInSlotAndRotated = false;
+                        OnSkydiverGone?.Invoke(skydiverIndex);
+                    }
+                        
+                }
+            }
 
-            
+            if (skydiverInSlot)
+            {
+                if(Vector3.Distance(connectedSkydiver.forward,transform.forward) < rotationTreshold)
+                {
+                    if (!skydiverInSlotAndRotated)
+                    {
+                        Debug.Log("Skydiver " + connectedSkydiver.gameObject.name + " is In Slot And rotated");
+                        skydiverInSlotAndRotated = true;
+                        OnSkydiverArrived?.Invoke(skydiverIndex);
+                    }
+                }
+                else
+                {
+                    if (skydiverInSlotAndRotated)
+                    {
+                        Debug.Log("Skydiver " + connectedSkydiver.gameObject.name + " is Out of Rotation");
+                        skydiverInSlotAndRotated = false;
+                        OnSkydiverGone?.Invoke(skydiverIndex);
+                    }
+                }
+            }
         }
     }
 
+    bool skydiverInSlot;
+    bool skydiverInSlotAndRotated;
 
+    float inSlotTreshold = .8f;
+    float rotationTreshold = .5f;
+    [SerializeField]
+    Transform connectedSkydiver;
 
-   
-
-
-
-
-
+    public void ConnectSkydiver(Transform skydiver)
+    {
+        connectedSkydiver = skydiver;
+    }
 }

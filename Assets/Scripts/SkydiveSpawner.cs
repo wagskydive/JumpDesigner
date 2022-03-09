@@ -51,7 +51,7 @@ public class SkydiveSpawner : MonoBehaviour
     {
 
         GameObject ghost = Instantiate(Resources.Load("Prefabs/GhostCharacter") as GameObject);
-        ghost.GetComponent<GhostAnimationController>().SetSkydiverIndex(index);
+        ghost.GetComponent<GhostController>().SetSkydiverIndex(index);
         return ghost.transform;
 
     }

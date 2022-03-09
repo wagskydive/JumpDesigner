@@ -24,7 +24,7 @@ public class UiDigitalSpeedMeter : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log((Mathf.Round((character.position.y - lastYPos) / Time.deltaTime) * -1));
+        //Debug.Log((Mathf.Round((character.position.y - lastYPos) / Time.deltaTime) * -1));
         
         speedBuffer[index] = ((character.position.y - lastYPos) / Time.deltaTime) * -1;
 

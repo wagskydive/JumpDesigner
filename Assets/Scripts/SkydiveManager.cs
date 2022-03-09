@@ -8,12 +8,16 @@ public class SkydiveManager : MonoBehaviour
 {
     public event Action<ISelectable> OnSkydiverAdded;
     public event Action<int> OnNextFormationSet;
+
+    public event Action<JumpSequence> OnPlaybackStarted;
+    public event Action OnJumpRunSet;
+    public event Action OnExitStarted;
+
+
     public List<ISelectable> SpawnedSkydivers = new List<ISelectable>();
 
     public List<Transform> SpawnedGhosts = new List<Transform>();
 
-    public event Action<JumpSequence> OnPlaybackStarted;
-    public event Action OnJumpRunSet;
 
     SkydiveSpawner spawner;
 
@@ -23,11 +27,24 @@ public class SkydiveManager : MonoBehaviour
     public JumpSequence CurrentJumpSequence;
 
     int exitAltitude;
+
+
     [SerializeField]
     GameObject startButton;
 
     [SerializeField]
     AircraftTransforms aircraft;
+
+    GameObject offsetPlacementObject;
+
+    bool isPlayingBack;
+
+    private void Awake()
+    {
+        spawner = FindObjectOfType<SkydiveSpawner>();
+        offsetPlacementObject = new GameObject();
+    }
+
 
     public void SetupJumpRun(JumpSequence selectedSequence, int altitude)
     {
@@ -53,48 +70,48 @@ public class SkydiveManager : MonoBehaviour
 
         for (int j = 0; j < skydiversNeeded; j++)
         {
-            SpawnedSkydivers[j].transform.gameObject.SetActive(true);
-            SpawnedGhosts[j].gameObject.SetActive(true);
+            
+
+
+
         }
 
         aircraft.transform.position = Vector3.up * altitude;
 
-        for (int i = 0; i < SpawnedSkydivers.Count; i++)
+        for (int i = 0; i < skydiversNeeded; i++)
         {
+            SpawnedSkydivers[i].transform.gameObject.SetActive(true);
+            SpawnedGhosts[i].gameObject.SetActive(true);
+
             SpawnedSkydivers[i].transform.GetComponent<Rigidbody>().isKinematic = true;
             SpawnedSkydivers[i].transform.position = aircraft.ExitPositions[i].position;
             SpawnedSkydivers[i].transform.SetParent(aircraft.transform);
+            SpawnedSkydivers[i].transform.localEulerAngles = Vector3.zero;
             SpawnedSkydivers[i].transform.GetComponent<Rigidbody>().velocity = Vector3.zero;
         }
         startButton.SetActive(true);
         OnJumpRunSet?.Invoke();
     }
 
-
-
     public void StartButtonPressed()
     {
         startButton.SetActive(false);
-        StartPlayback(CurrentJumpSequence, exitAltitude);
-        
+        OnExitStarted?.Invoke();
+        Invoke("DelayedPlayback", 2);
+             
     }
 
     public int currentSequenceIndex;
-
-    bool isPlayingBack;
-
-    private void Awake()
-    {
-        spawner = FindObjectOfType<SkydiveSpawner>();
-        go = new GameObject();
-    }
-
-
 
     public void StartDefaultJump(int amount)
     {
         StartPlayback(JumpCreator.DefaultJump(amount),4600);
         
+    }
+
+    void DelayedPlayback()
+    {
+        StartPlayback(CurrentJumpSequence, exitAltitude);
     }
 
     public void StartPlayback(JumpSequence sequence, int altitude)
@@ -131,7 +148,6 @@ public class SkydiveManager : MonoBehaviour
     {
         isPlayingBack = false;
     }
-    GameObject go;
 
     public Vector3 FormationOffset(SkydiveFormationSlot formationSlot)
     {
@@ -141,8 +157,8 @@ public class SkydiveManager : MonoBehaviour
         }
 
         List<int> formationFlow = new List<int>();
-        go.transform.position = Vector3.zero;
-        go.transform.rotation = Quaternion.identity;
+        offsetPlacementObject.transform.position = Vector3.zero;
+        offsetPlacementObject.transform.rotation = Quaternion.identity;
         if (formationSlot.TargetIndex != 0)
         {
 
@@ -162,8 +178,8 @@ public class SkydiveManager : MonoBehaviour
             {
                 Vector3 Offset = SlotPositionHelper.SlotOffset(slot.Slot);
                 //Offset = Quaternion.AngleAxis(slot.BaseRotation, go.transform.up) * Offset;
-                go.transform.position += Offset;
-                go.transform.Rotate(new Vector3(0, slot.BaseRotation, 0));
+                offsetPlacementObject.transform.position += Offset;
+                offsetPlacementObject.transform.Rotate(new Vector3(0, slot.BaseRotation, 0));
 
                 if (formationFlow[j] != 0)
                 {
@@ -173,7 +189,7 @@ public class SkydiveManager : MonoBehaviour
 
                 
             }
-            return SpawnedSkydivers[0].transform.TransformPoint(go.transform.position);
+            return SpawnedSkydivers[0].transform.TransformPoint(offsetPlacementObject.transform.position);
         }
         else
         {
@@ -184,6 +200,7 @@ public class SkydiveManager : MonoBehaviour
 
     void HandoutNextSlots()
     {
+        skydiversInSlots = new bool[CurrentJumpSequence.TotalSkydivers()];
         SpawnedSkydivers[0].transform.GetComponent<NPC_Ai_FromState>().SetState(new SkydiveState(CurrentJumpSequence.DiveFlow[currentSequenceIndex].BaseOrientation));
         for (int i = 0; i < CurrentJumpSequence.DiveFlow[currentSequenceIndex].FormationSlots.Count; i++)
         {
@@ -192,7 +209,6 @@ public class SkydiveManager : MonoBehaviour
         }
 
     }
-
 
     public void SelectAllButtonPress()
     {
@@ -207,14 +223,50 @@ public class SkydiveManager : MonoBehaviour
     {
         int newIndex = SpawnedSkydivers.Count;
         ISelectable skydiver = spawner.SpawnSkydiverWithAi(newIndex).GetComponent<ISelectable>();
+        skydiver.transform.gameObject.name = "Skydiver " + SpawnedSkydivers.Count.ToString();
+        Transform ghost = spawner.SpawnGhost(newIndex);
+        ghost.GetComponent<GhostController>().ConnectSkydiver(skydiver.transform);
+        ghost.GetComponent<GhostController>().OnSkydiverArrived += SkydiverArrived;
+        ghost.GetComponent<GhostController>().OnSkydiverGone += SkydiverGone;
+        ghost.gameObject.name = "Ghost " + SpawnedGhosts.Count.ToString();
 
 
-        SpawnedGhosts.Add(spawner.SpawnGhost(newIndex));
+
+        SpawnedGhosts.Add(ghost);
 
         SpawnedSkydivers.Add(skydiver);
+
         OnSkydiverAdded?.Invoke(skydiver);
     }
 
+    private void SkydiverGone(int skydiver)
+    {
+        skydiversInSlots[skydiver] = false;
+    }
+
+    bool[] skydiversInSlots;
+
+    private void SkydiverArrived(int skydiver)
+    {
+        skydiversInSlots[skydiver] = true;
+        if (AllTrueInArray(skydiversInSlots))
+        {
+            SetNextFormation();
+        }
+    }
+
+    bool AllTrueInArray(bool[] bools)
+    {
+        for (int i = 0; i < bools.Length; i++)
+        {
+            if (!bools[i])
+            {
+                return false;
+            }
+
+        }
+        return true;
+    }
 
     public void RemoveSkydiverButtonPress()
     {

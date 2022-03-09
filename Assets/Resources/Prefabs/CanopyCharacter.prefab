@@ -438,6 +438,7 @@ GameObject:
   - component: {fileID: 3858722309803990770}
   - component: {fileID: 3858722309803990785}
   - component: {fileID: 3858722309803990778}
+  - component: {fileID: 7581199496604152153}
   m_Layer: 0
   m_Name: CanopyCharacter
   m_TagString: Untagged
@@ -580,6 +581,7 @@ MonoBehaviour:
   canopyForwardSpeed: 0
   canopyDownwardSpeed: 0
   turnSpeed: 4
+  canopyRb: {fileID: 0}
 --- !u!114 &3858722309803990785
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -605,6 +607,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 3937378311334867346}
+--- !u!114 &7581199496604152153
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3579175824722415232}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd6adfb84e7042241800b902fec5dedd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3684184978275627258
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SettingsPanel : MonoBehaviour
 {
@@ -13,6 +14,11 @@ public class SettingsPanel : MonoBehaviour
 
     SkydiveManager skydiveManager;
 
+    [SerializeField]
+    Toggle infintyToggle;
+    [SerializeField]
+    GameObject terrain;
+
     private void Awake()
     {
         skydiveManager = FindObjectOfType<SkydiveManager>();
@@ -23,5 +29,13 @@ public class SettingsPanel : MonoBehaviour
         float altitude = heightSetter.CurrentHeight / 3.28f;
         skydiveManager.SetupJumpRun(jumpSequenceSelector.SelectedSequence,Mathf.RoundToInt(altitude));
         transform.root.gameObject.SetActive(false);
+        if (infintyToggle.isOn)
+        {
+            terrain.SetActive(false);
+        }
+        else
+        {
+            terrain.SetActive(true);
+        }
     }
 }

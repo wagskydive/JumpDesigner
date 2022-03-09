@@ -119,6 +119,7 @@ public class MovementController : MonoBehaviour
 {
     public event Action<FreefallOrientation, float> OnTransition;
     public event Action<Vector4> OnMovement;
+    public event Action OnRecover;
 
     Rigidbody rb;
 
@@ -384,17 +385,45 @@ public class MovementController : MonoBehaviour
         rb = gameObject.GetComponent<Rigidbody>();
         rb.useGravity = true;
         controlMode = 1;
+
+        GetComponent<ImpactController>().OnImpact += Impact;
     }
 
+    bool hasImpacted;
 
+    private void Impact(Collision collision)
+    {
+        hasImpacted = true;
+        rb.AddForce(collision.relativeVelocity * -.3f,ForceMode.Impulse);
+        rb.AddRelativeTorque(collision.impulse * -2, ForceMode.Impulse);
+        rb.drag += .2f;
+        Invoke("ResetImpact", collision.relativeVelocity.magnitude*.2f);
+    }
+
+    void ResetImpact()
+    {
+        rb.drag -= .2f;
+        hasImpacted = false;
+        OnRecover?.Invoke();
+    }
+
+    CanopyAiController canopyAi;
     public void PullParachute()
     {
         CanopyController canopyController =  gameObject.AddComponent<CanopyController>();
-        gameObject.AddComponent<CanopyManualControlHelper>();
+        canopyController.OnParachuteDeployed += HandleCanopyDeploy;
         NPC_Ai_FromState nPC_Ai_FromState = GetComponent<NPC_Ai_FromState>();
         if (nPC_Ai_FromState != null)
         {
             nPC_Ai_FromState.enabled = false;
+            canopyAi = gameObject.AddComponent<CanopyAiController>();
+            canopyController.inputSource = canopyAi;
+            
+            canopyAi.SetTarget(new Vector3(60000, 0, 30000));
+        }
+        else
+        {
+            gameObject.AddComponent<CanopyManualControlHelper>();
         }
         canopyController.Pull();
         rb.freezeRotation = false;
@@ -403,7 +432,12 @@ public class MovementController : MonoBehaviour
         enabled = false;
     }
 
-    void ResetOffset()
+    private void HandleCanopyDeploy(CanopyController controller)
+    {
+        canopyAi.SetCanopyTransform(controller.canopyRb.transform);
+    }
+
+    public void ResetOffset()
     {
         CharacterOffset.localEulerAngles = Vector3.zero;
     }
@@ -425,42 +459,45 @@ public class MovementController : MonoBehaviour
     {
 
         //HandleTransitionTimer();
-
-        if (inputSource == null)
+        if (!hasImpacted)
         {
-            if (GetComponent<IInput>() != null)
+
+            if (inputSource == null)
             {
-                ReplaceInput(GetComponent<IInput>());
+                if (GetComponent<IInput>() != null)
+                {
+                    ReplaceInput(GetComponent<IInput>());
+                }
+
             }
 
-        }
-
-        if (inputSource != null)
-        {
-            Vector4 movementInputs = inputSource.MovementVector;
-            if (movementInputs != Vector4.zero)
+            if (inputSource != null)
             {
-
-                if (Convert.ToString(inputSource.CurrentButtonsState, 2).EndsWith("1"))
+                Vector4 movementInputs = inputSource.MovementVector;
+                if (movementInputs != Vector4.zero)
                 {
 
+                    if (Convert.ToString(inputSource.CurrentButtonsState, 2).EndsWith("1"))
+                    {
+
+                    }
+                    else
+                    {
+                        Vector4 movementVectorAdjusted = new Vector4(movementInputs.x, movementInputs.y, movementInputs.z, movementInputs.w);
+
+                        rb.AddRelativeForce(movementVectorAdjusted * movementSpeed);
+
+
+                        rb.AddTorque(Vector3.up * movementVectorAdjusted.w * turnSpeed);
+
+                    }
+
                 }
-                else
+                if (lastMovemntInputs != movementInputs)
                 {
-                    Vector4 movementVectorAdjusted = new Vector4(movementInputs.x, movementInputs.y, movementInputs.z, movementInputs.w);
-
-                    rb.AddRelativeForce(movementVectorAdjusted * movementSpeed);
-
-
-                    rb.AddTorque(Vector3.up * movementVectorAdjusted.w * turnSpeed);
-
+                    OnMovement?.Invoke(movementInputs);
+                    lastMovemntInputs = movementInputs;
                 }
-                
-            }
-            if(lastMovemntInputs != movementInputs)
-            {
-                OnMovement?.Invoke(movementInputs);
-                lastMovemntInputs = movementInputs;
             }
         }
 

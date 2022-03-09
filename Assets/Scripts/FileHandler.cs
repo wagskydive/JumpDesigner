@@ -58,6 +58,90 @@ public static class FileHandler
     }
 
 
+    public static List<CharacterData> ReadSavedCharacaters()
+    {
+        List<CharacterData> savedJumpSequences = new List<CharacterData>();
+
+        string path = Application.persistentDataPath + "/characters/";
+
+
+        DirectoryInfo directoryInfo = new DirectoryInfo(path);
+
+        for (int i = 0; i < directoryInfo.GetFiles().Length; i++)
+        {
+
+            if (directoryInfo.GetFiles()[i].Extension == ".json")
+            {
+                JSONObject saveRead = JSONNode.Parse(File.ReadAllText(directoryInfo.GetFiles()[i].FullName)).AsObject;
+                savedJumpSequences.Add(CharacterDataFromJSON(saveRead));
+            }
+
+        }
+
+        return savedJumpSequences;
+    }
+
+    public static CharacterData CharacterDataFromJSON(JSONObject saveRead)
+    {
+        string characterName = saveRead.GetValueOrDefault("Name", saveRead);
+
+
+        JSONObject colorsObject = saveRead.GetValueOrDefault("Colors", saveRead).AsObject;
+
+        Color[] colors = new Color[colorsObject.Count];
+
+        for (int i = 0; i < colorsObject.Count; i++)
+        {
+            colors[i] = ColorFromHex(colorsObject[i].Value);
+        }
+
+        CharacterData characterData = new CharacterData(characterName);
+        characterData.SetColors(colors);
+
+
+
+
+        return characterData;
+    }
+
+    public static JSONObject JSONFromCharacterData(CharacterData characterData)
+    {
+        JSONObject root = new JSONObject();
+        root.Add("Name", characterData.Name);
+
+        JSONObject colors = new JSONObject();
+        for (int i = 0; i < characterData.Colors.Length; i++)
+        {
+            colors.Add("Color " + i.ToString(), HexFromColor(characterData.Colors[i]));
+        }
+
+        root.Add("Colors", colors);
+
+        return root;
+
+    }
+
+
+    public static string HexFromColor(Color color)
+    {
+        return ColorUtility.ToHtmlStringRGBA(color);
+    }
+
+    public static Color ColorFromHex(string hex)
+    {
+        Color color;
+
+        if (ColorUtility.TryParseHtmlString(hex, out color))
+        {
+            return color;
+        }
+        else
+        {
+            return Color.black;
+        }
+    }
+
+
     public static void WriteJumpSequenceToFile(JumpSequence jumpSequence)
     {
         if(!Directory.Exists(Application.persistentDataPath + "/saves/"))

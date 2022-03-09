@@ -23,7 +23,17 @@ public class Arrow : MonoBehaviour
     private void HandleSelectedConfirmed(ISelectable obj)
     {
         origin = obj.transform;
-        target = skydiveManager.middlepointNPCS;
+
+        int index = 0;
+        for (int i = 0; i < skydiveManager.SpawnedSkydivers.Count; i++)
+        {
+            if (skydiveManager.SpawnedSkydivers[i] == obj)
+            {
+                index = i;
+            }
+        }
+
+        target = skydiveManager.SpawnedGhosts[index].transform;
         arrow.SetActive(true);
     }
 

@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <LangVersion>7.3</LangVersion>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -56,6 +56,8 @@
     <Compile Include="Assets\Scripts\PID_ValuesTester.cs" />
     <Compile Include="Assets\Scripts\Arrow.cs" />
     <Compile Include="Assets\Scripts\StopButton.cs" />
+    <Compile Include="Assets\Scripts\OwnershipSpecs.cs" />
+    <Compile Include="Assets\Scripts\OwnableInstance.cs" />
     <Compile Include="Assets\Scripts\CloudLayer.cs" />
     <Compile Include="Assets\Scripts\Canopy\CanopyManualControlHelper.cs" />
     <Compile Include="Assets\Scripts\FileHandler.cs" />
@@ -90,6 +92,7 @@
     <Compile Include="Assets\Scripts\Inputs\SkydiveState.cs" />
     <Compile Include="Assets\Scripts\CutawayButton.cs" />
     <Compile Include="Assets\Scripts\ChildTerrainDetector.cs" />
+    <Compile Include="Assets\Scripts\GearSpawner.cs" />
     <Compile Include="Assets\Scripts\CameraHandler.cs" />
     <Compile Include="Assets\Scripts\InGameInfoUi.cs" />
     <Compile Include="Assets\Scripts\Inputs\NPC_InputController.cs" />
@@ -99,6 +102,7 @@
     <Compile Include="Assets\Scripts\SettingsPanel.cs" />
     <Compile Include="Assets\Scripts\HandGripButton.cs" />
     <Compile Include="Assets\Scripts\AircraftTransforms.cs" />
+    <Compile Include="Assets\Scripts\CharacterData.cs" />
     <Compile Include="Assets\Scripts\SelectionIndicator.cs" />
     <Compile Include="Assets\Scripts\JumpVisualizer2D.cs" />
     <Compile Include="Assets\Scripts\ModifiableCharacter.cs" />
@@ -107,9 +111,11 @@
     <Compile Include="Assets\Scripts\SelectedMenu.cs" />
     <Compile Include="Assets\Scripts\Canopy\CanopyPhysics.cs" />
     <Compile Include="Assets\Scripts\SkydiveSpawner.cs" />
+    <Compile Include="Assets\Scripts\OwnableType.cs" />
     <Compile Include="Assets\Scripts\GripsHandler.cs" />
     <Compile Include="Assets\Scripts\WearblesController.cs" />
     <Compile Include="Assets\Scripts\ColorHelper.cs" />
+    <Compile Include="Assets\Scripts\EquipLocation.cs" />
     <Compile Include="Assets\Scripts\ExitHeightUi.cs" />
     <Compile Include="Assets\Scripts\JumpCreator.cs" />
     <Compile Include="Assets\Scripts\OrientationButton.cs" />
@@ -119,7 +125,7 @@
     <Compile Include="Assets\Scripts\HorizonCorrector.cs" />
     <Compile Include="Assets\Scripts\CanopyCameraHandler.cs" />
     <Compile Include="Assets\Scripts\JumpSequenceInfo.cs" />
-    <Compile Include="Assets\Scripts\GhostAnimationController.cs" />
+    <Compile Include="Assets\Scripts\GhostController.cs" />
     <Compile Include="Assets\Scripts\CharacterModifySelector.cs" />
     <Compile Include="Assets\Scripts\SelectionHandler.cs" />
     <Compile Include="Assets\Scripts\Inputs\AccelAndTouchUiControl.cs" />
@@ -129,6 +135,7 @@
     <Compile Include="Assets\Scripts\JumpModeButton.cs" />
     <Compile Include="Assets\Scripts\JumpSequence.cs" />
     <Compile Include="Assets\Scripts\Inputs\IInput.cs" />
+    <Compile Include="Assets\Scripts\CanopyAiController.cs" />
     <Compile Include="Assets\Scripts\CharacterModeButton.cs" />
     <Compile Include="Assets\Scripts\Canopy\CanopyController.cs" />
     <Compile Include="Assets\Scripts\Canopy\CanopyConnector.cs" />
@@ -153,6 +160,7 @@
     <Compile Include="Assets\Scripts\RotationButton.cs" />
     <Compile Include="Assets\Scripts\ColorOptions.cs" />
     <Compile Include="Assets\Scripts\Deselector2D.cs" />
+    <Compile Include="Assets\Scripts\OwnedItem.cs" />
     <Compile Include="Assets\Scripts\PlayButton.cs" />
     <Compile Include="Assets\Scripts\Hand.cs" />
     <Compile Include="Assets\Scripts\Formation.cs" />
@@ -162,6 +170,7 @@
     <Compile Include="Assets\Scripts\GameLoader.cs" />
     <Compile Include="Assets\Scripts\PullButton.cs" />
     <Compile Include="Assets\Scripts\IkHint.cs" />
+    <Compile Include="Assets\Scripts\ImpactController.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Scripts\Scripts.asmdef" />
