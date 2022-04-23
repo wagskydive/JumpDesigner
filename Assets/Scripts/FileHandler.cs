@@ -6,6 +6,43 @@ using System;
 
 public static class FileHandler
 {
+    public static JSONObject JSONFromAircraftType(AircraftType aircraftType)
+    {
+        JSONObject json = new JSONObject();
+        json.Add("name", aircraftType.AircraftTypeName);
+        json.Add("fileName", aircraftType.FileName);
+        json.Add("movingSpeed", aircraftType.MovingSpeed);
+        json.Add("amountOfSeats", aircraftType.AmountOfSeats);
+        return json;
+    }
+
+    public static AircraftType AircraftTypeFromJSON(JSONObject json)
+    {
+        return new AircraftType(json["name"], json["fileName"], json["movingSpeed"].AsFloat, json["amountOfSeats"].AsInt);
+    }
+
+    public static List<AircraftType> LoadAircraftTypes()
+    {
+        List<AircraftType> aircraftTypes = new List<AircraftType>();
+        string directoryPath = Application.dataPath + "/Resources/AircraftTypes/";
+
+        foreach (string filePath in Directory.GetFiles(directoryPath))
+        {
+            string fileName = Path.GetFileName(filePath);
+            if (fileName.EndsWith(".json"))
+            {
+                string jsonString = File.ReadAllText(filePath);
+                JSONObject json = (JSONObject)JSON.Parse(jsonString);
+                aircraftTypes.Add(AircraftTypeFromJSON(json));
+            }
+        }
+
+
+        return aircraftTypes;
+    }
+
+
+
     public static List<JumpSequence> ReadInternalJumps()
     {
         List<JumpSequence> internalJumpSequences = new List<JumpSequence>();
@@ -26,7 +63,7 @@ public static class FileHandler
 
     public static JumpSequence SequenceFromTextAsset(TextAsset textAsset)
     {
-        Debug.Log( textAsset.text);
+        Debug.Log(textAsset.text);
 
         JSONObject saveRead = JSONNode.Parse(textAsset.text).AsObject;
 
@@ -42,16 +79,16 @@ public static class FileHandler
 
 
         DirectoryInfo directoryInfo = new DirectoryInfo(path);
-              
+
         for (int i = 0; i < directoryInfo.GetFiles().Length; i++)
         {
 
-            if(directoryInfo.GetFiles()[i].Extension == ".json")
+            if (directoryInfo.GetFiles()[i].Extension == ".json")
             {
                 JSONObject saveRead = JSONNode.Parse(File.ReadAllText(directoryInfo.GetFiles()[i].FullName)).AsObject;
                 savedJumpSequences.Add(JumpSequenceFromJSON(saveRead));
             }
-            
+
         }
 
         return savedJumpSequences;
@@ -84,6 +121,7 @@ public static class FileHandler
     public static CharacterData CharacterDataFromJSON(JSONObject saveRead)
     {
         string characterName = saveRead.GetValueOrDefault("Name", saveRead);
+        
 
 
         JSONObject colorsObject = saveRead.GetValueOrDefault("Colors", saveRead).AsObject;
@@ -144,7 +182,7 @@ public static class FileHandler
 
     public static void WriteJumpSequenceToFile(JumpSequence jumpSequence)
     {
-        if(!Directory.Exists(Application.persistentDataPath + "/saves/"))
+        if (!Directory.Exists(Application.persistentDataPath + "/saves/"))
         {
             Directory.CreateDirectory(Application.persistentDataPath + "/saves/");
         }
@@ -225,11 +263,11 @@ public static class FileHandler
                 formationSlot.Add("Skydiver Index", slot.SkydiverIndex);
                 formationSlot.Add("Slot", slot.Slot);
                 formationSlot.Add("Target Index", slot.TargetIndex);
-                
-                formationSlotsObject.Add("Slot"+j.ToString(),formationSlot);
+
+                formationSlotsObject.Add("Slot" + j.ToString(), formationSlot);
             }
             formationObject.Add("Formation Slots", formationSlotsObject);
-            sequence.Add("Formation" + i.ToString(),formationObject);
+            sequence.Add("Formation" + i.ToString(), formationObject);
         }
         root.Add("Sequence", sequence);
 

@@ -33,7 +33,7 @@ public class SkydiveManager : MonoBehaviour
     GameObject startButton;
 
     [SerializeField]
-    AircraftTransforms aircraft;
+    Aircraft aircraft;
 
     GameObject offsetPlacementObject;
 
@@ -44,6 +44,12 @@ public class SkydiveManager : MonoBehaviour
         spawner = FindObjectOfType<SkydiveSpawner>();
         offsetPlacementObject = new GameObject();
     }
+
+    public void SetAircraft(Aircraft aircraft)
+    {
+        this.aircraft = aircraft;
+    }
+
 
 
     public void SetupJumpRun(JumpSequence selectedSequence, int altitude)
@@ -84,7 +90,7 @@ public class SkydiveManager : MonoBehaviour
             SpawnedGhosts[i].gameObject.SetActive(true);
 
             SpawnedSkydivers[i].transform.GetComponent<Rigidbody>().isKinematic = true;
-            SpawnedSkydivers[i].transform.position = aircraft.ExitPositions[i].position;
+            SpawnedSkydivers[i].transform.position = aircraft.AircraftTransforms.ExitPositions[i].position;
             SpawnedSkydivers[i].transform.SetParent(aircraft.transform);
             SpawnedSkydivers[i].transform.localEulerAngles = Vector3.zero;
             SpawnedSkydivers[i].transform.GetComponent<Rigidbody>().velocity = Vector3.zero;

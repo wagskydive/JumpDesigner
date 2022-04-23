@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class CharacterData : ScriptableObject
+public class CharacterData
 {
     string name;
 

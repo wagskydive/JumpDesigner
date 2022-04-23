@@ -8,24 +8,43 @@ public class JumpSequenceSelector : MonoBehaviour
 {
     public event Action<JumpSequence> OnSequenceSelected;
 
-    public JumpSequence SelectedSequence { get => allSequences[dropdown.value]; }
+    public JumpSequence SelectedSequence { get => currentSequences[dropdown.value]; }
 
     public TMP_Dropdown dropdown;
 
     List<JumpSequence> allSequences;
 
+    List<JumpSequence> filteredSequences;
+
+
+    List<JumpSequence> currentSequences;
+
     [SerializeField]
-    int filter;
+    AmountSetter jumpAmountSetter;
+
+
+    int jumperAmountFilter = 0;
+
+
+    public void SetJumpAmountFilter(int jumperAmount)
+    {
+        jumperAmountFilter = jumperAmount;
+        PopulateDropdown();
+    }
 
     private void Start()
     {
-        
-        PopulateDropdown();
+        GetSequences();
+        PopulateDropdown(allSequences);
+        if(jumpAmountSetter != null)
+        {
+            jumpAmountSetter.OnAmountChanged += SetJumpAmountFilter;
+        }
 
     }
     private void OnEnable()
     {
-        PopulateDropdown();
+        PopulateDropdown(allSequences);
     }
     public void HandleSelection()
     {
@@ -39,19 +58,44 @@ public class JumpSequenceSelector : MonoBehaviour
         allSequences.AddRange(FileHandler.ReadInternalJumps());
 
         allSequences.AddRange(FileHandler.ReadSavedJumps());
-
-
     }
 
-    void PopulateDropdown()
+    void PopulateDropdown(List<JumpSequence> sequences = null)
     {
-        dropdown.ClearOptions();
-        GetSequences();
-        List<string> names = new List<string>();
-        for (int i = 0; i < allSequences.Count; i++)
+        if(sequences == null)
         {
-            names.Add(allSequences[i].JumpName);
+            GetSequences();
+            sequences = allSequences;
+        }
+
+        if(jumperAmountFilter != 0)
+        {
+            sequences = FilterSequences(sequences);
+        }
+        dropdown.ClearOptions();
+        
+        List<string> names = new List<string>();
+        for (int i = 0; i < sequences.Count; i++)
+        {
+            names.Add(sequences[i].JumpName);
         }
         dropdown.AddOptions(names);
+        currentSequences = sequences;
+    }
+
+
+    List<JumpSequence> FilterSequences(List<JumpSequence> sequences)
+    {
+        List<JumpSequence> filtered = new List<JumpSequence>();
+
+        for (int i = 0; i < sequences.Count; i++)
+        {
+            if (sequences[i].TotalSkydivers() == jumperAmountFilter)
+            {
+                filtered.Add(sequences[i]);
+            }
+        }
+
+        return filtered;
     }
 }
