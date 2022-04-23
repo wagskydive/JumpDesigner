@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4956495530899955627}
   - component: {fileID: 1629941816519188937}
   - component: {fileID: 8966693211958563320}
+  - component: {fileID: 3839362383688541651}
   m_Layer: 0
   m_Name: HotAirBalloon
   m_TagString: Untagged
@@ -69,6 +70,18 @@ MonoBehaviour:
   - {fileID: 6627106050887755815}
   - {fileID: 3364720796564465373}
   - {fileID: 1500775143205216643}
+--- !u!114 &3839362383688541651
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 64010410513729365}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60973edc1e376224893a4a8be3e35cdd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1632330243307814505
 GameObject:
   m_ObjectHideFlags: 0

@@ -159,6 +159,7 @@
      <Compile Include="Assets\Scripts\AircraftType.cs" />
      <Compile Include="Assets\Scripts\Aircraft.cs" />
      <Compile Include="Assets\Scripts\AircraftPanelUi.cs" />
+     <Compile Include="Assets\Scripts\ColorCreator.cs" />
      <None Include="Assets\Scripts\Scripts.asmdef" />
     <Reference Include="UnityEngine">
         <HintPath>D:\UnityFiles\2021.2.5f1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>

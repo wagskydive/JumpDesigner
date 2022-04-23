@@ -25,7 +25,7 @@ public class LoadGamePanel : MonoBehaviour
     AircraftType currentAircraftType;
 
     float altitude;
-    private void Awake()
+    private void Start()
     {
         skydiveManager = FindObjectOfType<SkydiveManager>();
         aircraftSelector.OnAircraftSelected += SetAircraftType;
@@ -59,7 +59,7 @@ public class LoadGamePanel : MonoBehaviour
 
     public Aircraft CreateAircraft(AircraftType aircraftType)
     {
-        GameObject aircraftObject = Instantiate(Resources.Load("Prefabs/Aircrafts/" + aircraftType.FileName), new Vector3(0,altitude,0),Quaternion.identity) as GameObject;
+        GameObject aircraftObject = GameObject.Instantiate(Resources.Load("Prefabs/Aircrafts/" + aircraftType.FileName), new Vector3(0,altitude,0),Quaternion.identity) as GameObject;
         Aircraft aircraft = aircraftObject.GetComponent<Aircraft>();
         aircraft.SetAircraftType(aircraftType);
         return aircraft;

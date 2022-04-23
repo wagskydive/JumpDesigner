@@ -206,6 +206,7 @@ GameObject:
   - component: {fileID: 7371645608658366149}
   - component: {fileID: 5755514338742365012}
   - component: {fileID: 4742886413658173583}
+  - component: {fileID: -3918289300887014891}
   m_Layer: 0
   m_Name: DornierG92
   m_TagString: Untagged
@@ -277,6 +278,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b2106b4c187cd4a4685deac14f7013c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movementSpeed: 5
+--- !u!114 &-3918289300887014891
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7856116353702704255}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60973edc1e376224893a4a8be3e35cdd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &8339256402443238162

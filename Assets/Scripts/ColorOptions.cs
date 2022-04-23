@@ -40,9 +40,9 @@ public class ColorOptions : MonoBehaviour
             }
         }
 
-        ColorOptionSlots = new ColorOptionSlot[CurrentColorObject.materialsToAffect.Length];
+        ColorOptionSlots = new ColorOptionSlot[CurrentColorObject.materialsToAffect.Count];
 
-        for (int i = 0; i < CurrentColorObject.materialsToAffect.Length; i++)
+        for (int i = 0; i < CurrentColorObject.materialsToAffect.Count; i++)
         {
             ColorOptionSlot colorOptionSlot = Instantiate(ColorOptionSlotPrefab, transform).GetComponent<ColorOptionSlot>();
             colorOptionSlot.SetText(CurrentColorObject.materialsToAffect[i].name);

@@ -2,6 +2,7 @@
 {
     Rig,
     Hands,
+    Wrist,
     Feet,
     FullBody,
     Legs,

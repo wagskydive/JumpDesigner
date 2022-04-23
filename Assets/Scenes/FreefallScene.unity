@@ -2476,7 +2476,7 @@ GameObject:
   - component: {fileID: 186235401}
   - component: {fileID: 186235404}
   m_Layer: 5
-  m_Name: LeadGamePanel
+  m_Name: LoadGamePanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2585,7 +2585,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   jumpSequenceSelector: {fileID: 1535465433}
-  aircraftSelector: {fileID: 0}
+  aircraftSelector: {fileID: 965095739}
   heightSetter: {fileID: 644418093}
   infintyToggle: {fileID: 2146686117}
   terrain: {fileID: 1007663605}
@@ -11073,7 +11073,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   image: {fileID: 866583037}
   label: {fileID: 801150184}
-  amountLabel: {fileID: 2104757190}
+  amountLabel: {fileID: 1981093630}
   aircraftSelector: {fileID: 965095739}
 --- !u!1 &966088115
 GameObject:

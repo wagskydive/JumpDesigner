@@ -1,8 +1,8 @@
 {
     "name": "Hot Air Balloon",
     "fileName": "HotAirBalloon",
-    "movingSpeed": 12,
-    "amountOfSeats": 30
+    "movingSpeed": 0,
+    "amountOfSeats": 8
 
     
 }

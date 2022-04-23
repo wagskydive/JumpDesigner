@@ -8,6 +8,8 @@ public class OwnableType : ScriptableObject
     public int MoneyValue;
     public string ResourcePath;
 
+    public Color DefaultColor;
+
 
 
     public EquipLocation equipLocation;

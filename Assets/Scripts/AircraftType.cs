@@ -39,7 +39,7 @@ public class AircraftType
 
     public Sprite GetSprite()
     {
-        return Resources.Load<Sprite>("Art/Icons/AircraftIcons" + fileName+"Icon512");
+        return Resources.Load<Sprite>("Art/Icons/AircraftIcons/" + fileName+"Icon512");
     }
 
 }

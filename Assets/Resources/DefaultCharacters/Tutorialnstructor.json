@@ -1,16 +1,117 @@
 {
     "name": "Joe Flyalot",
 
+    "age": "25",
 
-    "Logbook": {
-        "Jump Amount": 3480,
+    "hometown": "New York",
+
+    "occupation": "Student",
+
+
+    "Logbook": 
+    {
+        "Skydives Made": 3480,
+
+        "Dropzones": 
+        {
+            "New York": {
+                "Skydives": { 
+                    "from number": 1 ,
+                    "to number": 515
+                },               
+                "Dates": {
+                    "from date": "01/01/2019",
+                    "to date": "01/01/2020"
+                },
+
+                "Notes": "All the jumps!!"
+            },
+            "Los Angeles": {
+                "Skydives": { 
+                    "from number": 516 ,
+                    "to number": 2630
+                },
+
+                "Dates": {
+                    "from date": "01/01/2020",
+                    "to date": "01/01/2021"
+                },
+                "Notes": "More jumps!!"
+            },
+            "San Francisco": {
+                "Skydives": { 
+                    "from number": 2631 ,
+                    "to number": 3215
+                },
+
+                "Dates": {
+                    "from date": "01/01/2021",
+                    "to date": "01/01/2022"
+                },
+                "Notes": "Even more jumps!!"
+            }
+        },
+       
         "Ratings": {
             "Freefly": 2,
-            "Belly":4,
-            "AFF":3
-
+            "Belly": 4,
+            "AFF_Instructor": 3,
+            "Tandem_Instructor": 3,
+            "AFF_Examiner": 0,
+            "Tandem_Examinor": 0
         }
-    }
-
-    
+    },
+    "Inventory": {
+        "Owned Items": {
+            "Generic Jump Suit": [{
+                "age": 300,
+                "size": "medium",
+                "Colors": ["#FF0000", "#0000FF", "#00FF00"]
+            },
+            {
+                "age": 800,
+                "size": "medium",
+                "Colors": ["#000000", "#FF00FF", "#00FFFF"]
+            }],
+            "Plastic Goggles": [{
+                "age": 100,
+                "size": "medium",
+                "Colors": ["#FF0000"]
+            }],
+            "Canopy Valkyrie": [{
+                "age": 600,
+                "size": "84",
+                "Colors": ["#000000", "#FF00FF", "#00FFFF","#000000", "#FF00FF", "#00FFFF","#000000", "#FF00FF", "#00FFFF"]
+            }],
+            "Canopy Reserve": [{
+                "age": 67,
+                "size": "143",
+                "Colors": ["#000000", "#FF00FF", "#00FFFF","#000000", "#FF00FF", "#00FFFF","#000000", "#FF00FF", "#00FFFF"]
+            }],
+            "Rig Linear 4 Pro": [{
+                "age": 67,
+                "size": "medium",
+                "Colors": ["#FF00FF", "#00FFFF","#000000", "#FF00FF"]
+            }],
+            "Altimeter Analog": [{
+                "age": 104,
+                "size": "medium",
+                "Colors": ["#FF00FF", "#00FF00"]
+            }],
+            "Helmet Open Face Simple": [{
+                "age": 1670,
+                "size": "medium",
+                "Colors": ["#FF00FF", "#00FF00"]
+            }],
+            "Sardines 2 AAD": [{
+                "age": 67,
+                "size": "medium",
+                "Colors": ["#FF00FF", "#00FFFF","#000000", "#FF00FF"]
+            }]
+            
+        }
+            
+        
+        
+    }   
 }
