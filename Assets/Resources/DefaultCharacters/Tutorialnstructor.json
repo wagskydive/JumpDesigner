@@ -61,55 +61,63 @@
             "Tandem_Examinor": 0
         }
     },
-    "Inventory": {
-        "Owned Items": {
-            "Generic Jump Suit": [{
+    "Inventory": 
+    {
+        "Owned Items": 
+        [
+            {
+            "Item 0": 
+            {
+                "type" :"Generic Jump Suit",
                 "age": 300,
                 "size": "medium",
-                "Colors": ["#FF0000", "#0000FF", "#00FF00"]
+                "Colors": ["#FF0000", "#0000FF", "#00FF00"],
+                "Notes": "This is a generic jump suit"
             },
+
+            "Item 1": 
             {
-                "age": 800,
+                "type" :"Generic Jump Suit",
+                "age": 300,
                 "size": "medium",
-                "Colors": ["#000000", "#FF00FF", "#00FFFF"]
-            }],
-            "Plastic Goggles": [{
-                "age": 100,
-                "size": "medium",
-                "Colors": ["#FF0000"]
-            }],
-            "Canopy Valkyrie": [{
-                "age": 600,
-                "size": "84",
-                "Colors": ["#000000", "#FF00FF", "#00FFFF","#000000", "#FF00FF", "#00FFFF","#000000", "#FF00FF", "#00FFFF"]
-            }],
-            "Canopy Reserve": [{
-                "age": 67,
-                "size": "143",
-                "Colors": ["#000000", "#FF00FF", "#00FFFF","#000000", "#FF00FF", "#00FFFF","#000000", "#FF00FF", "#00FFFF"]
-            }],
-            "Rig Linear 4 Pro": [{
-                "age": 67,
-                "size": "medium",
-                "Colors": ["#FF00FF", "#00FFFF","#000000", "#FF00FF"]
-            }],
-            "Altimeter Analog": [{
-                "age": 104,
-                "size": "medium",
-                "Colors": ["#FF00FF", "#00FF00"]
-            }],
-            "Helmet Open Face Simple": [{
-                "age": 1670,
-                "size": "medium",
-                "Colors": ["#FF00FF", "#00FF00"]
-            }],
-            "Sardines 2 AAD": [{
-                "age": 67,
-                "size": "medium",
-                "Colors": ["#FF00FF", "#00FFFF","#000000", "#FF00FF"]
-            }]
-            
+                "Colors": ["#FF0000", "#0000FF", "#00FF00"],
+                "Notes": "This is a generic jump suit"
+            }
+
+        }],
+
+    
+    "Equipment In Use": 
+    {
+        "Jump Suit": 
+        {
+            "type" :"Generic Jump Suit",
+            "age": 300,
+            "size": "medium",
+            "Colors": ["#FF0000", "#0000FF", "#00FF00"],
+            "Notes": "This is a generic jump suit"
+        },
+        "Glider": 
+        {
+            "type" :"Generic Glider",
+            "age": 300,
+            "size": "medium",
+            "Colors": ["#FF0000", "#0000FF", "#00FF00"],
+            "Notes": "This is a generic glider"
+        },
+        "Parachute": 
+        {
+            "type" :"Generic Parachute",
+            "age": 300,
+            "size": "medium",
+            "Colors": ["#FF0000", "#0000FF", "#00FF00"],
+            "Notes": "This is a generic parachute"
         }
+    }
+    
+
+            
+        
             
         
         

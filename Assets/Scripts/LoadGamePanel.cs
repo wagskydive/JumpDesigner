@@ -40,13 +40,17 @@ public class LoadGamePanel : MonoBehaviour
     public void PlayButtonPress()
     {
         altitude = heightSetter.CurrentAmount / 3.28f;
+        if(skydiveManager.aircraft != null)
+        {
+            Destroy(skydiveManager.aircraft.gameObject);
+        }
 
         
-        skydiveManager.SetAircraft(CreateAircraft(currentAircraftType));
+        skydiveManager.SetAircraft(currentAircraftType.GetPrefabInstance().GetComponent<AircraftInstance>());
         
 
         skydiveManager.SetupJumpRun(jumpSequenceSelector.SelectedSequence,Mathf.RoundToInt(altitude));
-        transform.root.gameObject.SetActive(false);
+        
         if (infintyToggle.isOn)
         {
             terrain.SetActive(false);
@@ -55,15 +59,10 @@ public class LoadGamePanel : MonoBehaviour
         {
             terrain.SetActive(true);
         }
+        transform.root.gameObject.SetActive(false);
     }
 
-    public Aircraft CreateAircraft(AircraftType aircraftType)
-    {
-        GameObject aircraftObject = GameObject.Instantiate(Resources.Load("Prefabs/Aircrafts/" + aircraftType.FileName), new Vector3(0,altitude,0),Quaternion.identity) as GameObject;
-        Aircraft aircraft = aircraftObject.GetComponent<Aircraft>();
-        aircraft.SetAircraftType(aircraftType);
-        return aircraft;
-    }
+
     
 
 

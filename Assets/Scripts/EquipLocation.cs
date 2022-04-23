@@ -1,6 +1,7 @@
-﻿public enum EquipLocation
+﻿
+public enum EquipLocation
 {
-    Rig,
+    Backpack,
     Hands,
     Wrist,
     Feet,
@@ -9,5 +10,14 @@
     UpperBody,
     Head,
     Eyes,
-    Canopy
+
+    CanopyMain,
+
+    CanopyReserve,
+
+    RigAccessory,
 }
+
+
+
+

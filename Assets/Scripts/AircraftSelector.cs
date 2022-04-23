@@ -5,27 +5,68 @@ using UnityEngine;
 
 public class AircraftSelector : MonoBehaviour
 {
-    AircraftType selectedAircraft;
+    public AircraftType selectedAircraft;
 
-    
+    [SerializeField]
+    JumpSequenceSelector jumpSequenceSelector;
 
     public event Action<AircraftType> OnAircraftSelected;
 
     int currentIndex = 0;
 
-    List<AircraftType> aircraftTypes;
+    List<AircraftType> allAircraftTypes;
 
+    List<AircraftType> filteredAircraftTypes;
+
+    void Awake()
+    {
+        jumpSequenceSelector.OnSequenceSelected += HandleJumpSequence;
+        jumpSequenceSelector.jumpAmountSetter.OnAmountChanged += FilterAircraftTypes;
+    }
+
+
+    private void HandleJumpSequence(JumpSequence jumpSequence)
+    {
+        int skydiverAmount = jumpSequence.TotalSkydivers();
+
+        FilterAircraftTypes(skydiverAmount);
+    }
+
+
+
+    void FilterAircraftTypes(int skydiverAmount)
+    {
+        filteredAircraftTypes = new List<AircraftType>();
+
+        foreach (AircraftType aircraftType in allAircraftTypes)
+        {
+            if (aircraftType.AmountOfSeats >= skydiverAmount)
+            {
+                filteredAircraftTypes.Add(aircraftType);
+            }
+        }
+        if(selectedAircraft.AmountOfSeats < skydiverAmount)
+        {
+            SelectAircraftType(filteredAircraftTypes[filteredAircraftTypes.Count - 1]);
+        }
+
+        
+    }
 
     void Start()
     {
         GetListOfAircraftTypes();
-        SelectAircraftType( aircraftTypes[currentIndex]);
+        filteredAircraftTypes = allAircraftTypes;
+        SelectAircraftType(allAircraftTypes[currentIndex]);
+
     }
 
     void GetListOfAircraftTypes()
     {
-         aircraftTypes = FileHandler.LoadAircraftTypes();
+         allAircraftTypes = FileHandler.LoadAircraftTypes();
     }
+
+
 
     void SelectAircraftType(AircraftType aircraft)
     {
@@ -36,11 +77,11 @@ public class AircraftSelector : MonoBehaviour
     public void SelectNextAircraft()
     {
         currentIndex++;
-        if (currentIndex >= aircraftTypes.Count)
+        if (currentIndex >= filteredAircraftTypes.Count)
         {
             currentIndex = 0;
         }
-        SelectAircraftType(aircraftTypes[currentIndex]);
+        SelectAircraftType(filteredAircraftTypes[currentIndex]);
     }
 
     public void SelectPreviousAircraft()
@@ -48,9 +89,9 @@ public class AircraftSelector : MonoBehaviour
         currentIndex--;
         if (currentIndex < 0)
         {
-            currentIndex = aircraftTypes.Count - 1;
+            currentIndex = filteredAircraftTypes.Count - 1;
         }
-        SelectAircraftType(aircraftTypes[currentIndex]);
+        SelectAircraftType(filteredAircraftTypes[currentIndex]);
     }
 
 

@@ -6,11 +6,18 @@ public class OwnableType : ScriptableObject
     public string OwnableTypeName;
 
     public int MoneyValue;
-    public string ResourcePath;
 
-    public Color DefaultColor;
+    public int lifeTime;
+    public string ResourceName;
+    public Color[] DefaultColors;
 
 
-
+    public bool IsEquipable;
     public EquipLocation equipLocation;
+
+    public Sprite GetSprite()
+    {
+        return Resources.Load<Sprite>("Art/Icons/ItemIcons/" + ResourceName+"Icon");
+    }
+
 }

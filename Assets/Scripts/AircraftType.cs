@@ -28,13 +28,19 @@ public class AircraftType
         amountOfSeats = _amountOfSeats;
     }
 
-    public GameObject GetPrefab()
+    public GameObject GetPrefabInstance()
     {
 
-        GameObject prefab = Resources.Load<GameObject>("Prefabs/Aircrafts/" + fileName);
+        GameObject prefabInstance = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/Aircrafts/" + fileName));
+        AircraftInstance aircraft = prefabInstance.GetComponent<AircraftInstance>();
 
-        prefab.GetComponent<Aircraft>().SetAircraftType(this);
-        return prefab;
+        if(aircraft == null)
+        {
+            Debug.LogError("Prefab " + fileName + " does not contain an Aircraft component");
+        }
+
+        prefabInstance.GetComponent<AircraftInstance>().SetAircraftType(this);
+        return prefabInstance;
     }   
 
     public Sprite GetSprite()

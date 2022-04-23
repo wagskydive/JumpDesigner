@@ -188,7 +188,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd942d81553317c40964adb5f6729bf4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ExitPositions: []
+  ExitPositions:
+  - {fileID: 577507715491789205}
+  - {fileID: 3215718590760382677}
+  - {fileID: 3666445807813093720}
 --- !u!114 &-7653744755303539772
 MonoBehaviour:
   m_ObjectHideFlags: 0

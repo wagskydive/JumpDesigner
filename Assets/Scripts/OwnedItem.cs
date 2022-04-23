@@ -3,8 +3,8 @@ using UnityEngine;
 
 public class OwnedItem
 {
-    public static event Action<OwnedItem, Transform> OnEquip;
-    public static event Action<OwnedItem, Transform> OnUnEquip;
+    public event Action<OwnedItem, Transform> OnEquip;
+    public event Action<OwnedItem, Transform> OnUnEquip;
 
 
     public OwnableType TypeOfOwnable { get; private set; }
@@ -26,6 +26,11 @@ public class OwnedItem
     public void UnEquip(Transform parent)
     {
         OnUnEquip?.Invoke(this, parent);
+    }
+
+    public int GetMoneyValue()
+    {       
+        return TypeOfOwnable.MoneyValue*(1-(Specs.Age / TypeOfOwnable.lifeTime));
     }
 
 }

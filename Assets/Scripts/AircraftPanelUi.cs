@@ -20,7 +20,7 @@ public class AircraftPanelUi : MonoBehaviour
     [SerializeField]
     AircraftSelector aircraftSelector;
 
-    void Start()
+    void Awake()
     {
 
         aircraftSelector.OnAircraftSelected += SetAircraftType;

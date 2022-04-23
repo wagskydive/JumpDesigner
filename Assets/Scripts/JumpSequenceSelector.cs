@@ -20,10 +20,10 @@ public class JumpSequenceSelector : MonoBehaviour
     List<JumpSequence> currentSequences;
 
     [SerializeField]
-    AmountSetter jumpAmountSetter;
+    public AmountSetter jumpAmountSetter;
 
 
-    int jumperAmountFilter = 0;
+    int jumperAmountFilter = 1;
 
 
     public void SetJumpAmountFilter(int jumperAmount)
@@ -32,7 +32,7 @@ public class JumpSequenceSelector : MonoBehaviour
         PopulateDropdown();
     }
 
-    private void Start()
+    private void Awake()
     {
         GetSequences();
         PopulateDropdown(allSequences);

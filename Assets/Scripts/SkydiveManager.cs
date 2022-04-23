@@ -10,9 +10,15 @@ public class SkydiveManager : MonoBehaviour
     public event Action<int> OnNextFormationSet;
 
     public event Action<JumpSequence> OnPlaybackStarted;
+
+    public event Action<AircraftInstance> OnAircraftSet;
     public event Action OnJumpRunSet;
     public event Action OnExitStarted;
 
+    public void TogglePauseGame()
+    {
+        Time.timeScale = Time.timeScale == 0 ? 1 : 0;
+    }
 
     public List<ISelectable> SpawnedSkydivers = new List<ISelectable>();
 
@@ -33,7 +39,10 @@ public class SkydiveManager : MonoBehaviour
     GameObject startButton;
 
     [SerializeField]
-    Aircraft aircraft;
+    public AircraftInstance aircraft;
+
+    [SerializeField]
+    AircraftSelector aircraftSelector;
 
     GameObject offsetPlacementObject;
 
@@ -45,15 +54,19 @@ public class SkydiveManager : MonoBehaviour
         offsetPlacementObject = new GameObject();
     }
 
-    public void SetAircraft(Aircraft aircraft)
+    public void SetAircraft(AircraftInstance aircraft)
     {
         this.aircraft = aircraft;
+        OnAircraftSet?.Invoke(aircraft);
     }
 
 
 
     public void SetupJumpRun(JumpSequence selectedSequence, int altitude)
     {
+
+        aircraft.transform.position = Vector3.up * altitude;
+
         CurrentJumpSequence = selectedSequence;
         int skydiversNeeded = CurrentJumpSequence.TotalSkydivers();
         if (SpawnedSkydivers.Count < skydiversNeeded)
@@ -74,34 +87,44 @@ public class SkydiveManager : MonoBehaviour
             }
         }
 
-        for (int j = 0; j < skydiversNeeded; j++)
+
+
+        SetSkydiversOnExitPositions();
+
+
+        startButton.SetActive(true);
+        OnJumpRunSet?.Invoke();
+    }
+
+    void SetSkydiversOnExitPositions()
+    {
+        if(aircraft == null)
         {
-            
-
-
-
+            Debug.Log("aircraft is null");
+            return;
         }
-
-        aircraft.transform.position = Vector3.up * altitude;
-
-        for (int i = 0; i < skydiversNeeded; i++)
+        for (int i = 0; i < SpawnedSkydivers.Count; i++)
         {
+
+            int exitPosition = i;
+
+            
             SpawnedSkydivers[i].transform.gameObject.SetActive(true);
             SpawnedGhosts[i].gameObject.SetActive(true);
 
             SpawnedSkydivers[i].transform.GetComponent<Rigidbody>().isKinematic = true;
-            SpawnedSkydivers[i].transform.position = aircraft.AircraftTransforms.ExitPositions[i].position;
+            SpawnedSkydivers[i].transform.position = aircraft.AircraftTransforms.ExitPositions[exitPosition].position;
             SpawnedSkydivers[i].transform.SetParent(aircraft.transform);
             SpawnedSkydivers[i].transform.localEulerAngles = Vector3.zero;
             SpawnedSkydivers[i].transform.GetComponent<Rigidbody>().velocity = Vector3.zero;
         }
-        startButton.SetActive(true);
-        OnJumpRunSet?.Invoke();
+
     }
 
     public void StartButtonPressed()
     {
         startButton.SetActive(false);
+        
         OnExitStarted?.Invoke();
         Invoke("DelayedPlayback", 2);
              
