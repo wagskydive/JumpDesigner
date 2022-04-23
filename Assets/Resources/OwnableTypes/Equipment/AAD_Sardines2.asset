@@ -14,6 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OwnableTypeName: Sardines 2 AAD
   MoneyValue: 1200
-  ResourcePath: Assets/Resources/3DModels/RigModel.fbx
-  DefaultColor: {r: 0.81960785, g: 0, b: 0.36475456, a: 1}
+  lifeTime: 1000
+  ResourceName: 
+  DefaultColors: []
+  IsEquipable: 0
   equipLocation: 0

@@ -14,6 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OwnableTypeName: Student Flash Bag
   MoneyValue: 1500
-  ResourcePath: Assets/Resources/3DModels/RigModel.fbx
-  DefaultColor: {r: 0, g: 0.07985478, b: 0.8207547, a: 1}
+  lifeTime: 1000
+  ResourceName: 
+  DefaultColors: []
+  IsEquipable: 0
   equipLocation: 0

@@ -11,13 +11,15 @@ public class OwnershipSpecs
     public bool IsDamaged { get; private set; }
     public Color[] CustomColors { get; private set; }
 
-    public OwnershipSpecs(int _age, int _size, Color[] _customColors)
+    public OwnershipSpecs(int _age, int _size, Color[] _customColors, float _damagePercentage)
     {
         Age = _age;
         Size = _size;
         CustomColors = _customColors;
-        IsDamaged = false;
-    }
+        DamagePercentage = _damagePercentage;
+        IsDamaged = DamagePercentage >= 1;
+    }   
+
 
     public void AgeUp()
     {

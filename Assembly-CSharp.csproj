@@ -63,8 +63,10 @@
      <Compile Include="Assets\LeanTween\Examples\Scripts\GeneralBasic.cs" />
      <None Include="Assets\ExternalPackages\TextMesh Pro\Shaders\TMPro.cginc" />
      <None Include="Assets\ExternalPackages\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
+     <None Include="Assets\Resources\names.txt" />
      <None Include="Assets\LeanTween\ReadMe.txt" />
      <None Include="Assets\ExternalPackages\TextMesh Pro\Shaders\TMP_Bitmap.shader" />
+     <None Include="Assets\Resources\occupationsList.txt" />
      <None Include="Assets\ExternalPackages\TextMesh Pro\Shaders\TMPro_Mobile.cginc" />
      <None Include="Assets\LeanTween\License.txt" />
      <None Include="Assets\ExternalPackages\TextMesh Pro\Shaders\TMP_SDF SSD.shader" />
@@ -78,6 +80,7 @@
      <None Include="Assets\ExternalPackages\TextMesh Pro\Shaders\TMPro_Properties.cginc" />
      <None Include="Assets\ExternalPackages\TextMesh Pro\Shaders\TMPro_Surface.cginc" />
      <None Include="Assets\ExternalPackages\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
+     <None Include="Assets\Resources\lastNames.txt" />
      <None Include="Assets\LeanTween\Examples\Archived\2dUnlitWithFade.shader" />
      <None Include="Assets\ExternalPackages\TextMesh Pro\Shaders\TMP_SDF-Mobile Masking.shader" />
      <None Include="Assets\ExternalPackages\TextMesh Pro\Shaders\TMP_SDF Overlay.shader" />

@@ -1,0 +1,202 @@
+{
+    "Tandem Passenger": {
+        "Prerequesites": [
+            "None"
+        ],
+        "Minimum Jumps": 0,
+        "Description": "Anyone can do a tandem jump."
+    },
+    "AFF Student": {
+        "Prerequesites": [
+            "AFF Ground School"
+        ],
+        "Minimum Jumps": 0,
+        "Description": "Anyone can do the aff course. It takes 7 levels to complete. After a groudschool of one day."
+    },
+    "A License": {
+        "Prerequesites": [
+            "AFFStudent",
+            "5 Coached Jumps",
+            "Written A License Test"
+        ],
+        "Minimum Jumps": 25,
+        "Description": "The A license is for people who have completed the AFF course and have been certified by the AFF. It takes 5 levels to complete. After the A License you are alowed to jump with other people."
+    },
+    "B License": {
+        "Prerequesites": [
+            "A License",
+            "Written B License Test"
+        ],
+        "Minimum Jumps": 50,
+        "Description": "The B license is for people who have their A license and want to learn more about skydiving."
+    },
+    "C License": {
+        "Prerequesites": [
+            "B License",
+            "Written C License Test"
+        ],
+        "Minimum Jumps": 200,
+        "Description": "The C license is for people who have their B license and want to learn more advanced concepts of skydiving."
+    },
+    "D License": {
+        "Prerequesites": [
+            "C License",
+            "Written D License Test"
+        ],
+        "Minimum Jumps": 500,
+        "Description": "The D license is for people who have their C license and want to learn more advanced concepts of skydiving."
+    },
+    "Formation Skydiving 1": {
+        "Prerequesites": [
+            "A License"
+        ],
+        "Minimum Jumps": 25,
+        "Description": "Anyone with an A License can do formation skydiving with friends."
+    },
+    "Formation Skydiving 2": {
+        "Prerequesites": [
+            "Formation Skydiving 1"
+        ],
+        "Minimum Jumps": 50,
+        "Description": "Anyone with Formation Skydiving 1 can do formation skydiving 2."
+    },
+    "Formation Skydiving 3": {
+        "Prerequesites": [
+            "Formation Skydiving 2"
+        ],
+        "Minimum Jumps": 100,
+        "Description": "Anyone with Formation Skydiving 2 can do formation skydiving 3."
+    },
+    "Freefly Skydiving 1": {
+        "Prerequesites": [
+            "A License"
+        ],
+        "Minimum Jumps": 25,
+        "Description": "Anyone with an A License can do freefly skydiving alone with the right equipment. To freefly skydive with a partner, you must have the freefly skydiving 1 license."
+    },
+    "Freefly Skydiving 2": {
+        "Prerequesites": [
+            "Freefly Skydiving 1"
+        ],
+        "Minimum Jumps": 50,
+        "Description": "Anyone with Freefly Skydiving 1 can do freefly skydiving with up to 2 partners. To freefly skydive with a up to 5 other skydivers, you must have the freefly skydiving 2 license."
+    },
+    "Freefly Skydiving 3": {
+        "Prerequesites": [
+            "Freefly Skydiving 2"
+        ],
+        "Minimum Jumps": 100,
+        "Description": "Anyone with Freefly Skydiving 2 can do freefly skydiving with up to 5 partners. To freefly skydive with any amount of, you must have the freefly skydiving 3 license."
+    },
+    "Wingsuit 1": {
+        "Prerequesites": [
+            "B License"
+        ],
+        "Minimum Jumps": 200,
+        "Description": "Anyone with an B License and 200 jumps can do the wingsuit 1 course. You need the wingsuit 1 rating to jump in a wingsuit alone."
+    },
+    "Wingsuit 2": {
+        "Prerequesites": [
+            "Wingsuit 1"
+        ],
+        "Minimum Jumps": 500,
+        "Description": "Anyone with Wingsuit 1 and 500 jumps can do the wingsuit 2 course. You need the wingsuit 2 rating to jump in a wingsuit with a partner."
+    },
+    "Wingsuit 3": {
+        "Prerequesites": [
+            "Wingsuit 2"
+        ],
+        "Minimum Jumps": 1000,
+        "Description": "Anyone with Wingsuit 2 and 1000 jumps can do the wingsuit 3 course. You need the wingsuit 3 rating to jump in a wingsuit with any amount of partners."
+    },
+    "Camera": {
+        "Prerequesites": [
+            "B License"
+        ],
+        "Minimum Jumps": 200,
+        "Description": "You need 200 jumps and a B License to be allowed to use a camera."
+    },
+    "Coach": {
+        "Prerequesites": [
+            "B License",
+            "Coach Ground School"
+        ],
+        "Minimum Jumps": 200,
+        "Description": "You need 200 jumps and a B License to be allowed to use a become a coach."
+    },
+    "Tandem Instructor": {
+        "Prerequesites": [
+            "D License",
+            "Coach",
+            "Tandem Instructor Ground School"
+        ],
+        "Minimum Jumps": 1000,
+        "Description": "You need 1000 jumps, the Coach Rating and the Tandem Instructor Ground School to be allowed to become a Tandem Instructor."
+    },
+    "AFF Intructor": {
+        "Prerequesites": [
+            "C License",
+            "Coach",
+            "AFF Instructor Ground School"
+        ],
+        "Minimum Jumps": 1000,
+        "Description": "You need 1000 jumps, the Coach Rating and the AFF Instructor Ground School to be allowed to become an AFF Instructor."
+    },
+    "AFF Examiner": {
+        "Prerequesites": [
+            "D License",
+            "AFF Instructor",
+            "AFF Examiner Ground School"
+        ],
+        "Minimum Jumps": 4000,
+        "Description": "You need 4000 jumps, the AFF Instructor Rating and the AFF Examiner Ground School to be allowed to become an AFF Examiner."
+    },
+    "Tandem Examiner": {
+        "Prerequesites": [
+            "D License",
+            "Tandem Instructor",
+            "Tandem Examiner Ground School"
+        ],
+        "Minimum Jumps": 4000,
+        "Description": "You need 4000 jumps, the Tandem Instructor Rating and the Tandem Examiner Ground School to be allowed to become a Tandem Examiner."
+    },
+    "Examiner Examiner": {
+        "Prerequesites": [
+            "D License",
+            "AFF Examiner ",
+            "Tandem Examiner",
+            "Examiner Examiner Ground School"
+        ],
+        "Minimum Jumps": 4000,
+        "Description": "You need 4000 jumps, the AFF Examiner rating, the AFF Examiner rating and the Examiner Examiner Ground School to be allowed to become an Examiner Examiner."
+    },
+    "Judge": {
+        "Prerequesites": [
+            "Judge Ground School"
+        ],
+        "Minimum Jumps": 0,
+        "Description": "You need to do the judge ground school to be allowed to become a judge."
+    },
+    "Pilot": {
+        "Prerequesites": [
+            "Pilot School"
+        ],
+        "Minimum Jumps": 0,
+        "Description": "You need to do the pilot school to be allowed to become a pilot."
+    },
+    "Packer": {
+        "Prerequesites": [
+            "Packer Course"
+        ],
+        "Minimum Jumps": 0,
+        "Description": "You need to do the packer course to be allowed to become a packer."
+    },
+    "Rigger": {
+        "Prerequesites": [
+            "Packer",
+            "Rigger Course"
+        ],
+        "Minimum Jumps": 0,
+        "Description": "You need to become a packer and do the rigger course to be allowed to become a rigger."
+    }
+}

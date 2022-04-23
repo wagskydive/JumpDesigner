@@ -30,6 +30,7 @@ public class OwnedItem
 
     public int GetMoneyValue()
     {       
+   
         return TypeOfOwnable.MoneyValue*(1-(Specs.Age / TypeOfOwnable.lifeTime));
     }
 

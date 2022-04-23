@@ -4,40 +4,49 @@ using System.Collections.Generic;
 public class Logbook
 {
     public event Action OnJumpAdded;
-    public event Action<Ratings> OnRatingAdded;
+    public event Action<string> OnRatingAdded;
 
     public Dictionary<JumpType, int> previousJumps;
 
-    public List<JumpLog> jumpsTotal { get; private set; }
+    public List<JumpLog> jumpLogs { get; private set; }
 
-    public List<Ratings> myRatings { get; private set; }
+    public List<string> myRatings { get; private set; }
 
-    public Logbook()
+    public Logbook(List<JumpLog> jumpLogs=null, List<string> myRatings=null, Dictionary<JumpType, int> previousJumps=null)
     {
+        this.jumpLogs = jumpLogs;
+        this.myRatings = myRatings;
+        this.previousJumps = previousJumps;
 
-        jumpsTotal = new List<JumpLog>();
-        myRatings = new List<Ratings>();
-        previousJumps = new Dictionary<JumpType, int>();
+        if(jumpLogs == null)
+        {
+            jumpLogs = new List<JumpLog>();
+        }
+        if(myRatings == null)
+        {
+            myRatings = new List<string>();
+        }
+        if(previousJumps == null)
+        {
+            previousJumps = new Dictionary<JumpType, int>();
+        }
     }
 
     public void AddJumpToLogbook(JumpType jumpType, int day, int[] time, string _location = "my dropzone", string _aircraftType = "My aircraft")
     {
-        jumpsTotal.Add(new JumpLog(jumpType, jumpsTotal.Count + 1, day, time, _location, _aircraftType));
+        jumpLogs.Add(new JumpLog(jumpType, jumpLogs.Count + 1, day, time, _location, _aircraftType));
         OnJumpAdded?.Invoke();
     }
 
 
-        public void AddRating(Ratings _rating)
+        public void AddRating(string _rating)
     {
-        if (_rating == Ratings.TandemPassenger || !myRatings.Contains(_rating))
+        if (!myRatings.Contains(_rating))
         {
             myRatings.Add(_rating);
             OnJumpAdded?.Invoke();
         }
-        else
-        {
 
-        }
 
     }
     public int GetTotalPerJumpType(JumpType jumpType)
@@ -47,9 +56,9 @@ public class Logbook
         {
             runningTotal += previousJumps[jumpType];
         }
-        for (int i = 0; i < jumpsTotal.Count; i++)
+        for (int i = 0; i < jumpLogs.Count; i++)
         {
-            if (jumpsTotal[i].jumpType == jumpType)
+            if (jumpLogs[i].jumpType == jumpType)
             {
                 runningTotal++;
             }
@@ -66,7 +75,7 @@ public class Logbook
         {
             runningtotal += previousJumps[key];
         }
-        runningtotal += jumpsTotal.Count;
+        runningtotal += jumpLogs.Count;
         return runningtotal;
     }
 

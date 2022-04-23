@@ -167,6 +167,11 @@
      <Compile Include="Assets\Scripts\IkHint.cs" />
      <Compile Include="Assets\Scripts\Logbook.cs" />
      <Compile Include="Assets\Scripts\JumpType.cs" />
+     <Compile Include="Assets\Scripts\JumpLog.cs" />
+     <Compile Include="Assets\Scripts\ItemDatabase.cs" />
+     <Compile Include="Assets\Scripts\RandomCharacterGenerator.cs" />
+     <Compile Include="Assets\Scripts\CharacterPanelUi.cs" />
+     <Compile Include="Assets\Scripts\CharacterSlotUi.cs" />
      <None Include="Assets\Scripts\Scripts.asmdef" />
     <Reference Include="UnityEngine">
         <HintPath>D:\UnityFiles\2021.2.5f1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>

@@ -9,12 +9,17 @@ public class GameLoader : MonoBehaviour
 
     int currentJumpers = 0;
 
+    //ItemDatabase itemDatabase;
+
     private void Awake()
     {
         if (FindObjectsOfType<GameLoader>().Length > 1)
         {
             Destroy(this);
         }
+        
+        //itemDatabase = new ItemDatabase();
+        
 
         DontDestroyOnLoad(this.gameObject);
         //FileHandler.WriteJumpSequenceToFile(JumpCreator.FourWayTestJump(FreefallOrientation.Back));

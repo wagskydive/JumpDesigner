@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OwnableTypeName: Analog Altimeter
   MoneyValue: 50
-  ResourcePath: Assets/Resources/3DModels/RigModel.fbx
-  DefaultColor: {r: 0.9056604, g: 0.9056604, b: 0.9056604, a: 1}
-  Size: 0
+  lifeTime: 1000
+  ResourceName: 
+  DefaultColors: []
+  IsEquipable: 0
   equipLocation: 2

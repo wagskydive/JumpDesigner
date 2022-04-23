@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OwnableTypeName: Simple Openface Helmet
   MoneyValue: 2000
-  ResourcePath: Assets/Resources/3DModels/RigModel.fbx
-  DefaultColor: {r: 0.8396226, g: 0.7304909, b: 0, a: 1}
-  Size: 0
+  lifeTime: 1000
+  ResourceName: 
+  DefaultColors: []
+  IsEquipable: 0
   equipLocation: 7

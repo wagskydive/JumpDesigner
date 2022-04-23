@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OwnableTypeName: Plastic Goggles
   MoneyValue: 2000
-  ResourcePath: Assets/Resources/3DModels/RigModel.fbx
-  DefaultColor: {r: 0.4696066, g: 0.5693214, b: 0.5754717, a: 0.34901962}
-  Size: 0
+  lifeTime: 1000
+  ResourceName: 
+  DefaultColors: []
+  IsEquipable: 0
   equipLocation: 8
