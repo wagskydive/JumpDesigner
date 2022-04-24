@@ -36,10 +36,11 @@ public class SkydiveSpawner : MonoBehaviour
         return spawned;
     }
 
-    public GameObject SpawnSkydiverWithAi(int index,FreefallOrientation orientation = FreefallOrientation.Belly)
+    public GameObject SpawnSkydiverWithAi(int index, FreefallOrientation orientation = FreefallOrientation.Belly)
     {
         GameObject skydiver = Instantiate(Resources.Load("Prefabs/SkydiveCharacter") as GameObject, spawnPoint.position, Quaternion.identity);
         NPC_Ai_FromState aiInput = skydiver.AddComponent<NPC_Ai_FromState>();
+
         aiInput.SetIndex(index);
         skydiver.GetComponent<MovementController>().ReplaceInput(aiInput);
 

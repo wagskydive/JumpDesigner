@@ -25,10 +25,16 @@ public class LoadGamePanel : MonoBehaviour
     AircraftType currentAircraftType;
 
     float altitude;
+
+    void Awake()
+    {
+        aircraftSelector.OnAircraftSelected += SetAircraftType;
+
+    }
     private void Start()
     {
         skydiveManager = FindObjectOfType<SkydiveManager>();
-        aircraftSelector.OnAircraftSelected += SetAircraftType;
+
     }
 
     private void SetAircraftType(AircraftType aircraftType)

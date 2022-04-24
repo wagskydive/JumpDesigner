@@ -836,6 +836,7 @@ GameObject:
   - component: {fileID: 2071084466}
   - component: {fileID: 5108962671209189377}
   - component: {fileID: 6698146521672455101}
+  - component: {fileID: 1547849694377844665}
   m_Layer: 0
   m_Name: SkydiveCharacter
   m_TagString: Untagged
@@ -1010,6 +1011,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 5339447394255973060}
+  forceThreshold: 1
+--- !u!114 &1547849694377844665
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5554678695719654870}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85bba107477de434a8f63fe24b15a839, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6497607836104376757
 GameObject:
   m_ObjectHideFlags: 0
@@ -1614,6 +1628,18 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: ae15203a4074ee5429d7fb339f2a1f8d, type: 2}
+    - target: {fileID: 1340000167433583998, guid: 7907d407f5efddb418cf17dc638feb14, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1340000167433583998, guid: 7907d407f5efddb418cf17dc638feb14, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1340000167433583998, guid: 7907d407f5efddb418cf17dc638feb14, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: 7907d407f5efddb418cf17dc638feb14, type: 3}
       propertyPath: m_Controller
       value: 
@@ -1621,6 +1647,18 @@ PrefabInstance:
     - target: {fileID: 5866666021909216657, guid: 7907d407f5efddb418cf17dc638feb14, type: 3}
       propertyPath: m_ApplyRootMotion
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8072958490752820392, guid: 7907d407f5efddb418cf17dc638feb14, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8072958490752820392, guid: 7907d407f5efddb418cf17dc638feb14, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8072958490752820392, guid: 7907d407f5efddb418cf17dc638feb14, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 5866666021909216657, guid: 7907d407f5efddb418cf17dc638feb14, type: 3}

@@ -12,13 +12,13 @@ public class CharacterPanelUi : MonoBehaviour
     public event Action<CharacterSlotUi> OnCharacterSlotClicked;
 
     [SerializeField]
-    GameObject CharacterSlotPrefab;
+    public GameObject CharacterSlotPrefab;
 
     List<CharacterData> characterDatas;
 
     void Start()
     {
-        CreateRandomCharacters(20);
+        //CreateRandomCharacters(20);
         Redraw();
 
     }
@@ -36,6 +36,12 @@ public class CharacterPanelUi : MonoBehaviour
             ///characterDatas.Add(RandomCharacterGenerator.CreateRandomCharacter());
         }
         //FileHandler.SaveAllCharacters(characterDatas.ToArray());
+    }
+
+    public void SetCharacters(CharacterData[] characters)
+    {
+        characterDatas = characters.ToList();
+        Redraw();
     }
 
     private void HandleSlotClicked(CharacterSlotUi obj)
@@ -59,6 +65,20 @@ public class CharacterPanelUi : MonoBehaviour
             }
         }
 
+    }
+
+    public CharacterSlotUi SlotUiFromCharacterData(CharacterData characterData)
+    {
+
+        CharacterSlotUi[] slots = transform.GetComponentsInChildren<CharacterSlotUi>();
+        foreach (CharacterSlotUi slot in slots)
+        {
+            if (slot.characterData == characterData)
+            {
+                return slot;
+            }
+        }
+        return null;
     }
 
 

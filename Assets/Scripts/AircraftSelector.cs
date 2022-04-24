@@ -57,7 +57,8 @@ public class AircraftSelector : MonoBehaviour
     {
         GetListOfAircraftTypes();
         filteredAircraftTypes = allAircraftTypes;
-        SelectAircraftType(allAircraftTypes[currentIndex]);
+        SelectAircraftType(filteredAircraftTypes[currentIndex]);
+
 
     }
 

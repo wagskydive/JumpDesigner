@@ -69,14 +69,16 @@ public class AccelAndTouchUiControl : MonoBehaviour, IInput
     private void Start()
     {
         SelectionHandler.OnTakeControlConfirmed += SetInputs;
-        SelectionHandler.OnSelected += Dissapear;
+        SelectionHandler.OnLooseControlConfirmed += ClearInputs;
+
 
         //SelectionHandler.OnDeselect += RemoveInputs;
     }
 
-    private void Dissapear(ISelectable obj)
+    private void ClearInputs(ISelectable obj)
     {
-        //transform.localScale *= 2;
+       currentConnected.ReplaceInput(obj.transform.GetComponent<NPC_InputController>());
+
     }
 
     private void SetInputs(ISelectable obj)

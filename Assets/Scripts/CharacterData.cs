@@ -3,6 +3,42 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+
+public struct Appearance
+{
+    int head;
+
+    int eyes;
+
+    int nose;
+
+    int mouth;
+
+    int hair;
+
+    int skin;
+
+    int torso;
+
+    int legs;
+
+    int arms;
+
+    public Appearance(int head, int eyes, int nose, int mouth, int hair, int skin, int torso, int legs, int arms)
+    {
+        this.head = head;
+        this.eyes = eyes;
+        this.nose = nose;
+        this.mouth = mouth;
+        this.hair = hair;
+        this.skin = skin;
+        this.torso = torso;
+        this.legs = legs;
+        this.arms = arms;
+    }
+}
+
+
 [System.Serializable]
 public class CharacterData
 {
@@ -11,6 +47,8 @@ public class CharacterData
     string gender;
 
     public string Gender {get => gender;}
+
+    int[] appearance;  
 
     string occupation;
 
@@ -69,6 +107,15 @@ public class CharacterData
     {
         colors = _colors;
     }
+
+
+
+    public void SetTalent(float _talent)
+    {
+        talent = _talent;
+    }
+
+
 
     public void SetInventory(List<OwnedItem> _inventory)
     {

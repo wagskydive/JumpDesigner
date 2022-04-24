@@ -70,6 +70,7 @@
      <Compile Include="Assets\Scripts\FollowGyro.cs" />
      <Compile Include="Assets\Scripts\ExitCam.cs" />
      <Compile Include="Assets\Scripts\SkinCutoutHelper.cs" />
+     <Compile Include="Assets\Scripts\CharacterSlotUi.cs" />
      <Compile Include="Assets\Scripts\SecondarySelectionIndicator.cs" />
      <Compile Include="Assets\Scripts\JumpAmountText.cs" />
      <Compile Include="Assets\Scripts\Selected2DColorHandler.cs" />
@@ -77,8 +78,10 @@
      <Compile Include="Assets\Scripts\ImpactController.cs" />
      <Compile Include="Assets\Scripts\ColorPicker.cs" />
      <Compile Include="Assets\Scripts\SkydiveManager.cs" />
+     <Compile Include="Assets\Scripts\CharacterDetailsUi.cs" />
      <Compile Include="Assets\Scripts\UiDigitalAltimeter.cs" />
      <Compile Include="Assets\Scripts\InputButton.cs" />
+     <Compile Include="Assets\Scripts\Logbook.cs" />
      <Compile Include="Assets\Scripts\Inputs\SkydiveState.cs" />
      <Compile Include="Assets\Scripts\CutawayButton.cs" />
      <Compile Include="Assets\Scripts\ChildTerrainDetector.cs" />
@@ -91,8 +94,11 @@
      <Compile Include="Assets\Scripts\SceneLoader.cs" />
      <Compile Include="Assets\Scripts\FormationSlotIndicator.cs" />
      <Compile Include="Assets\Scripts\LoadGamePanel.cs" />
+     <Compile Include="Assets\Scripts\JumpType.cs" />
+     <Compile Include="Assets\Scripts\ItemDatabase.cs" />
      <Compile Include="Assets\Scripts\AircraftType.cs" />
      <Compile Include="Assets\Scripts\HandGripButton.cs" />
+     <Compile Include="Assets\Scripts\JumpLog.cs" />
      <Compile Include="Assets\Scripts\AircraftTransforms.cs" />
      <Compile Include="Assets\Scripts\CharacterData.cs" />
      <Compile Include="Assets\Scripts\SelectionIndicator.cs" />
@@ -114,6 +120,7 @@
      <Compile Include="Assets\Scripts\Inputs\SlotPositionHelper.cs" />
      <Compile Include="Assets\Scripts\GyroManager.cs" />
      <Compile Include="Assets\Scripts\HorizonCorrector.cs" />
+     <Compile Include="Assets\Scripts\RandomCharacterGenerator.cs" />
      <Compile Include="Assets\Scripts\CanopyCameraHandler.cs" />
      <Compile Include="Assets\Scripts\JumpSequenceInfo.cs" />
      <Compile Include="Assets\Scripts\GhostController.cs" />
@@ -130,6 +137,7 @@
      <Compile Include="Assets\Scripts\CanopyAiController.cs" />
      <Compile Include="Assets\Scripts\CharacterModeButton.cs" />
      <Compile Include="Assets\Scripts\Canopy\CanopyController.cs" />
+     <Compile Include="Assets\Scripts\CharacterPanelUi.cs" />
      <Compile Include="Assets\Scripts\Canopy\CanopyConnector.cs" />
      <Compile Include="Assets\Scripts\AircraftMovement.cs" />
      <Compile Include="Assets\Scripts\TransitionPanel.cs" />
@@ -138,6 +146,7 @@
      <Compile Include="Assets\Scripts\Inputs\NPC_Ai_FromState.cs" />
      <Compile Include="Assets\Scripts\AltitudeOverTerrain.cs" />
      <Compile Include="Assets\Scripts\AircraftPanelUi.cs" />
+     <Compile Include="Assets\Scripts\CharacterSelectionUi.cs" />
      <Compile Include="Assets\Scripts\InSceneUi.cs" />
      <Compile Include="Assets\Scripts\DragHelper.cs" />
      <Compile Include="Assets\Scripts\WearableObject.cs" />
@@ -145,6 +154,7 @@
      <Compile Include="Assets\Scripts\MovementController.cs" />
      <Compile Include="Assets\Scripts\CharacterAnimationController.cs" />
      <Compile Include="Assets\Scripts\AircraftInstance.cs" />
+     <Compile Include="Assets\Scripts\CharacterDataHandler.cs" />
      <Compile Include="Assets\Scripts\UiDigitalSpeedMeter.cs" />
      <Compile Include="Assets\Scripts\LegMovementAnimator.cs" />
      <Compile Include="Assets\Scripts\CanopyModeButton.cs" />
@@ -165,13 +175,6 @@
      <Compile Include="Assets\Scripts\GameLoader.cs" />
      <Compile Include="Assets\Scripts\PullButton.cs" />
      <Compile Include="Assets\Scripts\IkHint.cs" />
-     <Compile Include="Assets\Scripts\Logbook.cs" />
-     <Compile Include="Assets\Scripts\JumpType.cs" />
-     <Compile Include="Assets\Scripts\JumpLog.cs" />
-     <Compile Include="Assets\Scripts\ItemDatabase.cs" />
-     <Compile Include="Assets\Scripts\RandomCharacterGenerator.cs" />
-     <Compile Include="Assets\Scripts\CharacterPanelUi.cs" />
-     <Compile Include="Assets\Scripts\CharacterSlotUi.cs" />
      <None Include="Assets\Scripts\Scripts.asmdef" />
     <Reference Include="UnityEngine">
         <HintPath>D:\UnityFiles\2021.2.5f1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>

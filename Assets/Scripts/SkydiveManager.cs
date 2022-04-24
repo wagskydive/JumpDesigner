@@ -24,6 +24,37 @@ public class SkydiveManager : MonoBehaviour
 
     public List<Transform> SpawnedGhosts = new List<Transform>();
 
+    public CharacterData[] GetCharacters()
+    {
+        if(SpawnedSkydivers == null)
+        {
+            return null;
+        }
+        CharacterData[] characters = new CharacterData[SpawnedSkydivers.Count];
+
+        for(int i = 0; i < SpawnedSkydivers.Count; i++)
+        {
+            if(SpawnedSkydivers[i] != null)
+            {
+                characters[i] = SpawnedSkydivers[i].transform.GetComponent<CharacterDataHandler>().CharacterData;
+            }
+        }
+        return characters;
+    }
+
+    public ISelectable GetSelectableFromCharacterData(CharacterData characterData)
+    {
+        foreach(ISelectable selectable in SpawnedSkydivers)
+        {
+            if(selectable.transform.GetComponent<CharacterDataHandler>().CharacterData == characterData)
+            {
+                return selectable;
+            }
+        }
+        return null;
+    }
+
+
 
     SkydiveSpawner spawner;
 
@@ -62,12 +93,23 @@ public class SkydiveManager : MonoBehaviour
 
 
 
-    public void SetupJumpRun(JumpSequence selectedSequence, int altitude)
+    public void SetupJumpRun(JumpSequence selectedSequence, int altitude, CharacterData[] characters = null)
     {
+        CurrentJumpSequence = selectedSequence;
+
+        if(characters == null)
+        {
+            characters = new CharacterData[CurrentJumpSequence.TotalSkydivers()];
+            for(int i = 0; i < characters.Length; i++)
+            {
+                characters[i] = RandomCharacterGenerator.CreateRandomCharacter();
+            }
+        }
+
 
         aircraft.transform.position = Vector3.up * altitude;
 
-        CurrentJumpSequence = selectedSequence;
+
         int skydiversNeeded = CurrentJumpSequence.TotalSkydivers();
         if (SpawnedSkydivers.Count < skydiversNeeded)
         {
@@ -87,13 +129,21 @@ public class SkydiveManager : MonoBehaviour
             }
         }
 
-
+        SetCharacterDatas(characters);
 
         SetSkydiversOnExitPositions();
 
 
         startButton.SetActive(true);
         OnJumpRunSet?.Invoke();
+    }
+
+    private void SetCharacterDatas(CharacterData[] characters)
+    {
+        for(int i = 0; i < characters.Length; i++)
+        {
+            SpawnedSkydivers[i].transform.GetComponent<CharacterDataHandler>().SetCharacterData(characters[i]);
+        }
     }
 
     void SetSkydiversOnExitPositions()

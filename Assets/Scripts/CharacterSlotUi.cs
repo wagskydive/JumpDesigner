@@ -8,7 +8,7 @@ public class CharacterSlotUi : MonoBehaviour
 {
     public event Action<CharacterSlotUi> OnSlotClicked;
 
-    CharacterData characterData;
+    public CharacterData characterData;
 
     [SerializeField]
     Image icon;

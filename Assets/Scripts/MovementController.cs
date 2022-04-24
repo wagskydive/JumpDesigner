@@ -274,6 +274,9 @@ public class MovementController : MonoBehaviour
             inputSource.OnButtonPressed -= HandleButtonPress;
         }
 
+
+        
+
         inputSource = newInput;
 
         if (newInput != null)

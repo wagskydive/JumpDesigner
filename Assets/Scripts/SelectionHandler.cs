@@ -12,7 +12,7 @@ public class SelectionHandler : MonoBehaviour
     public static event Action<List<ISelectable>> OnSelectedList;
     public static event Action<ISelectable> OnTakeControlConfirmed;
 
-
+    public static event Action<ISelectable> OnLooseControlConfirmed;
     public static event Action<ISelectable> OnSecondarySelected;
 
     public static event Action<ISelectable> OnDeselected;
@@ -220,6 +220,14 @@ public class SelectionHandler : MonoBehaviour
         OnTakeControlConfirmed?.Invoke(selected);
         Deselect();
 
+    }
+
+    public void LooseControlOfSelection()
+    {
+
+        OnLooseControlConfirmed?.Invoke(player);
+        player = null;
+        Deselect();
     }
 
     public void SetSlotTarget(ISelectable target, int slot, float rotation)
